@@ -1,0 +1,1 @@
+C:\Users\Budda\AppData\Local\Programs\Python\Python39\python.exe C:\Illumination_Game\Main.py %*
