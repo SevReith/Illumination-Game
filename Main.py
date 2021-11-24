@@ -1,6 +1,6 @@
 """Main Game Module."""
 
-import sys, os
+import sys, os, subprocess, pathlib
 
 from PyQt5.QtWidgets import QApplication
 from Models.Capital import Capital
@@ -82,4 +82,7 @@ if __name__ == '__main__':
     # starts the game!
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"  # counters the viscious windows dpi scaling!
     app = Game_App(sys.argv)
+    dir_path = str(pathlib.Path().absolute())
+    manual_path = dir_path + r"\Ressources\21.12_Manual_Illumination_Game.pdf"
+    subprocess.Popen(manual_path, shell=True)
     sys.exit(app.exec_())
