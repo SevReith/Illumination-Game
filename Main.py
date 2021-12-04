@@ -1,6 +1,6 @@
 """Main Game Module."""
 
-import sys, os, subprocess
+import sys, os
 
 from PyQt5.QtWidgets import QApplication
 from Models.Capital import Capital
