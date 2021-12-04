@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMdiArea, QInputDialog, QMessageBox
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtCore import pyqtSlot
@@ -275,7 +276,8 @@ class Factory_View(QMdiArea):
     def load_layout_pictures(self):
         names = ['Fixed_Position_Layout', 'Process_Layout', 'Cellular_Layout', 'Line_Layout']
         for i in range(len(names)):
-            img = QImage(f'Ressources\Images\{names[i]}.png')
+            path = os.path.join('Ressources', 'Images', f'{names[i]}.png')
+            img = QImage(path)
             pixmap = QPixmap(img)
             label = getattr(self._panel_factory, f'lbl_tab{i + 2}_top')
             label.setPixmap(pixmap)

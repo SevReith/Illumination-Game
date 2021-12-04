@@ -1,6 +1,6 @@
 """Main View Module. Connects main Controllers, other views and models."""
 
-from PyQt5 import uic
+import os, subprocess
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QImage, QPixmap
@@ -21,7 +21,8 @@ class Main_View(QMainWindow):
         self._ui = Main_Window.Ui_MainWindow()
         self._ui.setupUi(self)
         #load and save background image
-        img = QImage("Ressources\Images\Factory_old_Top_1300x900.png")
+        path = os.path.join('Ressources', 'Images', 'Factory_old_Top_1300x900.png')
+        img = QImage(path)
         pixmap = QPixmap(img)
         self._ui.lbl_factory_blueprint.setPixmap(pixmap)
 
@@ -35,6 +36,7 @@ class Main_View(QMainWindow):
         self._view_production = prod_view
 
         #connect widgets to main controller and other views
+        self._ui.button_help.clicked.connect(self.button_help_clicked)
         self._ui.button_end_turn.clicked.connect(self.button_end_turn_clicked)
         self._ui.button_end_turn.clicked.connect(self.hide_panels)
         self._ui.button_factory.clicked.connect(self.button_factory_clicked)
@@ -206,3 +208,8 @@ class Main_View(QMainWindow):
     def button_end_turn_clicked(self):
         stock, price = self._view_production.get_prod_stock()
         self._controller_main.calculate_turn_end(stock, price, self._view_production.get_price_influencer(), self._view_production.get_prod_time())
+
+    def button_help_clicked(self):
+        """Open the game manual pdf."""
+        path = os.path.join('Ressources', '21.12_Manual_Illumination_Game.pdf')
+        subprocess.Popen(path, shell=True)

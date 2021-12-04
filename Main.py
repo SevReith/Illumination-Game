@@ -1,6 +1,6 @@
 """Main Game Module."""
 
-import sys, os, subprocess, pathlib
+import sys, os, subprocess
 
 from PyQt5.QtWidgets import QApplication
 from Models.Capital import Capital
@@ -31,7 +31,7 @@ class Game_App(QApplication):
         # initialize game model
         self.model_capital = Capital()
         self.model_layout = self.create_layouts()
-        self.model_factory = Factory("Schulmeisterwerke", self.model_layout)
+        self.model_factory = Factory("Illumination Factorium", self.model_layout)
         self.model_market = Market()
         self.model_material = self.create_materials()
         self.model_product = self.create_products(self.model_material)
@@ -79,10 +79,8 @@ class Game_App(QApplication):
 
 
 if __name__ == '__main__':
-    # starts the game!
-    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"  # counters the viscious windows dpi scaling!
+    # start the game!
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"  # counters the viscious windows dpi scaling! 15" monitor is minimally recommended.
     app = Game_App(sys.argv)
-    dir_path = str(pathlib.Path().absolute())
-    manual_path = dir_path + r"\Ressources\21.12_Manual_Illumination_Game.pdf"
-    subprocess.Popen(manual_path, shell=True)
+    app.main_controller.open_tutorial_pdfs(0)
     sys.exit(app.exec_())

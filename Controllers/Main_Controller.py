@@ -1,5 +1,6 @@
+import os, subprocess
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal
+from PyQt5.QtCore import QObject, pyqtSignal
 from random import Random
 from Models.Layout import *
 
@@ -221,9 +222,15 @@ class Main_Controller(QObject):
         self._model_capital.total_cost_archive = cost_archive
 
         self._model_factory.current_turn += 1
+
+        # hide all open windows
         for i in range(len(self._controller_product._model_product)):
             self._controller_product._model_product[i].production_goal_flag = False
         self.generate_sales_forecast()
+
+        if True:
+            self.open_tutorial_pdfs(self._model_factory.current_turn)
+
         if self.check_winning_condition():
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
@@ -237,3 +244,10 @@ class Main_Controller(QObject):
         """compares current marketshare to winning marketshare. returns True if current is equal or larger"""
         sa_archive = self._model_market.sales_archive
         return self._model_market.winning_marketshare >= sa_archive[-1]['volume cumulated']
+
+    def open_tutorial_pdfs(self, cur_turn):
+        """Open the tutorial pdf of the current turn."""
+        path = os.path.join('Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
+        if os.path.exists(path):
+            subprocess.Popen(path, shell=True)
+

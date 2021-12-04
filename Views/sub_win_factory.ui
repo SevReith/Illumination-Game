@@ -362,7 +362,7 @@
         <item row="1" column="1">
          <widget class="QPushButton" name="btn_tab4_destroy_dept">
           <property name="text">
-           <string>Dismanthle Department</string>
+           <string>Dismantle Department</string>
           </property>
          </widget>
         </item>

@@ -300,7 +300,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Market Domination is defined as something like 30%...</string>
+           <string>Market Domination is defined as 30%!</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

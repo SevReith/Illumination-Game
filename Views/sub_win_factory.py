@@ -258,7 +258,7 @@ class Ui_Form(object):
         self.btn_tab4_build_cellular_lay.setText(_translate("Form", "Build Cellular Layout"))
         self.btn_tab5_dismantle_cellular_lay.setText(_translate("Form", "Dismantle Cellular Layout"))
         self.btn_tab4_add_department.setText(_translate("Form", "Add Department"))
-        self.btn_tab4_destroy_dept.setText(_translate("Form", "Dismanthle Department"))
+        self.btn_tab4_destroy_dept.setText(_translate("Form", "Dismantle Department"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("Form", "Cellular Layout"))
         self.lbl_tab5_top.setText(_translate("Form", "TextLabel"))
         self.lbl_tab5_left.setText(_translate("Form", "TextLabel"))

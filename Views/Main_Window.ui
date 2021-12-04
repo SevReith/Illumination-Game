@@ -53,7 +53,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>720</y>
+       <y>600</y>
        <width>300</width>
        <height>60</height>
       </rect>
@@ -71,7 +71,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>660</y>
+       <y>540</y>
        <width>300</width>
        <height>60</height>
       </rect>
@@ -89,7 +89,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>600</y>
+       <y>480</y>
        <width>300</width>
        <height>60</height>
       </rect>
@@ -141,6 +141,24 @@
      </property>
      <property name="text">
       <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_help">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>720</y>
+       <width>300</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Help</string>
      </property>
     </widget>
    </widget>
