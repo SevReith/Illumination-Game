@@ -161,3 +161,4 @@ class Product_View(QMdiArea):
         msg.setInformativeText(f'Unfortunately we can not afford this now. We need {cost:,}€.')
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
+        

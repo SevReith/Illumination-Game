@@ -11,7 +11,7 @@ class Main_Controller(QObject):
     production_capacity_calculated = pyqtSignal(int)
     send_new_prod_stock = pyqtSignal(int)
 
-    def __init__(self, cap_model, fac_model, mar_model, prod_ctlr, lay_ctrl):
+    def __init__(self, cap_model, fac_model, mar_model, prod_ctlr, lay_ctrl, root_directory):
         super().__init__()
 
         self._model_capital = cap_model
@@ -20,6 +20,7 @@ class Main_Controller(QObject):
         self._controller_product = prod_ctlr
         self._controller_layout = lay_ctrl
         self.random_number_generater = Random()
+        self.root_directory = root_directory
 
         # create first forecast
         self.calculate_fixed_cost()
@@ -247,7 +248,6 @@ class Main_Controller(QObject):
 
     def open_tutorial_pdfs(self, cur_turn):
         """Open the tutorial pdf of the current turn."""
-        path = os.path.join('Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
+        path = os.path.join(self.root_directory,'Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
-

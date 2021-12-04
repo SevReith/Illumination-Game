@@ -20,3 +20,4 @@ class Capital_Controller(QObject):
     def add(self, number):
         self.amount += round(number, 2)
         self.total_income_archive.append(number)
+        

@@ -7,5 +7,3 @@ class Material_Controller(QObject):
         super().__init__()
 
         self._model_material = mat_model
-
-

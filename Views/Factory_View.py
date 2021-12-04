@@ -7,7 +7,7 @@ from Views import sub_win_factory
 
 class Factory_View(QMdiArea):
     """description of class"""
-    def __init__(self, fac_mdl, prod_mdl, mat_mdl, lay_ctrl, mat_ctrl, pro_ctrl):
+    def __init__(self, fac_mdl, prod_mdl, mat_mdl, lay_ctrl, mat_ctrl, pro_ctrl, root_directory):
         super().__init__()
 
         self._panel_factory = sub_win_factory.Ui_Form()
@@ -19,6 +19,7 @@ class Factory_View(QMdiArea):
         self._controller_layout = lay_ctrl
         self._controller_material = mat_ctrl
         self._controller_product = pro_ctrl
+        self.root_directory = root_directory
 
         self.load_layout_pictures()
         self.update_lbls_fix_line_info()
@@ -274,9 +275,10 @@ class Factory_View(QMdiArea):
         msg.exec_()
 
     def load_layout_pictures(self):
+        """Set the layout pictures as pixmaps within the specified labels."""
         names = ['Fixed_Position_Layout', 'Process_Layout', 'Cellular_Layout', 'Line_Layout']
         for i in range(len(names)):
-            path = os.path.join('Ressources', 'Images', f'{names[i]}.png')
+            path = os.path.join(self.root_directory, 'Ressources', 'Images', f'{names[i]}.png')
             img = QImage(path)
             pixmap = QPixmap(img)
             label = getattr(self._panel_factory, f'lbl_tab{i + 2}_top')

@@ -130,4 +130,3 @@ class Market(QObject):
 
     def get_last_forecast(self):
         return self._sales_forecast_archive[-1]
-
