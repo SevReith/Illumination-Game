@@ -36,6 +36,7 @@ class Main_Controller(QObject):
         self._model_factory.free_space -= lay.required_space
         self._model_factory.add_layout_to_list(lay)
         self._model_capital.amount -= lay.building_cost
+        self._model_capital.current_building_cost += lay.building_cost
 
     def build_process_layout(self):
         """creates a new Process Layout, adds it to the factories layout list and sets the building cost"""
@@ -48,6 +49,7 @@ class Main_Controller(QObject):
         self._model_factory.free_space -= lay.required_space
         self._model_factory.add_layout_to_list(lay)
         self._model_capital.amount -= lay.building_cost
+        self._model_capital.current_building_cost += lay.building_cost
 
     def build_cellular_layout(self):
         """creates a new Cellular Layout, adds it to the factories layout list and sets the building cost"""
@@ -60,6 +62,7 @@ class Main_Controller(QObject):
         self._model_factory.free_space -= lay.required_space
         self._model_factory.add_layout_to_list(lay)
         self._model_capital.amount -= lay.building_cost
+        self._model_capital.current_building_cost += lay.building_cost
 
     def build_line_layout(self):
         """creates a new Line Layout, adds it to the factories layout list and sets the building cost"""
@@ -72,6 +75,7 @@ class Main_Controller(QObject):
         self._model_factory.free_space -= lay.required_space
         self._model_factory.add_layout_to_list(lay)
         self._model_capital.amount -= lay.building_cost
+        self._model_capital.current_building_cost += lay.building_cost
 
     def check_for_layout_activation(self):
         """Check if there is a layout to be activated. Compares current turn with activation turn."""
@@ -87,6 +91,7 @@ class Main_Controller(QObject):
         self._model_factory.size += int(size)
         self._model_factory.free_space += int(size)
         self._model_capital.amount -= cost
+        self._model_capital.current_building_cost += cost
 
     def destroy_layout(self, name):
         """Check if layout exists with name. Delete if existing and adjust counter."""
@@ -152,7 +157,7 @@ class Main_Controller(QObject):
         self._model_factory.production_archive = prod_archive
 
     def calculate_sales(self, stock, price, price_influencer):
-        """cals the generate sales function. calculates stock and income and saves them to the archive."""
+        """Call the generate sales function. Calculate stock and income and save them to the archive."""
         sales = self.generate_sales_modifier(price_influencer)
         stock += int(self._model_factory.production_archive[-1])
         sales = stock if not sales <= stock else sales
@@ -218,12 +223,16 @@ class Main_Controller(QObject):
         self.calculate_production()        
         self.calculate_sales(stock, price, price_influencer)
 
-        cost += self.calculate_fixed_cost()
+        fixed_cost = self.calculate_fixed_cost()
+        total_cost = cost + fixed_cost + self._model_capital.current_building_cost
         # incomes are calculated in function calculate_sales
-        self._model_capital.amount -= cost
+        self._model_capital.amount -= total_cost
         cost_archive = self._model_capital.total_cost_archive
-        cost_archive.append(cost)
+        cost_archive.append(total_cost)
         self._model_capital.total_cost_archive = cost_archive
+        # save cost detail
+        self._model_capital.add_latest_cost_detail_to_archive(fixed_cost, cost, self._model_capital.current_building_cost)
+        self._model_capital.current_building_cost = 0
 
         self._model_factory.current_turn += 1
 

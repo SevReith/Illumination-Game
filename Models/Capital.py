@@ -35,8 +35,8 @@ class Capital(QObject):
     @total_cost_archive.setter
     def total_cost_archive(self, new_list):
         self._total_cost_archive = new_list
-        self.latest_cost_changed.emit(new_list[len(new_list) - 1])
-        self.latest_profit_changed.emit(new_list[len(new_list) - 1], self._total_income_archive[len(self._total_income_archive) -1])
+        self.latest_cost_changed.emit(new_list[-1])
+        self.latest_profit_changed.emit(new_list[-1], self._total_income_archive[-1])
 
     @property
     def total_income_archive(self):
@@ -45,7 +45,7 @@ class Capital(QObject):
     @total_income_archive.setter
     def total_income_archive(self, new_list):
         self._total_income_archive = new_list
-        self.latest_income_changed.emit(new_list[len(new_list) - 1])
+        self.latest_income_changed.emit(new_list[-1])
 
     @property
     def cost_detail_archive(self):
@@ -71,6 +71,18 @@ class Capital(QObject):
     def building_cost(self):
         return self._cost_detail_archive['building']
 
+    @building_cost.setter
+    def building_cost(self, new_list):
+        self._cost_detail_archive['building'] = new_list
+
+    @property
+    def current_building_cost(self):
+        return self._cost_detail_archive['cur building']
+
+    @current_building_cost.setter
+    def current_building_cost(self, val):
+        self._cost_detail_archive['cur building'] = val
+
     def __init__(self, cap = START_CAPITAL):
         super().__init__()
 
@@ -82,14 +94,15 @@ class Capital(QObject):
         self._cost_detail_archive = {
                 'fixed': [],
                 'material': [],
-                'building': []
+                'building': [],
+                'cur building': 0
         }
 
     def add_latest_cost_detail_to_archive(self, fixed_cost, mat_cost, build_cost):
         """Append the latest detailed cost to the archive.
         Emit latest total and detailed cost with cost_detail_changed signal."""
         self._cost_detail_archive['fixed'].append(fixed_cost)
-        self._cost_detail_archive['materiel'].append(mat_cost)
+        self._cost_detail_archive['material'].append(mat_cost)
         self._cost_detail_archive['building'].append(build_cost)
         self.cost_detail_changed.emit(self._total_cost_archive[-1], self._cost_detail_archive['fixed'][-1],
-            self._cost_detail_archive['materiel'][-1], self._cost_detail_archive['building'][-1])
+            self._cost_detail_archive['material'][-1], self._cost_detail_archive['building'][-1])

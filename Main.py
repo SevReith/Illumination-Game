@@ -27,6 +27,7 @@ class Game_App(QApplication):
 
     def __init__(self, sys_argv):
         """Initialize all models, views and controllers."""
+        # get path of Main.py script, strip Main.py and use the path as root path
         root_directory = os.path.realpath(__file__)
         root_directory = root_directory[:root_directory.find('Main.py')].strip()
 

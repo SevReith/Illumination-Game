@@ -72,7 +72,8 @@ class Product_Controller(QObject):
             self._model_product[active_prod].bill_of_materials[i].amount -= produced * self._model_product[active_prod].bill_of_materials[i].required_amount
 
     def increase_material_stocks(self, tuc):
-        """buys enough material for either the TUC or production goal."""
+        """Buy enough material for either the TUC or production goal.
+        Return raw material cost --> float"""
         active_prod = self.get_active_product_index()
         to_produce = tuc if not self._model_product[active_prod].production_goal_flag else self._model_product[active_prod].production_goal
         cost = 0

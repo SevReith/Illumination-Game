@@ -107,14 +107,14 @@ class Market(QObject):
     def __init__(self, growth = AVERGAGE_TOTAL_GROWTH_RATE_P_MONTH, vol = INIT_MARKETVOLUME_PA_IN_EURO, grow_rate = AVERAGE_MONTHLY_SALES_GROWTH_RATE, init_forecast = 0, win = WINNING_MARKETSHARE):
         super().__init__()
         self._marketvolume_annually = vol
-        self._total_marketvolume_p_month = vol/12 #volume per month or turn respectively
+        self._total_marketvolume_p_month = vol/12 # volume per month or turn respectively
         self._average_yearly_total_market_growth_rate = growth
         self._marketshare_month = 0
         self._forecasted_sales = init_forecast
         self._average_monthly_sales_growth_rate = grow_rate
         self._sales_modifier = 1
         self._sales_forecast_archive = [0]
-        self._sales_archive = [] #{'turn': 0, 'year': 0, 'units': 0, 'volume': 0, 'units cumulated': 0, 'volume cumulated': 0, 'share cumulated': 0}
+        self._sales_archive = [] # {'turn': 0, 'year': 0, 'units': 0, 'volume': 0, 'units cumulated': 0, 'volume cumulated': 0, 'share cumulated': 0}
         self._competitor_list = []
         self._winning_marketshare = win
         self.random_number_generater = Random()
