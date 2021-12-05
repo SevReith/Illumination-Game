@@ -102,7 +102,15 @@ class Production_Layout(QObject):
     def machinery_list(self):
         return self._machinery_list
 
-    def __init__(self, name, space, time_mod, cost_mod, qual_mod, cost=0, build_time=1):
+    @property
+    def max_number(self):
+        return self._max_number
+
+    @max_number.setter
+    def max_number(self, val):
+        self._max_number = val
+
+    def __init__(self, name, space, time_mod, cost_mod, qual_mod, cost=0, build_time=1, max_number = -1):
         super().__init__()
         self._layout_name = name
         self._required_space = space
@@ -117,6 +125,7 @@ class Production_Layout(QObject):
         self._activation_turn = 0
         self._worker_list = []
         self._machinery_list = []
+        self._max_number = max_number
 
     def calculate_tuc(self, work_time, prod_time):
         tuc = work_time / (prod_time * (1 + self.production_time_modifier))
@@ -196,7 +205,7 @@ class Process_Layout(Production_Layout):
         self._special_characteristics['dep quality bonus'] = val
 
     def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME)
+        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME, max_number = 1)
         self._special_characteristics = {
             'departments': self.INIT_DEPARTMENTS,
             'dep size': self.DEPARTMENT_SIZE,
@@ -272,7 +281,7 @@ class Cellular_Layout(Production_Layout):
         self._special_characteristics['dep quality bonus'] = val
     
     def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME)
+        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME, max_number = 1)
         self._special_characteristics = {
             'departments': self.INIT_DEPARTMENTS,
             'dep size': self.DEPARTMENT_SIZE,
