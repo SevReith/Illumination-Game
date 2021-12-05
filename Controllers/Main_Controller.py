@@ -74,10 +74,13 @@ class Main_Controller(QObject):
         self._model_capital.amount -= lay.building_cost
 
     def check_for_layout_activation(self):
+        """Check if there is a layout to be activated. Compares current turn with activation turn."""
         length = len(self._model_factory.layout_list)
         for i in range(length):
             if not self._model_factory.layout_list[i].is_active and self._model_factory.layout_list[i].activation_turn == self._model_factory.current_turn:
                 self._model_factory.layout_list[i].is_active = True
+                info_text = f'A new {self._model_factory.layout_list[i].layout_name} has been finished and is ready for production!'
+                self.display_notification_message('Layout built!', info_text)
 
     def build_factory_space(self, size, cost):
         """gets size and cost from main view. stores them in factory/capital respectively"""
@@ -233,13 +236,8 @@ class Main_Controller(QObject):
             self.open_tutorial_pdfs(self._model_factory.current_turn)
 
         if self.check_winning_condition():
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Information)
-            msg.setText("CONGRATULATIONS!")
-            msg.setInformativeText(
-                f'You dominate the illuminate market! There is no competitor even close to you!\n You win!\nStrangely the authorities do not seem to be that enlighted...')
-            msg.setStandardButtons(QMessageBox.Ok)
-            msg.exec_()
+            self.display_notification_message('CONGRATULATIONS!', 
+            f'You dominate the illuminate market! There is no competitor even close to you!\n You win!\nStrangely the authorities do not seem to be that enlighted...')
 
     def check_winning_condition(self):
         """compares current marketshare to winning marketshare. returns True if current is equal or larger"""
@@ -251,3 +249,11 @@ class Main_Controller(QObject):
         path = os.path.join(self.root_directory,'Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
+
+    def display_notification_message(self, title, text):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(title)
+        msg.setInformativeText(text)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()   
