@@ -1,3 +1,4 @@
+import os, json
 from PyQt5.QtWidgets import  QMdiArea, QMessageBox
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from Views import sub_win_production
@@ -10,7 +11,7 @@ class Product_View(QMdiArea):
     prod_time_sender = pyqtSignal(float)
     prod_stock_sender = pyqtSignal(int, float)
 
-    def __init__(self, pro_mdl, pro_ctrl):
+    def __init__(self, pro_mdl, pro_ctrl, root):
         super().__init__()
 
         self._panel_production = sub_win_production.Ui_Form()
@@ -21,13 +22,14 @@ class Product_View(QMdiArea):
 
         self.update_lbl_prod_stock()
         self.update_lbl_prod_name()
-        #self.update_lbl_prod_capacity()
         self.update_lbl_prod_goal()
         self.update_lbls_material_names()
         self.update_lbls_material_stock()
         for i in range(3):
+            self.load_desciption_texts(i, root)
             self.update_lbls_characteristics(i)
             self.update_lbls_bom(i)
+
 
         #setup widgets
         self._panel_production.led_prod_goal.returnPressed.connect(self.led_production_goal_entered)
@@ -162,3 +164,11 @@ class Product_View(QMdiArea):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
         
+    def load_desciption_texts(self, prod, root):
+        products = ['light bulb', 'halogen', 'led']
+        path = os.path.join(root, 'Ressources','products.json')
+        if os.path.exists(path):
+            with open(path) as prod_text:
+                dict = json.load(prod_text)
+                label = getattr(self._panel_production, f'lbl_tab{prod + 3}_top')
+                label.setText(f'{dict[products[prod]]}')

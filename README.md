@@ -6,7 +6,7 @@ Bachelor Thesis Illumination Game
 
 You need Python 3 with the module PyQt5 installed on your machine to run the game.
 It is optimized for windows and you should use at least a 15" display. It should run on
-other platforms, such as OS X, but it is not garantied.
+other platforms, such as OS X, but it is not guarantied.
 
 ## Installing Python
 

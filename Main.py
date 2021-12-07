@@ -29,7 +29,7 @@ class Game_App(QApplication):
         """Initialize all models, views and controllers."""
         # get path of Main.py script, strip Main.py and use the path as root path
         root_directory = os.path.realpath(__file__)
-        root_directory = root_directory[:root_directory.find('Main.py')].strip()
+        self.root_directory = root_directory[:root_directory.find('Main.py')].strip()
 
         super(Game_App, self).__init__(sys_argv)
         # initialize game model
@@ -43,13 +43,13 @@ class Game_App(QApplication):
         self.layout_controller = Layout_Controller(self.model_layout)
         self.material_controller = Material_Controller(self.model_material)
         self.product_controller = Product_Controller(self.model_product)
-        self.main_controller = Main_Controller(self.model_capital, self.model_factory, self.model_market, self.product_controller, self.layout_controller, root_directory)
+        self.main_controller = Main_Controller(self.model_capital, self.model_factory, self.model_market, self.product_controller, self.layout_controller, self.root_directory)
         # initialize game views
         self.market_view = Market_View(self.model_capital, self.model_market, self.model_product, self.model_material, self.main_controller, self.product_controller, self.material_controller)
-        self.factory_view = Factory_View(self.model_factory, self.model_product, self.model_material, self.layout_controller, self.material_controller, self.product_controller, root_directory)
-        self.product_view = Product_View(self.model_product, self.product_controller)
+        self.factory_view = Factory_View(self.model_factory, self.model_product, self.model_material, self.layout_controller, self.material_controller, self.product_controller, self.root_directory)
+        self.product_view = Product_View(self.model_product, self.product_controller, self.root_directory)
         self.capital_view = Capital_View(self.model_capital)
-        self.main_view = Main_View(self.model_capital, self.model_factory, self.model_market, self.main_controller, self.factory_view, self.market_view, self.product_view, self.capital_view, root_directory)
+        self.main_view = Main_View(self.model_capital, self.model_factory, self.model_market, self.main_controller, self.factory_view, self.market_view, self.product_view, self.capital_view, self.root_directory)
 
         # show main window
         self.main_view.show()

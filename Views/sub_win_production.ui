@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>480</height>
+    <height>481</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -118,6 +118,9 @@
       </item>
       <item row="6" column="1">
        <widget class="QLabel" name="lbl_prod_goal_amount">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default is maximum capacity.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -125,6 +128,9 @@
       </item>
       <item row="7" column="0" colspan="2">
        <widget class="QLineEdit" name="led_prod_goal">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter a specific production goal here, e.g. if you want to produce less, that the maximum capacity.&lt;/p&gt;&lt;p&gt;After each turn the production goal is reset to the maximum capacity.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;If you set a production goal higher than your maximum production capacity you will only produce the maximum capacity. Enough material will still be bought, so be carefull.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="placeholderText">
          <string>Enter production goal</string>
         </property>
@@ -132,6 +138,9 @@
       </item>
       <item row="6" column="0">
        <widget class="QLabel" name="lbl_prod_goal">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default is maximum capacity.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Production Goal:</string>
         </property>
@@ -348,7 +357,7 @@
     <attribute name="title">
      <string>Light Bulb</string>
     </attribute>
-    <widget class="QWidget" name="gridLayoutWidget_2">
+    <widget class="QWidget" name="gridLayoutWidget_9">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -357,16 +366,77 @@
        <height>441</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" rowstretch="3,3,1">
+     <layout class="QGridLayout" name="gridLayout_47" rowstretch="3,0,0">
       <item row="0" column="0">
-       <widget class="QLabel" name="lbl_tab3_top">
-        <property name="text">
-         <string>The good old light bulb! Loved by everyone... especially the European Union!</string>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="widgetResizable">
+         <bool>true</bool>
         </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>627</width>
+           <height>232</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="lbl_tab3_top">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>620</width>
+            <height>231</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>620</width>
+            <height>800</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::AutoText</enum>
+          </property>
+         </widget>
+        </widget>
        </widget>
       </item>
+      <item row="2" column="0">
+       <layout class="QGridLayout" name="gridLayout_48" columnstretch="3">
+        <item row="0" column="0">
+         <spacer name="horizontalSpacer_27">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
       <item row="1" column="0">
-       <layout class="QGridLayout" name="gridLayout_3" columnstretch="2,1,2,1">
+       <layout class="QGridLayout" name="gridLayout_49" columnstretch="2,1,2,1">
         <item row="1" column="0">
          <widget class="QLabel" name="lbl_txt_tab3_prod_time">
           <property name="text">
@@ -441,6 +511,9 @@
          <widget class="QLabel" name="lbl_txt_tab3_mat5">
           <property name="text">
            <string/>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::RichText</enum>
           </property>
          </widget>
         </item>
@@ -546,23 +619,6 @@
            <string/>
           </property>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="0">
-       <layout class="QGridLayout" name="gridLayout_8" columnstretch="3">
-        <item row="0" column="0">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>
@@ -778,6 +834,9 @@
        <layout class="QGridLayout" name="gridLayout_9" columnstretch="2,2,4">
         <item row="0" column="1">
          <widget class="QPushButton" name="btn_tab4_license">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes your current product to halogen light.&lt;/p&gt;&lt;p&gt;You will loose all current stock.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Buy Production License</string>
           </property>
@@ -1036,6 +1095,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="btn_tab5_license">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes your current product to LED light.&lt;/p&gt;&lt;p&gt;You will loose all current stock.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Buy Production License</string>
           </property>
