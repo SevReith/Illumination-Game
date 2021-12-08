@@ -15,6 +15,7 @@ class Market(QObject):
     marketvolume_changed = pyqtSignal(int)
     marketshare_cumulated_changed = pyqtSignal(float)
     sales_cumulated_changed = pyqtSignal(int)
+    yearly_summary_flag_changed = pyqtSignal(bool)
 
     @property
     def marketvolume_annually(self):
@@ -104,6 +105,16 @@ class Market(QObject):
     def winning_marketshare(self, val):
         self._winning_marketshare = val
 
+    @property
+    def yearly_summary_flag(self):
+        return self._yearly_summary_flag
+
+    @yearly_summary_flag.setter
+    def yearly_summary_flag(self, flag: bool):
+        self._yearly_summary_flag = flag
+        if flag:
+            self.yearly_summary_flag_changed.emit(flag)
+
     def __init__(self, growth = AVERGAGE_TOTAL_GROWTH_RATE_P_MONTH, vol = INIT_MARKETVOLUME_PA_IN_EURO, grow_rate = AVERAGE_MONTHLY_SALES_GROWTH_RATE, init_forecast = 0, win = WINNING_MARKETSHARE):
         super().__init__()
         self._marketvolume_annually = vol
@@ -118,6 +129,7 @@ class Market(QObject):
         self._competitor_list = []
         self._winning_marketshare = win
         self.random_number_generater = Random()
+        self._yearly_summary_flag = False
 
     def add_item_to_sales_archive(self, sales):
         self._sales_archive.append(sales)

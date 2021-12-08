@@ -1,5 +1,5 @@
 import os, subprocess
-from PyQt5.QtWidgets import QMdiArea, QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QObject, pyqtSignal
 from random import Random
 from Models.Layout import *
@@ -178,16 +178,18 @@ class Main_Controller(QObject):
             {'turn': 0, 'year': 0, 'units': 0, 'volume': 0, 'units cumulated': 0, 'volume cumulated': 0, 'share cumulated': 0})
         sa_archive = self._model_market.sales_archive
         length = len(sa_archive)
-        year_flag = self._model_factory.current_turn % 12 == 0
-        sa_archive[length - 1]['turn'] = self._model_factory.current_turn
-        sa_archive[length - 1]['year'] = sa_archive[length - 2]['year'] if not year_flag else sa_archive[length - 1]['year'] + 1
+        cur_turn = self._model_factory.current_turn
+        year_flag = cur_turn % 13 == 0
+        sa_archive[length - 1]['turn'] = cur_turn
+        sa_archive[length - 1]['year'] = sa_archive[length - 2]['year'] if not year_flag else (sa_archive[length - 1]['year'] + 1)
         sa_archive[length - 1]['units'] = sales
         sa_archive[length - 1]['volume'] = income
         sa_archive[length - 1]['units cumulated'] = sa_archive[length - 2]['units cumulated'] + sales if not year_flag else sales
         sa_archive[length - 1]['volume cumulated'] = sa_archive[length - 2]['volume cumulated'] + income if not year_flag else income
         sa_archive[length - 1]['share cumulated'] = sa_archive[length - 1]['volume cumulated'] / self._model_market.total_marketvolume_p_month * 100
         self._model_market.sales_archive = sa_archive
-        if year_flag and not self._model_factory.current_turn == 0:
+        if cur_turn % 12 == 0 and not cur_turn == 0:
+            self._model_market.yearly_summary_flag = True
             self.generate_yearly_marketvolume_growth()
 
     def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1):

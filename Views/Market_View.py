@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMdiArea
+from PyQt5.QtWidgets import QMdiArea, QMessageBox
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QDoubleValidator
 from Views import sub_win_market
@@ -27,6 +27,7 @@ class Market_View(QMdiArea):
         self._model_market.marketshare_cumulated_changed.connect(self.update_lbl_marketshare)
         self._model_market.forecast_generated.connect(self.update_lbl_forecast)
         self._model_market.products_sold.connect(self.update_lbls_sales)
+        self._model_market.yearly_summary_flag_changed.connect(self.show_yearly_summary)
 
         #connect widgets to product model
         #self._model_product[0].sales_price_changed.connect(self.update_lbl_bottom)
@@ -132,3 +133,19 @@ class Market_View(QMdiArea):
         prod = self._controller_product.get_active_product_index()
         new_price = float(self._panel_market.led_set_price.text())
         self._model_product[prod].sales_price = new_price
+
+    @pyqtSlot(bool)
+    def show_yearly_summary(self):
+        archive = self._model_market.sales_archive[-1]
+        keys = ['year', 'units cumulated', 'volume cumulated', 'share cumulated']
+        text = f'In year {archive[keys[0]]} your sold a total of {archive[keys[1]]:,.0f} units!\nThis accounted for a total income of {archive[keys[2]]:,.0f}€ and a market share of {archive[keys[3]]:.4f}%!'
+        self.display_notification_message('Yearly Summary', text)
+        self._model_market.yearly_summary_flag = False
+
+    def display_notification_message(self, title, text):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(title)
+        msg.setInformativeText(text)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()   
