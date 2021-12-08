@@ -227,9 +227,11 @@ class Main_Controller(QObject):
         self.calculate_sales(stock, price, price_influencer)
 
         fixed_cost = self.calculate_fixed_cost()
-        total_cost = cost + fixed_cost + self._model_capital.current_building_cost
+        total_cost = cost + fixed_cost
         # incomes are calculated in function calculate_sales
         self._model_capital.amount -= total_cost
+        # building cost are already deducted during building. they only need to be added to the archive.
+        total_cost += self._model_capital.current_building_cost
         cost_archive = self._model_capital.total_cost_archive
         cost_archive.append(total_cost)
         self._model_capital.total_cost_archive = cost_archive
