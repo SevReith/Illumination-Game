@@ -86,5 +86,5 @@ if __name__ == '__main__':
     # start the game!
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"  # counters the viscious windows dpi scaling! 15" monitor is minimally recommended.
     app = Game_App(sys.argv)
-    app.main_controller.open_tutorial_pdfs(0)
+    app.main_controller.ask_for_tutorial()
     sys.exit(app.exec_())

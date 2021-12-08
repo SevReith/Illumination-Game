@@ -1,5 +1,5 @@
 import os, subprocess
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMdiArea, QMessageBox
 from PyQt5.QtCore import QObject, pyqtSignal
 from random import Random
 from Models.Layout import *
@@ -259,6 +259,16 @@ class Main_Controller(QObject):
         path = os.path.join(self.root_directory,'Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
+
+    def ask_for_tutorial(self):
+        msg = QMessageBox()
+        reply = QMessageBox.question(msg, 'Welome Player!', f'Do you want to play with help from the tutorial in the first turns?',
+                                        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.tutorial_flag = True 
+            self.open_tutorial_pdfs(0)
+        else:
+            self.tutorial_flag = False
 
     def display_notification_message(self, title, text):
         msg = QMessageBox()
