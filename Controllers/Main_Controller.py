@@ -21,6 +21,7 @@ class Main_Controller(QObject):
         self._controller_layout = lay_ctrl
         self.random_number_generater = Random()
         self.root_directory = root_directory
+        self.tutorial_flag = True
 
         # create first forecast
         self.calculate_fixed_cost()
@@ -241,7 +242,7 @@ class Main_Controller(QObject):
             self._controller_product._model_product[i].production_goal_flag = False
         self.generate_sales_forecast()
 
-        if True:
+        if self.tutorial_flag:
             self.open_tutorial_pdfs(self._model_factory.current_turn)
 
         if self.check_winning_condition():
