@@ -149,3 +149,4 @@ class Market_View(QMdiArea):
         msg.setInformativeText(text)
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()   
+        

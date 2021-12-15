@@ -216,8 +216,7 @@ class Main_Controller(QObject):
         self._model_market.sales_modifier = sales_modifier
         return int((fc + (price_influencer * fc)) * sales_modifier)
 
-    def calculate_turn_end(self, stock, price, price_influencer, prod_time):
-        """end the current turn. updates turn counter and calls game update functions"""
+    def calculate_end_turn_helper(self, stock, price, price_influencer, prod_time):
         # buy materials before calculating production
         self.check_for_layout_activation()
         mats_to_buy = self._model_factory.current_tuc if not self._controller_product._model_product[0].production_goal_flag else self._controller_product._model_product[0].production_goal
@@ -225,7 +224,6 @@ class Main_Controller(QObject):
         self.calculate_total_time_unit_capacity(prod_time)
         self.calculate_production()        
         self.calculate_sales(stock, price, price_influencer)
-
         fixed_cost = self.calculate_fixed_cost()
         total_cost = cost + fixed_cost
         # incomes are calculated in function calculate_sales
@@ -239,24 +237,44 @@ class Main_Controller(QObject):
         self._model_capital.add_latest_cost_detail_to_archive(fixed_cost, cost, self._model_capital.current_building_cost)
         self._model_capital.current_building_cost = 0
 
-        self._model_factory.current_turn += 1
-
         # hide all open windows
         for i in range(len(self._controller_product._model_product)):
             self._controller_product._model_product[i].production_goal_flag = False
-        self.generate_sales_forecast()
+            self.generate_sales_forecast()
 
+        # increment current turn
+        self._model_factory.current_turn += 1
+
+        # chek for tutorial display
         if self.tutorial_flag:
             self.open_tutorial_pdfs(self._model_factory.current_turn)
 
+    def calculate_turn_end(self, stock, price, price_influencer, prod_time):
+        """end the current turn. updates turn counter and calls game update functions"""
+        # check winning condicton
         if self.check_winning_condition():
             self.display_notification_message('CONGRATULATIONS!', 
-            f'You dominate the illuminate market! There is no competitor even close to you!\n You win!\nStrangely the authorities do not seem to be that enlighted...')
+            f'You dominate the illuminate market! There is no competitor even close to you!\n You win!\nStrangely the authorities do not seem to be that enlighted...')    
+
+        if self._model_factory.final_turn == self._model_factory.current_turn:
+            # allows player to choose to play for another 60 turns
+            answer = self.ask_yes_or_no("The End?", 'You have competed for 5 years! Do you want to play another 5 years?')
+            if answer:
+                self._model_factory.final_turn += 60
+                self.calculate_end_turn_helper(stock, price, price_influencer, prod_time)
+            else:
+                # if player chooses no, nothing happens anymore. the current windows stays responsive, but cannot progress in turns
+                pass
+        else:
+            self.calculate_end_turn_helper(stock, price, price_influencer, prod_time) 
 
     def check_winning_condition(self):
         """compares current marketshare to winning marketshare. returns True if current is equal or larger"""
         sa_archive = self._model_market.sales_archive
-        return self._model_market.winning_marketshare >= sa_archive[-1]['volume cumulated']
+        try:
+            return self._model_market.winning_marketshare >= sa_archive[-1]['volume cumulated']
+        except IndexError:
+            pass
 
     def open_tutorial_pdfs(self, cur_turn):
         """Open the tutorial pdf of the current turn."""
@@ -264,15 +282,16 @@ class Main_Controller(QObject):
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
 
-    def ask_for_tutorial(self):
+    def ask_yes_or_no(self, title, text):
+        """Ask a yes or no question to the player. Takes title and text inputs.
+        Returns True, if player clicked yes, Fals in any other case."""
         msg = QMessageBox()
-        reply = QMessageBox.question(msg, 'Welome Player!', f'Do you want to play with help from the tutorial in the first turns?',
+        reply = QMessageBox.question(msg, title, text,
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
-            self.tutorial_flag = True 
-            self.open_tutorial_pdfs(0)
+            return True
         else:
-            self.tutorial_flag = False
+            return False
 
     def display_notification_message(self, title, text):
         msg = QMessageBox()
