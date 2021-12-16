@@ -268,13 +268,13 @@ class Main_Controller(QObject):
         else:
             self.calculate_end_turn_helper(stock, price, price_influencer, prod_time) 
 
-    def check_winning_condition(self):
+    def check_winning_condition(self) -> bool:
         """compares current marketshare to winning marketshare. returns True if current is equal or larger"""
         sa_archive = self._model_market.sales_archive
         try:
             return self._model_market.winning_marketshare >= sa_archive[-1]['volume cumulated']
         except IndexError:
-            pass
+            return False
 
     def open_tutorial_pdfs(self, cur_turn):
         """Open the tutorial pdf of the current turn."""
@@ -282,7 +282,7 @@ class Main_Controller(QObject):
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
 
-    def ask_yes_or_no(self, title, text):
+    def ask_yes_or_no(self, title, text) -> bool:
         """Ask a yes or no question to the player. Takes title and text inputs.
         Returns True, if player clicked yes, Fals in any other case."""
         msg = QMessageBox()
