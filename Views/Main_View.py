@@ -9,7 +9,7 @@ from Views import Main_Window
 class Main_View(QMainWindow):
     """View for Capital, Market, Factory models."""
 
-    def __init__(self, cap_model, fac_model, mar_model, main_ctrl, fac_view, mar_view, prod_view, cap_view, root_directory):
+    def __init__(self, cap_model, fac_model, mar_model, main_ctrl, fac_view, mar_view, prod_view, cap_view, sum_view, root_directory):
         """Intitalize Main View.
         
         Contains the Main Controller
@@ -34,6 +34,7 @@ class Main_View(QMainWindow):
         self._view_factory = fac_view
         self._view_market = mar_view
         self._view_production = prod_view
+        self._view_summary = sum_view
         self.root_directory = root_directory
 
         #connect widgets to main controller and other views
@@ -67,6 +68,9 @@ class Main_View(QMainWindow):
         #connect widgets to production panel
         self._view_production._panel_production.btn_tab4_license.clicked.connect(self.sub_btn_halogen_license_clicked)
         self._view_production._panel_production.btn_tab5_license.clicked.connect(self.sub_btn_led_license_clicked)
+
+        # connect widgets to summary view
+        self._view_capital._panel_accounting.btn_tab1_show_summary.clicked.connect(self.sub_btn_show_summary_clicked)
 
         #listen to capital model
         self._model_capital.capital_changed.connect(self.on_capital_changed)
@@ -198,6 +202,9 @@ class Main_View(QMainWindow):
             self._model_capital.amount -= cost
             self._view_market.update_lbl_bottom()
             self._controller_main.calculate_total_time_unit_capacity(self._view_production.get_prod_time())
+
+    def sub_btn_show_summary_clicked(self):
+        self._view_summary.show()
     
     def hide_panels(self):
         """Hide all subwindows."""

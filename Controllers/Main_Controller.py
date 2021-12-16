@@ -193,7 +193,7 @@ class Main_Controller(QObject):
             self.generate_yearly_marketvolume_growth()
 
     def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1):
-        """calculates marketvolume growth between +/-20% randomly per year. stores the new volume yearly and monthly"""
+        """calculates marketvolume growth between -10% and +40% randomly per year. stores the new volume yearly and monthly"""
         marketvolume = self._model_market.marketvolume_annually * \
             (self.random_number_generater.randrange(min, max, step) / 100)
         self._model_market.total_marketvolume_p_month = marketvolume / 12

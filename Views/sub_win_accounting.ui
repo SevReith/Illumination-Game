@@ -34,81 +34,118 @@
     <attribute name="title">
      <string>Overview</string>
     </attribute>
-    <widget class="QWidget" name="horizontalLayoutWidget">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>280</y>
-       <width>321</width>
-       <height>80</height>
+       <x>0</x>
+       <y>260</y>
+       <width>631</width>
+       <height>181</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="lbl_txt_profit">
+       <widget class="QLabel" name="lbl_txt_tab1_last_month">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Profit:</string>
+         <string>Last Month</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="lbl_profit_number">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>100</y>
-       <width>321</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="lbl_txt_cost">
-        <property name="text">
-         <string>Cost:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lbl_cost_number">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>180</y>
-       <width>321</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="lbl_txt_income">
-        <property name="text">
-         <string>Income:</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="lbl_txt_cost">
+          <property name="text">
+           <string>Cost:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_cost_number">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_txt_income">
+          <property name="text">
+           <string>Income:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_income_number">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="lbl_income_number">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1,1,2">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_txt_profit">
+          <property name="text">
+           <string>Profit:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_profit_number">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="btn_tab1_show_summary">
+          <property name="text">
+           <string>Show Detailed Summary</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

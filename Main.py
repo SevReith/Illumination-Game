@@ -9,11 +9,13 @@ from Models.Layout import Fixed_Position_Layout
 from Models.Market import Market
 from Models.Material import *
 from Models.Product import Halogen_Light, LED_Light, Light_Bulb
+from Views import Summary_View
 from Views.Main_View import Main_View
 from Views.Capital_View import Capital_View
 from Views.Factory_View import Factory_View
 from Views.Market_View import Market_View
 from Views.Product_View import Product_View
+from Views.Summary_View import Summary_View
 from Controllers.Capital_Controller import Capital_Controller
 from Controllers.Main_Controller import Main_Controller
 from Controllers.Layout_Controller import Layout_Controller
@@ -49,7 +51,9 @@ class Game_App(QApplication):
         self.factory_view = Factory_View(self.model_factory, self.model_product, self.model_material, self.layout_controller, self.material_controller, self.product_controller, self.root_directory)
         self.product_view = Product_View(self.model_product, self.product_controller, self.root_directory)
         self.capital_view = Capital_View(self.model_capital)
-        self.main_view = Main_View(self.model_capital, self.model_factory, self.model_market, self.main_controller, self.factory_view, self.market_view, self.product_view, self.capital_view, self.root_directory)
+        self.summary_view = Summary_View(self.model_capital, self.model_factory, self.model_market, self.model_product, self.root_directory)
+        self.main_view = Main_View(self.model_capital, self.model_factory, self.model_market, self.main_controller, self.factory_view, self.market_view, self.product_view, 
+            self.capital_view, self.summary_view, self.root_directory)
 
         # show main window
         self.main_view.show()
