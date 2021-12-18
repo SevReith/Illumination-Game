@@ -9,17 +9,16 @@ from Models.Layout import Fixed_Position_Layout
 from Models.Market import Market
 from Models.Material import *
 from Models.Product import Halogen_Light, LED_Light, Light_Bulb
-from Views import Summary_View
 from Views.Main_View import Main_View
 from Views.Capital_View import Capital_View
 from Views.Factory_View import Factory_View
 from Views.Market_View import Market_View
 from Views.Product_View import Product_View
 from Views.Summary_View import Summary_View
-from Controllers.Capital_Controller import Capital_Controller
+# from Controllers.Capital_Controller import Capital_Controller
 from Controllers.Main_Controller import Main_Controller
 from Controllers.Layout_Controller import Layout_Controller
-from Controllers.Market_Controller import Market_Controller
+# from Controllers.Market_Controller import Market_Controller
 from Controllers.Material_Controller import Material_Controller
 from Controllers.Product_Controller import Product_Controller
 

@@ -202,6 +202,3 @@ class Factory(QObject):
 
     def add_layout_to_list(self, lay: Models.Layout.Production_Layout):
         self._layout_list.append(lay)
-
-    def update_layout_numbers(self):
-        pass

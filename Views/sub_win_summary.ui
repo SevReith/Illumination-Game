@@ -61,11 +61,11 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="3,0">
         <item>
-         <widget class="QWidget" name="widget" native="true"/>
+         <widget class="Mpl_Canvas" name="mpl_tab1_canvas" native="true"/>
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QLabel" name="lbl_tab1_produced">
             <property name="font">
              <font>
@@ -82,7 +82,7 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="6" column="1">
            <widget class="QLabel" name="lbl_tab1_income">
             <property name="font">
              <font>
@@ -99,58 +99,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="lbl_tab1_profit">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLabel" name="lbl_txt_tab1_marketshare">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Marketshare</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLabel" name="lbl_tab1_marketshare">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
+          <item row="5" column="0">
            <widget class="QLabel" name="lbl_txt_tab1_cost">
             <property name="font">
              <font>
@@ -167,8 +116,8 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="lbl_txt_tab1_income">
+          <item row="8" column="1">
+           <widget class="QLabel" name="lbl_txt_tab1_marketshare">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -177,15 +126,15 @@
              </font>
             </property>
             <property name="text">
-             <string>Income</string>
+             <string>Marketshare</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="lbl_tab1_cost">
+          <item row="9" column="1">
+           <widget class="QLabel" name="lbl_tab1_marketshare">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -201,7 +150,41 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="9" column="0">
+           <widget class="QLabel" name="lbl_tab1_profit">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="lbl_txt_tab1_produced">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Produced Units</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
            <widget class="QLabel" name="lbl_txt_tab1_profit">
             <property name="font">
              <font>
@@ -235,8 +218,8 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="lbl_txt_tab1_produced">
+          <item row="6" column="0">
+           <widget class="QLabel" name="lbl_tab1_cost">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -245,14 +228,38 @@
              </font>
             </property>
             <property name="text">
-             <string>Produced Units</string>
+             <string/>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="5" column="1">
+           <widget class="QLabel" name="lbl_txt_tab1_income">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Income</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="QPushButton" name="btn_tab1_update">
+            <property name="text">
+             <string>Update</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <widget class="QLabel" name="lbl_tab1_sold">
             <property name="font">
              <font>
@@ -269,10 +276,17 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="1">
-           <widget class="QPushButton" name="btn_tab1_update">
-            <property name="text">
-             <string>Update</string>
+          <item row="4" column="0" colspan="2">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0" colspan="2">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -290,6 +304,14 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Mpl_Canvas</class>
+   <extends>QWidget</extends>
+   <header>Views.Mpl_Canvas</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

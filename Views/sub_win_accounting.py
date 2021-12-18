@@ -24,11 +24,14 @@ class Ui_Form(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.tab)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 260, 631, 181))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 631, 441))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.mpl_tab1_canvas = Mpl_Canvas(self.verticalLayoutWidget)
+        self.mpl_tab1_canvas.setObjectName("mpl_tab1_canvas")
+        self.verticalLayout.addWidget(self.mpl_tab1_canvas)
         self.lbl_txt_tab1_last_month = QtWidgets.QLabel(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setBold(True)
@@ -75,6 +78,10 @@ class Ui_Form(object):
         self.btn_tab1_show_summary.setObjectName("btn_tab1_show_summary")
         self.horizontalLayout_3.addWidget(self.btn_tab1_show_summary)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.verticalLayout.setStretch(0, 5)
+        self.verticalLayout.setStretch(1, 1)
+        self.verticalLayout.setStretch(2, 1)
+        self.verticalLayout.setStretch(3, 1)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -139,6 +146,7 @@ class Ui_Form(object):
         item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("Form", "Building Cost"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("Form", "Cost Structure"))
+from Views.Mpl_Canvas import Mpl_Canvas
 
 
 if __name__ == "__main__":

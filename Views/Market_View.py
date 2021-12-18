@@ -27,7 +27,7 @@ class Market_View(QMdiArea):
         self._model_market.marketshare_cumulated_changed.connect(self.update_lbl_marketshare)
         self._model_market.forecast_generated.connect(self.update_lbl_forecast)
         self._model_market.products_sold.connect(self.update_lbls_sales)
-        self._model_market.yearly_summary_flag_changed.connect(self.show_yearly_summary)
+        #self._model_market.yearly_summary_flag_changed.connect(self.show_yearly_summary)
 
         #connect widgets to product model
         #self._model_product[0].sales_price_changed.connect(self.update_lbl_bottom)

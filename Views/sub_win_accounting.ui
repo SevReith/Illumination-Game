@@ -38,12 +38,15 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>260</y>
+       <y>0</y>
        <width>631</width>
-       <height>181</height>
+       <height>441</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="5,1,1,1,0">
+      <item>
+       <widget class="Mpl_Canvas" name="mpl_tab1_canvas" native="true"/>
+      </item>
       <item>
        <widget class="QLabel" name="lbl_txt_tab1_last_month">
         <property name="font">
@@ -217,6 +220,14 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Mpl_Canvas</class>
+   <extends>QWidget</extends>
+   <header>Views.Mpl_Canvas</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

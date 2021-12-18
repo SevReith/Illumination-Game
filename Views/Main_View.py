@@ -92,6 +92,10 @@ class Main_View(QMainWindow):
         
 
     def button_accounting_clicked(self):
+        turns = self._model_factory.current_turn
+        x_axis = self._view_summary.calculate_xaxis_with_turns(turns)
+        y_axis = self._view_summary.calculate_profit(turns)
+        self._view_capital.update_plot_profit(x_axis, y_axis[1])
         self._view_capital.show()
         
     @pyqtSlot(int)
@@ -204,6 +208,7 @@ class Main_View(QMainWindow):
             self._controller_main.calculate_total_time_unit_capacity(self._view_production.get_prod_time())
 
     def sub_btn_show_summary_clicked(self):
+        self._view_summary.create_yearly_summary()
         self._view_summary.show()
     
     def hide_panels(self):
