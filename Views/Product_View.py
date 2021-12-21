@@ -1,5 +1,6 @@
 import os, json
 from PyQt5.QtWidgets import  QMdiArea, QMessageBox
+from PyQt5.QtGui import QIntValidator
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from Views import sub_win_production
 
@@ -32,6 +33,7 @@ class Product_View(QMdiArea):
 
 
         #setup widgets
+        self._panel_production.led_prod_goal.setValidator(QIntValidator())
         self._panel_production.led_prod_goal.returnPressed.connect(self.led_production_goal_entered)
 
         #listen to material model

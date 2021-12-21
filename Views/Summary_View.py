@@ -62,7 +62,7 @@ class Summary_View(QMdiArea):
         """Update label lbtl_tab1_sold."""
         self._panel_summary.lbl_tab1_profit.setText(f'{profit:,.2f} €')
 
-    def update_lbl_marketshare(self):#share cumulated
+    def update_lbl_marketshare(self):
         share = self._model_market.sales_archive
         try:
             self._panel_summary.lbl_tab1_marketshare.setText(f"{share[-1]['share cumulated']:.4f} %")
@@ -150,3 +150,4 @@ class Summary_View(QMdiArea):
         cur_turn = self._model_factory.current_turn - 1 
         x_axis = [(cur_turn- i) for i in range(months)]
         return x_axis
+        
