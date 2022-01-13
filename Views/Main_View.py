@@ -21,7 +21,7 @@ class Main_View(QMainWindow):
         self._ui = Main_Window.Ui_MainWindow()
         self._ui.setupUi(self)
         #load and save background image
-        path = os.path.join(root_directory, 'Ressources', 'Images', 'Factory_old_Top_1300x900.png')
+        path = os.path.join(root_directory, 'Resources', 'Images', 'Factory_old_Top_1300x900.png')
         img = QImage(path)
         pixmap = QPixmap(img)
         self._ui.lbl_factory_blueprint.setPixmap(pixmap)
@@ -224,5 +224,5 @@ class Main_View(QMainWindow):
 
     def button_help_clicked(self):
         """Open the game manual pdf."""
-        path = os.path.join(self.root_directory, 'Ressources', '21.12_Manual_Illumination_Game.pdf')
+        path = os.path.join(self.root_directory, 'Resources', '21.12_Manual_Illumination_Game.pdf')
         subprocess.Popen(path, shell=True)

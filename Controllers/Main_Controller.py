@@ -278,7 +278,7 @@ class Main_Controller(QObject):
 
     def open_tutorial_pdfs(self, cur_turn):
         """Open the tutorial pdf of the current turn."""
-        path = os.path.join(self.root_directory,'Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
+        path = os.path.join(self.root_directory,'Resources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
 
