@@ -168,7 +168,7 @@ class Product_View(QMdiArea):
         
     def load_desciption_texts(self, prod, root):
         products = ['light bulb', 'halogen', 'led']
-        path = os.path.join(root, 'Ressources','products.json')
+        path = os.path.join(root, 'Resources','products.json')
         if os.path.exists(path):
             with open(path) as prod_text:
                 dict = json.load(prod_text)

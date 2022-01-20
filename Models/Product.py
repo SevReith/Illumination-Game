@@ -191,9 +191,9 @@ class Halogen_Light(Product):
     REQ_SOCKET = 1
     REQ_PROTECTIVE_GAS = 1
     REQ_PACKAGING = 1
-    PROD_TIME = 8/60  #in hour
-    BASE_VALUE = 5.5
-    INIT_PRIZE = 6.0
+    PROD_TIME = 6.5/60  #in hour
+    BASE_VALUE = 6.3
+    INIT_PRIZE = 7
     BASE_QUALITY = 0.7
     LICENSE_COST = 250000
 
@@ -228,9 +228,9 @@ class LED_Light(Product):
     REQ_PLASTIC_HOUSING = 1
     REQ_SOCKET = 1
     REQ_PACKAGING = 1
-    PROD_TIME = 15/60  #in hour
-    BASE_VALUE = 9.5
-    INIT_PRIZE = 10.0
+    PROD_TIME = 10/60  #in hour
+    BASE_VALUE = 12
+    INIT_PRIZE = 12.7
     BASE_QUALITY = 0.7
     LICENSE_COST = 1000000
 
