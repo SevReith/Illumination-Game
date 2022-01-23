@@ -118,7 +118,7 @@ class Main_Controller(QObject):
         remaining_size = self._model_factory.size
         for layout in self._model_factory.layout_list:
             if layout.is_active:
-                cost += layout.size * self._model_factory.fixed_cost_per_m2 * (1 + layout.maintenance_cost_modifier)
+                cost += layout.size * self._model_factory.fixed_cost_per_m2 * layout.maintenance_cost_modifier
                 remaining_size -= layout.size
         cost += remaining_size * self._model_factory.fixed_cost_per_m2
         self._model_factory.total_cost = cost

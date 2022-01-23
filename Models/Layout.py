@@ -6,7 +6,7 @@ class Production_Layout(QObject):
     layout_was_activated = pyqtSignal(bool)
     layout_size_changed = pyqtSignal(int)
 
-    WORKING_MONTH = 35 * 4
+    WORKING_MONTH = 39 * 4
 
     @property
     def layout_name(self):
@@ -134,11 +134,11 @@ class Production_Layout(QObject):
 
 class Fixed_Position_Layout(Production_Layout):
     """description of class"""
-    STANDARD_SIZE = 30
-    STANDARD_PROD_TIME_MODIFIER = 1.3
-    STANDARD_COST_MODIFIER = 3.5
+    STANDARD_SIZE = 25
+    STANDARD_PROD_TIME_MODIFIER = 1.1
+    STANDARD_COST_MODIFIER = 5.3
     STANDARD_QUALITY_MODIFIER = 2
-    BUILDING_COST = 10000
+    BUILDING_COST = 7500
     BUILDING_TIME = 2
 
     def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
@@ -149,8 +149,8 @@ class Process_Layout(Production_Layout):
     """standard process or job shop layout"""
 
     STANDARD_SIZE = 60
-    STANDARD_PROD_TIME_MODIFIER = 0.15
-    STANDARD_COST_MODIFIER = 4.5
+    STANDARD_PROD_TIME_MODIFIER = 0.05
+    STANDARD_COST_MODIFIER = 8.8
     STANDARD_QUALITY_MODIFIER = 1.5
     BUILDING_COST = 30000
     BUILDING_TIME = 4
@@ -158,7 +158,7 @@ class Process_Layout(Production_Layout):
     DEPARTMENT_SIZE = 20
     DEPARTMENT_BUILDING_COST = 6000
     DEPARTMENT_BUILDING_TIME = 1
-    DEPARTMENT_PROD_BONUS = 0.25
+    DEPARTMENT_PROD_BONUS = 0.4
 
     @property
     def departments(self):
@@ -225,8 +225,8 @@ class Cellular_Layout(Production_Layout):
     """standard process or job shop layout"""
 
     STANDARD_SIZE = 80
-    STANDARD_PROD_TIME_MODIFIER = -0.3
-    STANDARD_COST_MODIFIER = 6
+    STANDARD_PROD_TIME_MODIFIER = -0.6
+    STANDARD_COST_MODIFIER = 19.2
     STANDARD_QUALITY_MODIFIER = 1.0
     BUILDING_COST = 75000
     BUILDING_TIME = 7
@@ -234,7 +234,7 @@ class Cellular_Layout(Production_Layout):
     DEPARTMENT_SIZE = 25
     DEPARTMENT_BUILDING_COST = 15000
     DEPARTMENT_BUILDING_TIME = 1
-    DEPARTMENT_PROD_BONUS = 0.33
+    DEPARTMENT_PROD_BONUS = 0.6
 
     @property
     def departments(self):
@@ -301,8 +301,8 @@ class Line_Layout(Production_Layout):
     """standard process or job shop layout"""
 
     STANDARD_SIZE = 100
-    STANDARD_PROD_TIME_MODIFIER = -0.99
-    STANDARD_COST_MODIFIER = 8.9
+    STANDARD_PROD_TIME_MODIFIER = -0.999
+    STANDARD_COST_MODIFIER = 32.1
     STANDARD_QUALITY_MODIFIER = 0.9
     BUILDING_COST = 1000000
     BUILDING_TIME = 14

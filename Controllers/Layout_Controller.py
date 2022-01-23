@@ -24,10 +24,10 @@ class Layout_Controller(QObject):
         i = self.find_cellular_layout_index()
         if not i == -1:
             self._model_layout[i].departments += 1
-            self._model_layout[i].department_building_cost = int(self.calculate_next_dept_cost(self._model_layout[i].department_building_cost, factor=1.33))
+            self._model_layout[i].department_building_cost = int(self.calculate_next_dept_cost(self._model_layout[i].department_building_cost, factor=2.3))
             self._model_layout[i].size += self._model_layout[i].department_size
 
-    def calculate_next_dept_cost(self, old_cost, factor = 1.2):
+    def calculate_next_dept_cost(self, old_cost, factor = 1.8):
         """Return the input cost times factor."""
         return old_cost * factor
 

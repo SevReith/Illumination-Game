@@ -224,5 +224,5 @@ class Main_View(QMainWindow):
 
     def button_help_clicked(self):
         """Open the game manual pdf."""
-        path = os.path.join(self.root_directory, 'Resources', '21.12_Manual_Illumination_Game.pdf')
+        path = os.path.join(self.root_directory, 'Resources', 'Manual_Illumination_Game.pdf')
         subprocess.Popen(path, shell=True)

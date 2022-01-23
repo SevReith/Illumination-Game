@@ -160,8 +160,8 @@ class Light_Bulb(Product):
     REQ_SOCKET = 1
     REQ_PROTECTIVE_GAS = 1
     REQ_PACKAGING = 1
-    PROD_TIME = 5/60  #in hour
-    BASE_VALUE = 3.8
+    PROD_TIME = 3.5/60  #in hour
+    BASE_VALUE = 4.3
     INIT_PRIZE = 4.0
     BASE_QUALITY = 0.7
     LICENSE_COST = 0
@@ -191,9 +191,9 @@ class Halogen_Light(Product):
     REQ_SOCKET = 1
     REQ_PROTECTIVE_GAS = 1
     REQ_PACKAGING = 1
-    PROD_TIME = 6.5/60  #in hour
-    BASE_VALUE = 6.3
-    INIT_PRIZE = 7
+    PROD_TIME = 5.1/60  #in hour
+    BASE_VALUE = 7.1
+    INIT_PRIZE = 7.8
     BASE_QUALITY = 0.7
     LICENSE_COST = 250000
 
@@ -224,12 +224,12 @@ class LED_Light(Product):
 
     INIT_STOCK = 0
     REQ_PLASTIC_BULBS = 1
-    REQ_LED = 1
+    REQ_LED = 2
     REQ_PLASTIC_HOUSING = 1
     REQ_SOCKET = 1
     REQ_PACKAGING = 1
-    PROD_TIME = 10/60  #in hour
-    BASE_VALUE = 12
+    PROD_TIME = 8/60  #in hour
+    BASE_VALUE = 13.7
     INIT_PRIZE = 12.7
     BASE_QUALITY = 0.7
     LICENSE_COST = 1000000
