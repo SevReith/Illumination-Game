@@ -124,11 +124,11 @@ class Packaging(Material):
     def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1, 2]):
         super().__init__(name, prize, qual, init_amount, req_amount, req_for)
 
-class Alu_Glas_Bulbs(Material):
+class Alu_Glass_Bulbs(Material):
 
     PRIZE = 0.3
     QUALITY = 0.7
-    NAME = 'Aluminium Glas Bulb'
+    NAME = 'Aluminosilicate Glass Bulb'
 
     def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [1]):
         super().__init__(name, prize, qual, init_amount, req_amount, req_for)

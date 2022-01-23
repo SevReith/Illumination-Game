@@ -73,6 +73,12 @@ class Game_App(QApplication):
         mat_list.append(Socket())
         mat_list.append(Protective_Gas())
         mat_list.append(Packaging())
+        mat_list.append(Alu_Glass_Bulbs())
+        mat_list.append(Mount())
+        mat_list.append(LED())
+        mat_list.append(Plastic_Housing())
+        mat_list.append(Plastic_Bulb())
+
         return mat_list
 
     def create_products(self, material_list):
