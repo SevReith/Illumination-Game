@@ -444,193 +444,451 @@
        <height>399</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
+     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,6">
       <item>
        <widget class="QLabel" name="lbl_txt_mat_prices">
         <property name="text">
          <string>Raw Material Prices per Unit</string>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat1">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>312</width>
+           <height>333</height>
+          </rect>
+         </property>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat1">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price1">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price1">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>30</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat2">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price2">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat2">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>60</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat3">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price3">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price2">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>90</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat4">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price4">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_7">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat3">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>120</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat5">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price5">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price3">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>150</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat6">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price6">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat4">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>180</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat7">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price7">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price4">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="layoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>210</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat8">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price8">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat5">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="layoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>240</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat9">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price9">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price5">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="layoutWidget_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>270</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat10">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price10">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLabel" name="lbl_txt_mat6">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
+         <widget class="QWidget" name="layoutWidget_5">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>300</y>
+            <width>314</width>
+            <height>21</height>
+           </rect>
           </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="2,1">
+           <item>
+            <widget class="QLabel" name="lbl_txt_mat11">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_mat_price11">
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>TextLabel</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_mat_price6">
-          <property name="font">
-           <font>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        </widget>
+       </widget>
       </item>
      </layout>
     </widget>

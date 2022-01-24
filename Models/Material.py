@@ -123,4 +123,49 @@ class Packaging(Material):
 
     def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1, 2]):
         super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+
+class Alu_Glass_Bulbs(Material):
+
+    PRIZE = 0.3
+    QUALITY = 0.7
+    NAME = 'Aluminosilicate Glass Bulb'
+
+    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [1]):
+        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+        
+class Mount(Material):
+
+    PRIZE = 0.23
+    QUALITY = 0.7
+    NAME = 'Mount'
+
+    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [1]):
+        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+
+class Plastic_Housing(Material):
+
+    PRIZE = 0.3
+    QUALITY = 0.7
+    NAME = 'Plastic Housing'
+
+    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
+        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+
+class LED(Material):
+
+    PRIZE = 1.2
+    QUALITY = 0.7
+    NAME = 'LED'
+
+    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
+        super().__init__(name, prize, qual, init_amount, req_amount, req_for)        
+
+class Plastic_Bulb(Material):
+
+    PRIZE = 0.1
+    QUALITY = 0.7
+    NAME = 'Plastic Bulb'
+
+    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
+        super().__init__(name, prize, qual, init_amount, req_amount, req_for) 
         

@@ -118,7 +118,7 @@ class Main_Controller(QObject):
         remaining_size = self._model_factory.size
         for layout in self._model_factory.layout_list:
             if layout.is_active:
-                cost += layout.size * self._model_factory.fixed_cost_per_m2 * (1 + layout.maintenance_cost_modifier)
+                cost += layout.size * self._model_factory.fixed_cost_per_m2 * layout.maintenance_cost_modifier
                 remaining_size -= layout.size
         cost += remaining_size * self._model_factory.fixed_cost_per_m2
         self._model_factory.total_cost = cost
@@ -193,7 +193,7 @@ class Main_Controller(QObject):
             self.generate_yearly_marketvolume_growth()
 
     def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1):
-        """calculates marketvolume growth between +/-20% randomly per year. stores the new volume yearly and monthly"""
+        """calculates marketvolume growth between -10% and +30% randomly per year. stores the new volume yearly and monthly"""
         marketvolume = self._model_market.marketvolume_annually * \
             (self.random_number_generater.randrange(min, max, step) / 100)
         self._model_market.total_marketvolume_p_month = marketvolume / 12
@@ -278,7 +278,7 @@ class Main_Controller(QObject):
 
     def open_tutorial_pdfs(self, cur_turn):
         """Open the tutorial pdf of the current turn."""
-        path = os.path.join(self.root_directory,'Ressources', 'Tutorial', f'turn{cur_turn}.pdf')
+        path = os.path.join(self.root_directory,'Resources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
 

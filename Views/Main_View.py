@@ -9,7 +9,7 @@ from Views import Main_Window
 class Main_View(QMainWindow):
     """View for Capital, Market, Factory models."""
 
-    def __init__(self, cap_model, fac_model, mar_model, main_ctrl, fac_view, mar_view, prod_view, cap_view, root_directory):
+    def __init__(self, cap_model, fac_model, mar_model, main_ctrl, fac_view, mar_view, prod_view, cap_view, sum_view, root_directory):
         """Intitalize Main View.
         
         Contains the Main Controller
@@ -21,7 +21,7 @@ class Main_View(QMainWindow):
         self._ui = Main_Window.Ui_MainWindow()
         self._ui.setupUi(self)
         #load and save background image
-        path = os.path.join(root_directory, 'Ressources', 'Images', 'Factory_old_Top_1300x900.png')
+        path = os.path.join(root_directory, 'Resources', 'Images', 'Factory_old_Top_1300x900.png')
         img = QImage(path)
         pixmap = QPixmap(img)
         self._ui.lbl_factory_blueprint.setPixmap(pixmap)
@@ -34,6 +34,7 @@ class Main_View(QMainWindow):
         self._view_factory = fac_view
         self._view_market = mar_view
         self._view_production = prod_view
+        self._view_summary = sum_view
         self.root_directory = root_directory
 
         #connect widgets to main controller and other views
@@ -68,6 +69,9 @@ class Main_View(QMainWindow):
         self._view_production._panel_production.btn_tab4_license.clicked.connect(self.sub_btn_halogen_license_clicked)
         self._view_production._panel_production.btn_tab5_license.clicked.connect(self.sub_btn_led_license_clicked)
 
+        # connect widgets to summary view
+        self._view_capital._panel_accounting.btn_tab1_show_summary.clicked.connect(self.sub_btn_show_summary_clicked)
+
         #listen to capital model
         self._model_capital.capital_changed.connect(self.on_capital_changed)
 
@@ -88,7 +92,12 @@ class Main_View(QMainWindow):
         
 
     def button_accounting_clicked(self):
+        turns = self._model_factory.current_turn
+        x_axis = self._view_summary.calculate_xaxis_with_turns(turns)
+        y_axis = self._view_summary.calculate_profit(turns)
+        self._view_capital.update_plot_profit(x_axis, y_axis[1])
         self._view_capital.show()
+        self._view_capital.raise_()
         
     @pyqtSlot(int)
     def on_capital_changed(self, value):
@@ -101,6 +110,7 @@ class Main_View(QMainWindow):
     @pyqtSlot()
     def button_factory_clicked(self):
         self._view_factory.show()
+        self._view_factory.raise_()
 
     def sub_btn_build_fixed_pos_layout_clicked(self):
         """calls message box in factory view to confirm building. if successful, calls
@@ -181,9 +191,11 @@ class Main_View(QMainWindow):
 
     def button_market_clicked(self):
         self._view_market.show()
+        self._view_market.raise_()
 
     def rdbutton_production_clicked(self):
         self._view_production.show()
+        self._view_production.raise_()
 
     def sub_btn_halogen_license_clicked(self):
         cost = self._view_production.product_license_clicked(1, self._model_capital.amount)
@@ -198,6 +210,11 @@ class Main_View(QMainWindow):
             self._model_capital.amount -= cost
             self._view_market.update_lbl_bottom()
             self._controller_main.calculate_total_time_unit_capacity(self._view_production.get_prod_time())
+
+    def sub_btn_show_summary_clicked(self):
+        self._view_summary.create_yearly_summary()
+        self._view_summary.show()
+        self._view_summary.raise_()
     
     def hide_panels(self):
         """Hide all subwindows."""
@@ -212,5 +229,5 @@ class Main_View(QMainWindow):
 
     def button_help_clicked(self):
         """Open the game manual pdf."""
-        path = os.path.join(self.root_directory, 'Ressources', '21.12_Manual_Illumination_Game.pdf')
+        path = os.path.join(self.root_directory, 'Resources', 'Manual_Illumination_Game.pdf')
         subprocess.Popen(path, shell=True)

@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QMdiArea, QTableWidgetItem
 from PyQt5.QtCore import pyqtSlot
-from Views import *
 from Views import sub_win_accounting
 
 class Capital_View(QMdiArea):
@@ -19,7 +18,13 @@ class Capital_View(QMdiArea):
         self._model_capital.latest_income_changed.connect(self.update_lbl_income)
         self._model_capital.latest_profit_changed.connect(self.update_lbl_profit)
         self._model_capital.cost_detail_changed.connect(self.update_table_cost_detail)
-    
+
+    def update_plot_profit(self, x_axis, y_axis):
+        """Update the mpl_tab1_canvas plot with profit."""
+        try:
+            self._panel_accounting.mpl_tab1_canvas.plot_simple_graph(x_axis, y_axis, title='Profit', x_title='Turns', y_title='Profit in €')
+        except ValueError:
+            print(f'A ValueError occured in Capital_View: {ValueError.__name__}')
 
     @pyqtSlot(float)
     def update_lbl_cost(self, cost):

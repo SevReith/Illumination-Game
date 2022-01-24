@@ -278,7 +278,7 @@ class Factory_View(QMdiArea):
         """Set the layout pictures as pixmaps within the specified labels."""
         names = ['Fixed_Position_Layout', 'Process_Layout', 'Cellular_Layout', 'Line_Layout']
         for i in range(len(names)):
-            path = os.path.join(self.root_directory, 'Ressources', 'Images', f'{names[i]}.png')
+            path = os.path.join(self.root_directory, 'Resources', 'Images', f'{names[i]}.png')
             img = QImage(path)
             pixmap = QPixmap(img)
             label = getattr(self._panel_factory, f'lbl_tab{i + 2}_top')
