@@ -97,6 +97,7 @@ class Main_View(QMainWindow):
         y_axis = self._view_summary.calculate_profit(turns)
         self._view_capital.update_plot_profit(x_axis, y_axis[1])
         self._view_capital.show()
+        self._view_capital.raise_()
         
     @pyqtSlot(int)
     def on_capital_changed(self, value):
@@ -109,6 +110,7 @@ class Main_View(QMainWindow):
     @pyqtSlot()
     def button_factory_clicked(self):
         self._view_factory.show()
+        self._view_factory.raise_()
 
     def sub_btn_build_fixed_pos_layout_clicked(self):
         """calls message box in factory view to confirm building. if successful, calls
@@ -189,9 +191,11 @@ class Main_View(QMainWindow):
 
     def button_market_clicked(self):
         self._view_market.show()
+        self._view_market.raise_()
 
     def rdbutton_production_clicked(self):
         self._view_production.show()
+        self._view_production.raise_()
 
     def sub_btn_halogen_license_clicked(self):
         cost = self._view_production.product_license_clicked(1, self._model_capital.amount)
@@ -210,6 +214,7 @@ class Main_View(QMainWindow):
     def sub_btn_show_summary_clicked(self):
         self._view_summary.create_yearly_summary()
         self._view_summary.show()
+        self._view_summary.raise_()
     
     def hide_panels(self):
         """Hide all subwindows."""
