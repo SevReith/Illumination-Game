@@ -253,6 +253,9 @@
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
            <widget class="QPushButton" name="btn_tab3_build_process_lay">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can only build 1 Process layout!&lt;/p&gt;&lt;p&gt;Add departments to increase the production output!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Build Process Layout</string>
             </property>
@@ -274,6 +277,9 @@
           </item>
           <item row="0" column="1">
            <widget class="QPushButton" name="btn_tab3_add_department">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can increase the output of the Process layout by building additional departments within the layout.&lt;/p&gt;&lt;p&gt;Each department becomes more expensive!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>Add Department</string>
             </property>
@@ -340,6 +346,9 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <widget class="QPushButton" name="btn_tab4_build_cellular_lay">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can only build 1 Cellular layout!&lt;/p&gt;&lt;p&gt;Add departments to increase the production output!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Build Cellular Layout</string>
           </property>
@@ -354,6 +363,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="btn_tab4_add_department">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;You can increase the output of the Cellular layout by building additional departments within the layout.&lt;/p&gt;&lt;p&gt;Each department becomes more expensive!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Add Department</string>
           </property>

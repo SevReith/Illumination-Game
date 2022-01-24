@@ -24,7 +24,6 @@ class Product_View(QMdiArea):
         self.update_lbl_prod_stock()
         self.update_lbl_prod_name()
         self.update_lbl_prod_goal()
-        self.update_lbls_material_names()
         self.update_lbls_material_stock()
         for i in range(3):
             self.load_desciption_texts(i, root)
@@ -80,21 +79,18 @@ class Product_View(QMdiArea):
 
     @pyqtSlot(int)
     def update_lbls_material_stock(self):
-        self._panel_production.lbl_amount1.setText(f'{self._model_product[0].bill_of_materials[0].amount:,}')
-        self._panel_production.lbl_amount2.setText(f'{self._model_product[0].bill_of_materials[1].amount:,}')
-        self._panel_production.lbl_amount3.setText(f'{self._model_product[0].bill_of_materials[2].amount:,}')
-        self._panel_production.lbl_amount4.setText(f'{self._model_product[0].bill_of_materials[3].amount:,}')
-        self._panel_production.lbl_amount5.setText(f'{self._model_product[0].bill_of_materials[4].amount:,}')
-        self._panel_production.lbl_amount6.setText(f'{self._model_product[0].bill_of_materials[5].amount:,}')
-
-    def update_lbls_material_names(self):
-        self._panel_production.lbl_mat_name1.setText(self._model_product[0].bill_of_materials[0].name)
-        self._panel_production.lbl_mat_name2.setText(self._model_product[0].bill_of_materials[1].name)
-        self._panel_production.lbl_mat_name3.setText(self._model_product[0].bill_of_materials[2].name)
-        self._panel_production.lbl_mat_name4.setText(self._model_product[0].bill_of_materials[3].name)
-        self._panel_production.lbl_mat_name5.setText(self._model_product[0].bill_of_materials[4].name)
-        self._panel_production.lbl_mat_name6.setText(self._model_product[0].bill_of_materials[5].name)
-
+        materials_in_use = []
+        for prod in self._model_product:
+            for mat in prod.bill_of_materials:
+                if mat not in materials_in_use:
+                    materials_in_use.append(mat)
+        bom_length = len(materials_in_use)
+        for i in range(bom_length):
+            label = getattr(self._panel_production, f'lbl_mat_name{i + 1}')
+            label.setText(f'{materials_in_use[i].name}:')
+            label = getattr(self._panel_production, f'lbl_amount{i + 1}')
+            label.setText(f'{materials_in_use[i].amount:,}')
+        
     def update_lbls_characteristics(self, product):
         """Update the characteristic labels dnymically. Product gives the prodct list index of the active index.
         According to the index only the neccesarry tab is updated.

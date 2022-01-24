@@ -41,7 +41,7 @@ class Market_View(QMdiArea):
         self.update_lbl_bottom()
         self.update_lbl_forecast()
         self.update_lbls_material_name()
-        self.update_lbls_material_price()
+        #self.update_lbls_material_price()
         
     @pyqtSlot(int)
     def update_lbl_marketvolume(self, vol):
@@ -114,13 +114,24 @@ class Market_View(QMdiArea):
         self._panel_market.lbl_mat_price6.setText(f'{self._model_product[prod].bill_of_materials[5].price}{self._model_capital.currency_sign}')
 
     def update_lbls_material_name(self):
-        prod = self._controller_product.get_active_product_index()
-        self._panel_market.lbl_txt_mat1.setText(f'{self._model_product[prod].bill_of_materials[0].name}:')
-        self._panel_market.lbl_txt_mat2.setText(f'{self._model_product[prod].bill_of_materials[1].name}:')
-        self._panel_market.lbl_txt_mat3.setText(f'{self._model_product[prod].bill_of_materials[2].name}:')
-        self._panel_market.lbl_txt_mat4.setText(f'{self._model_product[prod].bill_of_materials[3].name}:')
-        self._panel_market.lbl_txt_mat5.setText(f'{self._model_product[prod].bill_of_materials[4].name}:')
-        self._panel_market.lbl_txt_mat6.setText(f'{self._model_product[prod].bill_of_materials[5].name}:')
+        # prod = self._controller_product.get_active_product_index()
+        # self._panel_market.lbl_txt_mat1.setText(f'{self._model_product[prod].bill_of_materials[0].name}:')
+        # self._panel_market.lbl_txt_mat2.setText(f'{self._model_product[prod].bill_of_materials[1].name}:')
+        # self._panel_market.lbl_txt_mat3.setText(f'{self._model_product[prod].bill_of_materials[2].name}:')
+        # self._panel_market.lbl_txt_mat4.setText(f'{self._model_product[prod].bill_of_materials[3].name}:')
+        # self._panel_market.lbl_txt_mat5.setText(f'{self._model_product[prod].bill_of_materials[4].name}:')
+        # self._panel_market.lbl_txt_mat6.setText(f'{self._model_product[prod].bill_of_materials[5].name}:')
+        materials_in_use = []
+        for prod in self._model_product:
+            for mat in prod.bill_of_materials:
+                if mat not in materials_in_use:
+                    materials_in_use.append(mat)
+        bom_length = len(materials_in_use)
+        for i in range(bom_length):
+            label = getattr(self._panel_market, f'lbl_txt_mat{i + 1}')
+            label.setText(f'{materials_in_use[i].name}:')
+            label = getattr(self._panel_market, f'lbl_mat_price{i + 1}')
+            label.setText(f'{materials_in_use[i].price:,}')
 
     @pyqtSlot(float)
     def update_lbl_bottom(self):
