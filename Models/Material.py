@@ -68,104 +68,60 @@ class Material(QObject):
 
 class Glass_Bulb(Material):
 
-    PRIZE = 0.2
-    QUALITY = 0.7
-    NAME = 'Glass Bulb'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 
 class Coiled_Filament(Material):
 
-    PRIZE = 0.3
-    QUALITY = 0.7
-    NAME = 'Coiled Filament'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 class Lead_In_Wires(Material):
 
-    PRIZE = 0.1
-    QUALITY = 0.7
-    NAME = 'Lead In Wires'
-
-    def __init__(self, req_amount = 2, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0]):
-        super().__init__(name, prize, qual, init_amount, req_amount)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 
 class Socket(Material):
 
-    PRIZE = 0.2
-    QUALITY = 0.7
-    NAME = 'Socket'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1, 2]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 
 class Protective_Gas(Material):
 
-    PRIZE = 0.3
-    QUALITY = 0.7
-    NAME = 'Protective Gas'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 
 class Packaging(Material):
 
-    PRIZE = 0.15
-    QUALITY = 0.7
-    NAME = 'Packaging'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [0, 1, 2]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 class Alu_Glass_Bulbs(Material):
 
-    PRIZE = 0.3
-    QUALITY = 0.7
-    NAME = 'Aluminosilicate Glass Bulb'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [1]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
         
 class Mount(Material):
 
-    PRIZE = 0.23
-    QUALITY = 0.7
-    NAME = 'Mount'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [1]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 class Plastic_Housing(Material):
 
-    PRIZE = 0.3
-    QUALITY = 0.7
-    NAME = 'Plastic Housing'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 class LED(Material):
-
-    PRIZE = 1.2
-    QUALITY = 0.7
-    NAME = 'LED'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for)        
+   
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
 
 class Plastic_Bulb(Material):
 
-    PRIZE = 0.1
-    QUALITY = 0.7
-    NAME = 'Plastic Bulb'
-
-    def __init__(self, req_amount = 1, init_amount = 0, name = NAME, prize = PRIZE, qual = QUALITY, req_for = [2]):
-        super().__init__(name, prize, qual, init_amount, req_amount, req_for) 
+    def __init__(self, config):
+        super().__init__(name = config['name'], price = config['price'], quality = config['quality'], init_amount = 0, req_amount = 0, req_for = config['required_for_prodcut'], seller_name = config['seller_name'])
         
