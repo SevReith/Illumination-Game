@@ -7,11 +7,11 @@ class Production_Layout(QObject):
     layout_size_changed = pyqtSignal(int)
 
     @property
-    def layout_name(self):
+    def name(self):
         return self._config['name']
 
-    @layout_name.setter
-    def layout_name(self, name):
+    @name.setter
+    def name(self, name):
         self._config['name'] = name
 
     @property
@@ -127,9 +127,6 @@ class Fixed_Position_Layout(Production_Layout):
 
     def __init__(self, config):
         super().__init__(config)
-        global STANDARD_SIZE, STANDARD_PROD_TIME_MODIFIER
-        STANDARD_SIZE = config['size']
-        STANDARD_PROD_TIME_MODIFIER = config['standard_production_time_modifier']
 
 
 class Process_Layout(Production_Layout):

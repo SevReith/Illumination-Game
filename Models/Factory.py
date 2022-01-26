@@ -4,11 +4,11 @@ import Models.Layout
 class Factory(QObject):
     """It's the factory."""
 
-    FIXED_COST_PER_M2 = 15
-    STANDARD_SIZE_M2 = 100
-    STANDARD_ADD_COST_M2 = 1000
-    FINAL_TURN = 60
-    WORKING_MONTH = 35 * 4
+    # FIXED_COST_PER_M2 = 15
+    # STANDARD_SIZE_M2 = 100
+    # STANDARD_ADD_COST_M2 = 1000
+    # FINAL_TURN = 60
+    # WORKING_MONTH = 35 * 4
 
     cur_turn_changed = pyqtSignal(int)
     final_turn_changed = pyqtSignal(int)
@@ -29,34 +29,34 @@ class Factory(QObject):
 
     @property
     def final_turn(self):
-        return self._final_turn
+        return self._config['final_turn']
 
     @final_turn.setter
     def final_turn(self, value):
-        self._final_turn = value
+        self._config['final_turn'] = value
         self.final_turn_changed.emit(value)
 
     @property
     def name(self):
-        return self._name
+        return self._config['name']
 
     @property
     def size(self):
-        return self._size
+        return self._config['size']
 
     @size.setter
     def size(self, value):
-        self._size = value
+        self._config['size'] = value
         self.size_changed.emit(value)
-        self.factory_characteristics_changed.emit(value, self.free_space, self.total_cost, self.fixed_cost_per_m2)
+        self.factory_characteristics_changed.emit(value, self.free_space, self.total_cost, self._config['fixed_cost_per_m2'])
 
     @property
     def working_month(self):
-        return self._working_month
+        return self._config['working_month']
 
     @working_month.setter
     def working_month(self, val):
-        self._working_month = val
+        self._config['working_month'] = val
 
     @property
     def layout_list(self):
@@ -74,15 +74,15 @@ class Factory(QObject):
     def free_space(self, value):
         self._free_space = value
         self.free_space_changed.emit(value)
-        self.factory_characteristics_changed.emit(self.size, value, self.total_cost, self.fixed_cost_per_m2)
+        self.factory_characteristics_changed.emit(self.size, value, self.total_cost, self._config['fixed_cost_per_m2'])
 
     @property
     def fixed_cost_per_m2(self):
-        return self._fixed_cost_per_m2
+        return self._config['fixed_cost_per_m2']
 
     @fixed_cost_per_m2.setter
     def fixed_cost_per_m2(self, value):
-        self._fixed_cost_per_m2 = value
+        self._config['fixed_cost_per_m2'] = value
         self.factory_characteristics_changed.emit(self.size, self.free_space, self.total_cost, value)
 
     @property
@@ -100,7 +100,7 @@ class Factory(QObject):
     @total_cost.setter
     def total_cost(self, value):
         self._total_cost = value
-        self.factory_characteristics_changed.emit(self.size, self.free_space, value, self.fixed_cost_per_m2)
+        self.factory_characteristics_changed.emit(self.size, self.free_space, value, self._config['fixed_cost_per_m2'])
 
     @property
     def production_capacity_archive(self):
@@ -138,68 +138,71 @@ class Factory(QObject):
 
     @property
     def nb_fixed_position(self):
-        return self._layout_numbers['Fixed Position']
+        return self._layout_numbers['Fixed Position Layout']
 
     @nb_fixed_position.setter
     def nb_fixed_position(self, val):
-        self._layout_numbers['Fixed Position'] = val
-        self.layout_nb_changed.emit(val, self._layout_numbers['Process'], self._layout_numbers['Cellular'], self._layout_numbers['Line'])
+        self._layout_numbers['Fixed Position Layout'] = val
+        self.layout_nb_changed.emit(val, self._layout_numbers['Process Layout'], self._layout_numbers['Cellular Layout'], self._layout_numbers['Line Layout'])
 
     @property
     def nb_process(self):
-        return self._layout_numbers['Process']
+        return self._layout_numbers['Process Layout']
 
     @nb_process.setter
     def nb_process(self, val):
-        self._layout_numbers['Process'] = val
-        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position'], val, self._layout_numbers['Cellular'], self._layout_numbers['Line'])
+        self._layout_numbers['Process Layout'] = val
+        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position Layout'], val, self._layout_numbers['Cellular Layout'], self._layout_numbers['Line Layout'])
 
     @property
     def nb_cellular(self):
-        return self._layout_numbers['Cellular']
+        return self._layout_numbers['Cellular Layout']
 
     @nb_cellular.setter
     def nb_cellular(self, val):
-        self._layout_numbers['Cellular'] = val
-        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position'], self._layout_numbers['Process'], val, self._layout_numbers['Line'])
+        self._layout_numbers['Cellular Layout'] = val
+        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position Layout'], self._layout_numbers['Process Layout'], val, self._layout_numbers['Line Layout'])
 
     @property
     def nb_line(self):
-        return self._layout_numbers['Line']
+        return self._layout_numbers['Line Layout']
 
     @nb_line.setter
     def nb_line(self, val):
-        self._layout_numbers['Line'] = val
-        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position'], self._layout_numbers['Process'], self._layout_numbers['Cellular'], val)
+        self._layout_numbers['Line Layout'] = val
+        self.layout_nb_changed.emit(self._layout_numbers['Fixed Position Layout'], self._layout_numbers['Process Layout'], self._layout_numbers['Cellular Layout'], val)
 
-    def __init__(self, name, layout_config, layout, cost_per_m=FIXED_COST_PER_M2, size=STANDARD_SIZE_M2, final_turn=FINAL_TURN, wk_month=WORKING_MONTH):
+    def __init__(self, config, layout_config, layout):
         super().__init__()
+        self._config = config
         self._layout_config = layout_config
-        self._current_turn = 0
-        self._final_turn = final_turn
-        self._name = name
-        self._size = size
-        self._working_month = wk_month
         self._layout_list = layout
-        self._free_space = size - self._layout_list[0].required_space * len(layout)
-        self._fixed_cost_per_m2 = cost_per_m
+        self._current_turn = 0
+        # calculate space occupied by layouts and counte existing layouts
+        occupied_space = 0
+        self._layout_numbers = {
+            'Fixed Position Layout': 0,
+            'Process Layout': 0,
+            'Cellular Layout': 0,
+            'Line Layout': 0
+        }
+        count = 0
+        for lay in self._layout_list:
+            occupied_space += lay.required_space
+            if lay.name in self._layout_numbers:
+                self._layout_numbers[lay.name] += 1
+            # activate all layouts
+            self._layout_list[count].is_active = True
+            count += 1
+        self._free_space = config['size'] - occupied_space
+
         self._fixed_cost_archive = []
-        self._total_cost = size * cost_per_m
+        self._total_cost = config['size'] * config['fixed_cost_per_m2']
         self._current_tuc = 0
         self._production_capacity_archive = []
         self._material_capacity_archive = []
         self._production_archive = []
         self._staff_list = []
-        self._layout_numbers = {
-            'Fixed Position': 2,
-            'Process': 0,
-            'Cellular': 0,
-            'Line': 0
-        }
-
-        #activate first layout
-        self._layout_list[0].is_active = True
-        self._layout_list[1].is_active = True
 
     def add_layout_to_list(self, lay: Models.Layout.Production_Layout):
         self._layout_list.append(lay)

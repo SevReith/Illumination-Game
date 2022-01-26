@@ -28,8 +28,7 @@ class Main_Controller(QObject):
 
     def build_fixed_pos_layout(self):
         """creates a new Fixed Position Layout, adds it to the factories layout list and sets the building cost"""
-        name = 'Fixed Position Layout'
-        lay = Fixed_Position_Layout(name)
+        lay = Fixed_Position_Layout(self._model_factory._layout_config['Fixed_Position_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
         lay.activation_turn = self._model_factory.current_turn + lay.building_time
         lay.is_active = False
@@ -41,8 +40,7 @@ class Main_Controller(QObject):
 
     def build_process_layout(self):
         """creates a new Process Layout, adds it to the factories layout list and sets the building cost"""
-        name = 'Process Layout'
-        lay = Process_Layout(name)
+        lay = Process_Layout(self._model_factory._layout_config['Process_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
         lay.activation_turn = self._model_factory.current_turn + lay.building_time
         lay.is_active = False
@@ -54,8 +52,7 @@ class Main_Controller(QObject):
 
     def build_cellular_layout(self):
         """creates a new Cellular Layout, adds it to the factories layout list and sets the building cost"""
-        name = 'Cellular Layout'
-        lay = Cellular_Layout(name)
+        lay = Cellular_Layout(self._model_factory._layout_config['Cellular_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
         lay.activation_turn = self._model_factory.current_turn + lay.building_time
         lay.is_active = False
@@ -67,8 +64,7 @@ class Main_Controller(QObject):
 
     def build_line_layout(self):
         """creates a new Line Layout, adds it to the factories layout list and sets the building cost"""
-        name = 'Line Layout'
-        lay = Line_Layout(name)
+        lay = Line_Layout(self._model_factory._layout_config['Line_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
         lay.activation_turn = self._model_factory.current_turn + lay.building_time
         lay.is_active = False

@@ -3,7 +3,12 @@
 
     },
     "Factory":{
-
+        "name":"Illumination Factorium",
+        "fixed_cost_per_m2":15,
+        "size":100,
+        "working_month":140,
+        "final_turn":60,
+        "standard_build_cost_per_m2":1000
     },
     "Layout":{
         "Fixed_Position_Layout":{
