@@ -1,6 +1,8 @@
 {
     "Capital":{
-
+        "capital":10000,
+        "currency_name":"Euro",
+        "currency_sign":"€"
     },
     "Factory":{
         "name":"Illumination Factorium",
