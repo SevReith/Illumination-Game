@@ -45,7 +45,7 @@ class Game_App(QApplication):
         self.model_capital = Capital()
         self.model_layout = self.create_layouts()
         self.model_factory = Factory("Illumination Factorium", self.model_layout)
-        self.model_market = Market()
+        self.model_market = Market(self.config['Market'])
         self.model_material = self.create_materials(self.config['Material'])
         self.model_product = self.create_products(self.model_material, self.config['Product'])
         # initialize game controler

@@ -1,4 +1,21 @@
 {
+    "Capital":{
+
+    },
+    "Factory":{
+
+    },
+    "Layout":{
+
+    },
+    "Market":{
+        "winning_marketshare":0.3,
+        "marketvolume_annually":9000000000,
+        "average_yearly_marketvolume_growth_rate":0.0001,
+        "average_monthly_sales_growth_rate":0.05,
+        "forecast":0,
+        "sales_modifier":1
+    },
     "Material":{
         "Glass_Bulb":{
             "name":"Glass Bulb",
