@@ -175,7 +175,7 @@ class Halogen_Light(Product):
         for i in range(len(actual_bom)):
             # saves required amount and initial stock to the bom
             actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
-            actual_bom[i].amount = int(req_mat_list[f'{actual_bom[i].id}'] * config['init_stock'])
+            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
         super().__init__(config, actual_bom)
 
 
@@ -189,7 +189,7 @@ class LED_Light(Product):
         for i in range(len(actual_bom)):
             # saves required amount and initial stock to the bom
             actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
-            actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
+            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
             # print(f'req: {req_mat_list[f"{actual_bom[i].id}"]} stock: {actual_bom[i].amount}')
         super().__init__(config, actual_bom)
         
