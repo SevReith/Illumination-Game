@@ -6,52 +6,50 @@ class Production_Layout(QObject):
     layout_was_activated = pyqtSignal(bool)
     layout_size_changed = pyqtSignal(int)
 
-    WORKING_MONTH = 39 * 4
-
     @property
     def layout_name(self):
-        return self._layout_name
+        return self._config['name']
 
     @layout_name.setter
     def layout_name(self, name):
-        self._layout_name = name
+        self._config['name'] = name
 
     @property
     def size(self):
-        return self._size
+        return self._config['size']
 
     @size.setter
     def size(self, val):
-        self._size = val
+        self._config['size'] = val
         self.layout_size_changed.emit(val)
 
     @property
     def required_space(self):
-        return self._required_space
+        return self._config['size']
 
     @property
     def production_time_modifier(self):
-        return self._production_time_modifier
+        return self._config['standard_production_time_modifier']
 
     @production_time_modifier.setter
     def production_time_modifier(self, val):
-        self._production_time_modifier = val
+        self._config['standard_production_time_modifier'] = val
 
     @property
     def maintenance_cost_modifier(self):
-        return self._maintenance_cost_modifier
+        return self._config['standard_cost_modifier']
 
     @maintenance_cost_modifier.setter
     def maintenance_cost_modifier(self, val):
-        self._maintenance_cost_modifier = val
+        self._config['standard_cost_modifier'] = val
 
     @property
     def quality_modfier(self):
-        return self._quality_modifier
+        return self._config['standard_quality_modifier']
 
     @quality_modfier.setter
     def quality_modifier(self, val):
-        self._quality_modifier = val
+        self._config['standard_quality_modifier'] = val
 
     @property
     def is_active(self):
@@ -64,19 +62,19 @@ class Production_Layout(QObject):
 
     @property
     def building_cost(self):
-        return self._building_cost
+        return self._config['building_cost']
 
     @building_cost.setter
     def building_cost(self, val):
-        self._building_cost = val
+        self._config['building_cost'] = val
 
     @property
     def building_time(self):
-        return self._building_time
+        return self._config['building_time']
 
     @building_time.setter
     def building_time(self, val):
-        self._building_time = val
+        self._config['building_time'] = val
 
     @property
     def built_in_turn(self):
@@ -104,116 +102,86 @@ class Production_Layout(QObject):
 
     @property
     def max_number(self):
-        return self._max_number
+        return self._config['max_number']
 
     @max_number.setter
     def max_number(self, val):
-        self._max_number = val
+        self._config['max_number'] = val
 
-    def __init__(self, name, space, time_mod, cost_mod, qual_mod, cost=0, build_time=1, max_number = -1):
+    def __init__(self, config):
         super().__init__()
-        self._layout_name = name
-        self._required_space = space
-        self._size = space
-        self._production_time_modifier = time_mod
-        self._maintenance_cost_modifier = cost_mod
-        self._quality_modifier = qual_mod
+        self._config = config
         self._is_active = False
-        self._building_cost = cost
-        self._building_time = build_time
         self._built_in_turn = 0
         self._activation_turn = 0
         self._worker_list = []
         self._machinery_list = []
-        self._max_number = max_number
-
+        
     def calculate_tuc(self, work_time, prod_time):
         tuc = work_time / (prod_time * (1 + self.production_time_modifier))
         return tuc
 
 
 class Fixed_Position_Layout(Production_Layout):
-    """description of class"""
-    STANDARD_SIZE = 25
-    STANDARD_PROD_TIME_MODIFIER = 1.1
-    STANDARD_COST_MODIFIER = 5.3
-    STANDARD_QUALITY_MODIFIER = 2
-    BUILDING_COST = 7500
-    BUILDING_TIME = 2
+    """Fixed Position Layout Subclass."""
 
-    def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME)
+    def __init__(self, config):
+        super().__init__(config)
+        global STANDARD_SIZE, STANDARD_PROD_TIME_MODIFIER
+        STANDARD_SIZE = config['size']
+        STANDARD_PROD_TIME_MODIFIER = config['standard_production_time_modifier']
 
 
 class Process_Layout(Production_Layout):
     """standard process or job shop layout"""
 
-    STANDARD_SIZE = 60
-    STANDARD_PROD_TIME_MODIFIER = 0.05
-    STANDARD_COST_MODIFIER = 8.8
-    STANDARD_QUALITY_MODIFIER = 1.5
-    BUILDING_COST = 30000
-    BUILDING_TIME = 4
-    INIT_DEPARTMENTS = 3
-    DEPARTMENT_SIZE = 20
-    DEPARTMENT_BUILDING_COST = 6000
-    DEPARTMENT_BUILDING_TIME = 1
-    DEPARTMENT_PROD_BONUS = 0.4
-
     @property
     def departments(self):
-        return self._special_characteristics['departments']
+        return self._special_characteristics['init_departments']
 
     @departments.setter
     def departments(self, val):
-        self._special_characteristics['departments'] = val
+        self._special_characteristics['init_departments'] = val
 
     @property
     def department_size(self):
-        return self._special_characteristics['dep size']
+        return self._special_characteristics['dep_size']
 
     @department_size.setter
     def department_size(self, val):
-        self._special_characteristics['dep size'] = val
+        self._special_characteristics['dep_size'] = val
 
     @property
     def department_building_cost(self):
-        return self._special_characteristics['dep build cost']
+        return self._special_characteristics['dep_build_cost']
 
     @department_building_cost.setter
     def department_building_cost(self, val):
-        self._special_characteristics['dep build cost'] = val
+        self._special_characteristics['dep_build_cost'] = val
 
     @property
     def department_building_time(self):
-        return self._special_characteristics['dep build time']
+        return self._special_characteristics['dep_build_time']
 
     @property
     def department_production_bonus(self):
-        return self._special_characteristics['dep prod bonus']
+        return self._special_characteristics['ep_prod_bonus']
 
     @department_production_bonus.setter
     def department_production_bonus(self, val):
-        self._special_characteristics['dep prod bonus'] = val
+        self._special_characteristics['ep_prod_bonus'] = val
 
     @property
     def department_quality_bonus(self):
-        return self._special_characteristics['dep quality bonus']
+        return self._special_characteristics['dep_quality_bonus']
 
     @department_quality_bonus.setter
     def department_quality_bonus(self, val):
-        self._special_characteristics['dep quality bonus'] = val
+        self._special_characteristics['dep_quality_bonus'] = val
 
-    def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME, max_number = 1)
-        self._special_characteristics = {
-            'departments': self.INIT_DEPARTMENTS,
-            'dep size': self.DEPARTMENT_SIZE,
-            'dep build cost': self.DEPARTMENT_BUILDING_COST,
-            'dep build time': self.DEPARTMENT_BUILDING_TIME,
-            'dep prod bonus': self.DEPARTMENT_PROD_BONUS,
-            'dep quality bonus': 0.03
-            }
+    def __init__(self, config):
+        super().__init__(config)    
+        self._special_characteristics = config['departments']
 
     def calculate_tuc(self, work_time, prod_time):
         tuc = work_time / (prod_time * (1 + self.production_time_modifier))
@@ -224,72 +192,53 @@ class Process_Layout(Production_Layout):
 class Cellular_Layout(Production_Layout):
     """standard process or job shop layout"""
 
-    STANDARD_SIZE = 80
-    STANDARD_PROD_TIME_MODIFIER = -0.6
-    STANDARD_COST_MODIFIER = 19.2
-    STANDARD_QUALITY_MODIFIER = 1.0
-    BUILDING_COST = 75000
-    BUILDING_TIME = 7
-    INIT_DEPARTMENTS = 3
-    DEPARTMENT_SIZE = 25
-    DEPARTMENT_BUILDING_COST = 15000
-    DEPARTMENT_BUILDING_TIME = 1
-    DEPARTMENT_PROD_BONUS = 0.6
-
     @property
     def departments(self):
-        return self._special_characteristics['departments']
+        return self._special_characteristics['init_departments']
 
     @departments.setter
     def departments(self, val):
-        self._special_characteristics['departments'] = val
+        self._special_characteristics['init_departments'] = val
 
     @property
     def department_size(self):
-        return self._special_characteristics['dep size']
+        return self._special_characteristics['dep_size']
 
     @department_size.setter
     def department_size(self, val):
-        self._special_characteristics['dep size'] = val
+        self._special_characteristics['dep_size'] = val
 
     @property
     def department_building_cost(self):
-        return self._special_characteristics['dep build cost']
+        return self._special_characteristics['dep_build_cost']
 
     @department_building_cost.setter
     def department_building_cost(self, val):
-        self._special_characteristics['dep build cost'] = val
+        self._special_characteristics['dep_build_cost'] = val
 
     @property
     def department_building_time(self):
-        return self._special_characteristics['dep build time']
+        return self._special_characteristics['dep_build_time']
 
     @property
     def department_production_bonus(self):
-        return self._special_characteristics['dep prod bonus']
+        return self._special_characteristics['ep_prod_bonus']
 
     @department_production_bonus.setter
     def department_production_bonus(self, val):
-        self._special_characteristics['dep prod bonus'] = val
+        self._special_characteristics['ep_prod_bonus'] = val
 
     @property
     def department_quality_bonus(self):
-        return self._special_characteristics['dep quality bonus']
+        return self._special_characteristics['dep_quality_bonus']
 
     @department_quality_bonus.setter
     def department_quality_bonus(self, val):
-        self._special_characteristics['dep quality bonus'] = val
-    
-    def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME, max_number = 1)
-        self._special_characteristics = {
-            'departments': self.INIT_DEPARTMENTS,
-            'dep size': self.DEPARTMENT_SIZE,
-            'dep build cost': self.DEPARTMENT_BUILDING_COST,
-            'dep build time': self.DEPARTMENT_BUILDING_TIME,
-            'dep prod bonus': self.DEPARTMENT_PROD_BONUS,
-            'dep quality bonus': 0.03
-            }
+        self._special_characteristics['dep_quality_bonus'] = val
+
+    def __init__(self, config):
+        super().__init__(config)    
+        self._special_characteristics = config['departments']
 
     def calculate_tuc(self, work_time, prod_time):
         tuc = work_time / (prod_time * (1 + self.production_time_modifier))
@@ -300,12 +249,5 @@ class Cellular_Layout(Production_Layout):
 class Line_Layout(Production_Layout):
     """standard process or job shop layout"""
 
-    STANDARD_SIZE = 100
-    STANDARD_PROD_TIME_MODIFIER = -0.999
-    STANDARD_COST_MODIFIER = 32.1
-    STANDARD_QUALITY_MODIFIER = 0.9
-    BUILDING_COST = 1000000
-    BUILDING_TIME = 14
-    
-    def __init__(self, name, space=STANDARD_SIZE, time_mod=STANDARD_PROD_TIME_MODIFIER, cost_mod=STANDARD_COST_MODIFIER, qual_mod = STANDARD_QUALITY_MODIFIER):
-        super().__init__(name, space, time_mod, cost_mod, qual_mod, cost = self.BUILDING_COST, build_time = self.BUILDING_TIME)
+    def __init__(self, config):
+        super().__init__(config)

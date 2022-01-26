@@ -172,8 +172,9 @@ class Factory(QObject):
         self._layout_numbers['Line'] = val
         self.layout_nb_changed.emit(self._layout_numbers['Fixed Position'], self._layout_numbers['Process'], self._layout_numbers['Cellular'], val)
 
-    def __init__(self, name, layout, cost_per_m=FIXED_COST_PER_M2, size=STANDARD_SIZE_M2, final_turn=FINAL_TURN, wk_month=WORKING_MONTH):
+    def __init__(self, name, layout_config, layout, cost_per_m=FIXED_COST_PER_M2, size=STANDARD_SIZE_M2, final_turn=FINAL_TURN, wk_month=WORKING_MONTH):
         super().__init__()
+        self._layout_config = layout_config
         self._current_turn = 0
         self._final_turn = final_turn
         self._name = name

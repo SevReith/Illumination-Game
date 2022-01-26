@@ -24,9 +24,13 @@ class Factory_View(QMdiArea):
         self.load_layout_pictures()
         self.update_lbls_fix_line_info()
         self.update_lbl_process_info()
-        self.update_lbl_process_departments(False)
+        self.update_lbl_process_departments(False, self._model_factory._layout_config["Process_Layout"]["departments"]["init_departments"], self._model_factory._layout_config["Process_Layout"]["departments"]["dep_size"],
+            self._model_factory._layout_config["Process_Layout"]["departments"]["dep_build_time"], self._model_factory._layout_config["Process_Layout"]["departments"]["dep_build_cost"],
+            self._model_factory._layout_config["Process_Layout"]["departments"]["dep_prod_bonus"])
         self.update_lbl_cellular_info()
-        self.update_lbl_cellular_departments(False)
+        self.update_lbl_cellular_departments(False, self._model_factory._layout_config["Cellular_Layout"]["departments"]["init_departments"], self._model_factory._layout_config["Cellular_Layout"]["departments"]["dep_size"],
+            self._model_factory._layout_config["Cellular_Layout"]["departments"]["dep_build_time"], self._model_factory._layout_config["Cellular_Layout"]["departments"]["dep_build_cost"],
+            self._model_factory._layout_config["Cellular_Layout"]["departments"]["dep_prod_bonus"])
         self.update_fac_tab1_midright_lbl(self._model_factory.nb_fixed_position, self._model_factory.nb_process, self._model_factory.nb_cellular, self._model_factory.nb_line)
 
         # connect to factory model
@@ -46,22 +50,23 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_mid_right.setText(f'Layouts\n\nFixed Position:\t{fix}\nProcess:\t\t{pro}\nCellular:\t\t{cell}\nLine:\t\t{line}')
 
     def update_lbls_fix_line_info(self):
-        self._panel_factory.lbl_tab2_right.setText(f'Layout Effects\n\nProduction Time:\t{Fixed_Position_Layout.STANDARD_PROD_TIME_MODIFIER  * 100:.0f}%\
-            \nMaintenance Cost p.m\u00b2:\t{Fixed_Position_Layout.STANDARD_COST_MODIFIER * 100:.0f}%\nQuality Factor:\t\t{Fixed_Position_Layout.STANDARD_QUALITY_MODIFIER}')
-        self._panel_factory.lbl_tab2_left.setText(f'Requirements\n\nBuilding Cost:\t{Fixed_Position_Layout.BUILDING_COST:,}€\nBuilding Time:\t{Fixed_Position_Layout.BUILDING_TIME} turns\
-            \nSpace:\t\t{Fixed_Position_Layout.STANDARD_SIZE} m\u00b2')
-        self._panel_factory.lbl_tab5_right.setText(f'Layout Effects\n\nProduction Time:\t{Line_Layout.STANDARD_PROD_TIME_MODIFIER  * 100:.0f}%\nMaintenance Cost p.m\u00b2:\t{Line_Layout.STANDARD_COST_MODIFIER * 100:.0f}%')
-        self._panel_factory.lbl_tab5_left.setText(f'Requirements\n\nBuilding Cost:\t{Line_Layout.BUILDING_COST:,}€\nBuilding Time:\t{Line_Layout.BUILDING_TIME} turns\
-            \nSpace:\t\t{Line_Layout.STANDARD_SIZE} m\u00b2')
+        """Updates the info labels for fixed position and line layout. Data is taken from self._model_factory._layout_config"""
+        self._panel_factory.lbl_tab2_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_production_time_modifier"]  * 100:.0f}%\
+            \nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_cost_modifier"] * 100:.0f}%\nQuality Factor:\t\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_quality_modifier"]}')
+        self._panel_factory.lbl_tab2_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["building_time"]} turns\
+            \nSpace:\t\t{self._model_factory._layout_config["Fixed_Position_Layout"]["size"]} m\u00b2')
+        self._panel_factory.lbl_tab5_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Line_Layout"]["standard_production_time_modifier"]  * 100:.0f}%\nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Line_Layout"]["standard_cost_modifier"] * 100:.0f}%')
+        self._panel_factory.lbl_tab5_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Line_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Line_Layout"]["building_time"]} turns\
+            \nSpace:\t\t{self._model_factory._layout_config["Line_Layout"]["size"]} m\u00b2')
 
     def update_lbl_process_info(self):
-        self._panel_factory.lbl_tab3_right.setText(f'Layout Effects\n\nProduction Time:\t{Process_Layout.STANDARD_PROD_TIME_MODIFIER  * 100:.0f}%\
-            \nMaintenance Cost p.m\u00b2:\t{Process_Layout.STANDARD_COST_MODIFIER * 100:.0f}%\nQuality Factor:\t\t{Process_Layout.STANDARD_QUALITY_MODIFIER}')
-        self._panel_factory.lbl_tab3_left.setText(f'Requirements\n\nBuilding Cost:\t{Process_Layout.BUILDING_COST:,}€\nBuilding Time:\t{Process_Layout.BUILDING_TIME} turns\
-            \nSpace:\t\t{Process_Layout.STANDARD_SIZE} m\u00b2')
+        """Updates the info labels for process layout. Data is taken from self._model_factory._layout_config"""
+        self._panel_factory.lbl_tab3_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Process_Layout"]["standard_production_time_modifier"] * 100:.0f}%\
+            \nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Process_Layout"]["standard_cost_modifier"] * 100:.0f}%\nQuality Factor:\t\t{self._model_factory._layout_config["Process_Layout"]["standard_quality_modifier"]}')
+        self._panel_factory.lbl_tab3_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Process_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Process_Layout"]["building_time"]} turns\
+            \nSpace:\t\t{self._model_factory._layout_config["Process_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_process_departments(self, flag, number_of_dept = Process_Layout.INIT_DEPARTMENTS, dept_size = Process_Layout.DEPARTMENT_SIZE,
-    dept_time = Process_Layout.DEPARTMENT_BUILDING_TIME, dept_cost = Process_Layout.DEPARTMENT_BUILDING_COST, prod_bonus = Process_Layout.DEPARTMENT_PROD_BONUS):
+    def update_lbl_process_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus):
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
@@ -70,26 +75,26 @@ class Factory_View(QMdiArea):
             \nBuilding Time:\t\t{dept_time} month\nBuilding Cost:\t\t{dept_cost:,}€\nProduction Bonus:\t{prod_bonus * 100}%')
 
     def update_lbl_cellular_info(self):
-        self._panel_factory.lbl_tab4_right.setText(f'Layout Effects\n\nProduction Time:\t{Cellular_Layout.STANDARD_PROD_TIME_MODIFIER  * 100:.0f}%\nMaintenance Cost p.m\u00b2:\t{Cellular_Layout.STANDARD_COST_MODIFIER * 100:.0f}%')
-        self._panel_factory.lbl_tab4_left.setText(f'Requirements\n\nBuilding Cost:\t{Cellular_Layout.BUILDING_COST:,}€\nBuilding Time:\t{Cellular_Layout.BUILDING_TIME} turns\
-            \nSpace:\t\t{Cellular_Layout.STANDARD_SIZE} m\u00b2')
+        self._panel_factory.lbl_tab4_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Cellular_Layout"]["standard_production_time_modifier"]  * 100:.0f}%\nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Cellular_Layout"]["standard_cost_modifier"] * 100:.0f}%')
+        self._panel_factory.lbl_tab4_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Cellular_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Cellular_Layout"]["building_time"]} turns\
+            \nSpace:\t\t{self._model_factory._layout_config["Cellular_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_cellular_departments(self, flag, number_of_dept = Cellular_Layout.INIT_DEPARTMENTS, dept_size = Cellular_Layout.DEPARTMENT_SIZE,
-    dept_time = Cellular_Layout.DEPARTMENT_BUILDING_TIME, dept_cost = Cellular_Layout.DEPARTMENT_BUILDING_COST, prod_bonus = Cellular_Layout.DEPARTMENT_PROD_BONUS):
+    def update_lbl_cellular_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus):
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
-            number_of_dept, dept_size, dept_time, dept_cost, prod_bonus = self._controller_layout.collect_cellular_info()
+           number_of_dept, dept_size, dept_time, dept_cost, prod_bonus = self._controller_layout.collect_cellular_info()
         self._panel_factory.lbl_tab4_right_dept.setText(f'Departments:\t\t{number_of_dept}\nDepartment Size:\t{dept_size} m\u00b2\
             \nBuilding Time:\t\t{dept_time} month\nBuilding Cost:\t\t{dept_cost:,}€\nProduction Bonus:\t{prod_bonus * 100}%')
 
     def build_fixed_pos_layout_clicked(self, free_space, funds, credit_limit = 10000):
-        req_space = Fixed_Position_Layout.STANDARD_SIZE
-        cost = Fixed_Position_Layout.BUILDING_COST
+        """Check wether the player really wants and CAN build the new layout."""
+        req_space = self._model_factory._layout_config["Fixed_Position_Layout"]["size"]
+        cost = self._model_factory._layout_config["Fixed_Position_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
         if cost_flag and space_flag:
-            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {Fixed_Position_Layout.BUILDING_TIME} months for completion. Are you sure?',
+            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Fixed_Position_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
         elif not cost_flag:
@@ -99,12 +104,13 @@ class Factory_View(QMdiArea):
         return False
 
     def build_process_layout_clicked(self, free_space, funds, credit_limit = 10000):
-        req_space = Process_Layout.STANDARD_SIZE
-        cost = Process_Layout.BUILDING_COST
+        """Check wether the player really wants and CAN build the new layout."""
+        req_space = self._model_factory._layout_config["Process_Layout"]["size"]
+        cost = self._model_factory._layout_config["Process_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
         if cost_flag and space_flag:
-            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {Process_Layout.BUILDING_TIME} months for completion. Are you sure?',
+            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Process_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
         elif not cost_flag:
@@ -114,12 +120,13 @@ class Factory_View(QMdiArea):
         return False
 
     def build_cellular_layout_clicked(self, free_space, funds, credit_limit = 10000):
-        req_space = Cellular_Layout.STANDARD_SIZE
-        cost = Cellular_Layout.BUILDING_COST
+        """Check wether the player really wants and CAN build the new layout."""
+        req_space = self._model_factory._layout_config["Cellular_Layout"]["size"]
+        cost = self._model_factory._layout_config["Cellular_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
         if cost_flag and space_flag:
-            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {Cellular_Layout.BUILDING_TIME} months for completion. Are you sure?',
+            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Cellular_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
         elif not cost_flag:
@@ -129,12 +136,13 @@ class Factory_View(QMdiArea):
         return False
 
     def build_line_layout_clicked(self, free_space, funds, credit_limit = 10000):
-        req_space = Line_Layout.STANDARD_SIZE
-        cost = Line_Layout.BUILDING_COST
+        """Check wether the player really wants and CAN build the new layout."""
+        req_space = self._model_factory._layout_config["Line_Layout"]["size"]
+        cost = self._model_factory._layout_config["Line_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
         if cost_flag and space_flag:
-            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {Line_Layout.BUILDING_TIME} months for completion. Are you sure?',
+            reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Line_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
         elif not cost_flag:

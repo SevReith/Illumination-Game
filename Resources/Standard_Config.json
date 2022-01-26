@@ -6,7 +6,66 @@
 
     },
     "Layout":{
-
+        "Fixed_Position_Layout":{
+            "name":"Fixed Position Layout",
+            "id":1000,
+            "size":25,
+            "standard_production_time_modifier":1.1,
+            "standard_cost_modifier":5.3,
+            "standard_quality_modifier":2,
+            "building_cost":7500,
+            "building_time":2,
+            "max_number":-1
+        },
+        "Process_Layout":{
+            "name":"Process Layout",
+            "id":1001,
+            "size":25,
+            "standard_production_time_modifier":0.05,
+            "standard_cost_modifier":8.8,
+            "standard_quality_modifier":1.5,
+            "building_cost":30000,
+            "building_time":4,
+            "max_number":1,
+            "departments":{
+                "init_departments": 3,
+                "dep_size": 20,
+                "dep_build_cost": 6000,
+                "dep_build_time": 1,
+                "dep_prod_bonus": 0.4,
+                "dep_quality_bonus": 0.03
+            }
+        },
+        "Cellular_Layout":{
+            "name":"Cellular Layout",
+            "id":1002,
+            "size":80,
+            "standard_production_time_modifier":-0.6,
+            "standard_cost_modifier":19.2,
+            "standard_quality_modifier":1.0,
+            "building_cost":75000,
+            "building_time":7,
+            "max_number":1,
+            "departments":{
+                "init_departments": 3,
+                "dep_size": 25,
+                "dep_build_cost": 15000,
+                "dep_build_time": 1,
+                "dep_prod_bonus": 0.6,
+                "dep_quality_bonus": 0.03
+            }
+        },
+        "Line_Layout":{
+            "name":"Line Layout",
+            "id":1000,
+            "size":100,
+            "standard_production_time_modifier":-0.999,
+            "standard_cost_modifier":32.1,
+            "standard_quality_modifier":0.9,
+            "building_cost":1000000,
+            "building_time":14,
+            "max_number":-1
+        }
     },
     "Market":{
         "winning_marketshare":0.3,
@@ -137,7 +196,7 @@
             "base_quality":0.7,
             "volume":0.001,
             "production_time":0.0583333,
-            "init_prize":5.0,
+            "init_prize":4.0,
             "init_stock":1000,
             "licence_cost":0,
             "bom":{

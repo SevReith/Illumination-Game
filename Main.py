@@ -7,8 +7,8 @@ from Models.Capital import Capital
 from Models.Factory import Factory
 from Models.Layout import Fixed_Position_Layout
 from Models.Market import Market
-from Models.Material import *
-from Models.Product import Halogen_Light, LED_Light, Light_Bulb
+from Models.Material import * # they are used in def create_materials
+from Models.Product import Halogen_Light, LED_Light, Light_Bulb # they are used in def create_products
 from Views.Main_View import Main_View
 from Views.Capital_View import Capital_View
 from Views.Factory_View import Factory_View
@@ -43,8 +43,8 @@ class Game_App(QApplication):
         super(Game_App, self).__init__(sys_argv)
         # initialize game model
         self.model_capital = Capital()
-        self.model_layout = self.create_layouts()
-        self.model_factory = Factory("Illumination Factorium", self.model_layout)
+        self.model_layout = self.create_layouts(self.config['Layout'])
+        self.model_factory = Factory("Illumination Factorium", self.config['Layout'], self.model_layout)
         self.model_market = Market(self.config['Market'])
         self.model_material = self.create_materials(self.config['Material'])
         self.model_product = self.create_products(self.model_material, self.config['Product'])
@@ -65,11 +65,11 @@ class Game_App(QApplication):
         # show main window
         self.main_view.show()
 
-    def create_layouts(self):
+    def create_layouts(self, config):
         """Create the starter layouts. returns a list of these layouts."""
         lay_list = []
-        lay_list.append(Fixed_Position_Layout('Fixed Position Layout'))
-        lay_list.append(Fixed_Position_Layout('Fixed Position Layout'))
+        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
+        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
         return lay_list
 
     def create_materials(self, config):
