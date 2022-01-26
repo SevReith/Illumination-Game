@@ -76,6 +76,7 @@ class Game_App(QApplication):
         """Create the starker materials. returns a list of these materials."""
         mat_list = []
         for mat in config:
+            # call the material constructor out of the global list, with the names from the config file
             material_constructor = globals()[mat]
             mat_list.append(material_constructor(config[mat]))
         return mat_list
@@ -84,6 +85,7 @@ class Game_App(QApplication):
         """Create the starker products. returns a list of these products."""
         prod_list = []
         for prod in config:
+            # call the product constructor out of the global list, with the names from the config file
             product_Constructor = globals()[prod]
             prod_list.append(product_Constructor(config[f'{prod}'], material_list))
         prod_list[0].is_active = True
