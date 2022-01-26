@@ -86,6 +86,14 @@ class Factory(QObject):
         self.factory_characteristics_changed.emit(self.size, self.free_space, self.total_cost, value)
 
     @property
+    def build_cost_per_m2(self):
+        return self._config['standard_build_cost_per_m2']
+
+    @build_cost_per_m2.setter
+    def build_cost_per_m2(self, val):
+        self._config['standard_build_cost_per_m2'] = val
+
+    @property
     def fixed_cost_archive(self):
         return self._fixed_cost_archive
 

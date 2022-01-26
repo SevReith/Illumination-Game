@@ -104,23 +104,16 @@ class Market_View(QMdiArea):
         self._panel_market.lbl_sales_last_month.setText(f'{sales1:,}')
         self._panel_market.lbl_sales_2months.setText(f'{sales2:,}')
 
-    def update_lbls_material_price(self):
-        prod = self._controller_product.get_active_product_index()
-        self._panel_market.lbl_mat_price1.setText(f'{self._model_product[prod].bill_of_materials[0].price}{self._model_capital.currency_sign}')
-        self._panel_market.lbl_mat_price2.setText(f'{self._model_product[prod].bill_of_materials[1].price}{self._model_capital.currency_sign}')
-        self._panel_market.lbl_mat_price3.setText(f'{self._model_product[prod].bill_of_materials[2].price}{self._model_capital.currency_sign}')
-        self._panel_market.lbl_mat_price4.setText(f'{self._model_product[prod].bill_of_materials[3].price}{self._model_capital.currency_sign}')
-        self._panel_market.lbl_mat_price5.setText(f'{self._model_product[prod].bill_of_materials[4].price}{self._model_capital.currency_sign}')
-        self._panel_market.lbl_mat_price6.setText(f'{self._model_product[prod].bill_of_materials[5].price}{self._model_capital.currency_sign}')
+    # def update_lbls_material_price(self):
+    #     prod = self._controller_product.get_active_product_index()
+    #     self._panel_market.lbl_mat_price1.setText(f'{self._model_product[prod].bill_of_materials[0].price}{self._model_capital.currency_sign}')
+    #     self._panel_market.lbl_mat_price2.setText(f'{self._model_product[prod].bill_of_materials[1].price}{self._model_capital.currency_sign}')
+    #     self._panel_market.lbl_mat_price3.setText(f'{self._model_product[prod].bill_of_materials[2].price}{self._model_capital.currency_sign}')
+    #     self._panel_market.lbl_mat_price4.setText(f'{self._model_product[prod].bill_of_materials[3].price}{self._model_capital.currency_sign}')
+    #     self._panel_market.lbl_mat_price5.setText(f'{self._model_product[prod].bill_of_materials[4].price}{self._model_capital.currency_sign}')
+    #     self._panel_market.lbl_mat_price6.setText(f'{self._model_product[prod].bill_of_materials[5].price}{self._model_capital.currency_sign}')
 
     def update_lbls_material_name(self):
-        # prod = self._controller_product.get_active_product_index()
-        # self._panel_market.lbl_txt_mat1.setText(f'{self._model_product[prod].bill_of_materials[0].name}:')
-        # self._panel_market.lbl_txt_mat2.setText(f'{self._model_product[prod].bill_of_materials[1].name}:')
-        # self._panel_market.lbl_txt_mat3.setText(f'{self._model_product[prod].bill_of_materials[2].name}:')
-        # self._panel_market.lbl_txt_mat4.setText(f'{self._model_product[prod].bill_of_materials[3].name}:')
-        # self._panel_market.lbl_txt_mat5.setText(f'{self._model_product[prod].bill_of_materials[4].name}:')
-        # self._panel_market.lbl_txt_mat6.setText(f'{self._model_product[prod].bill_of_materials[5].name}:')
         materials_in_use = []
         for prod in self._model_product:
             for mat in prod.bill_of_materials:

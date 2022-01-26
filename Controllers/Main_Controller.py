@@ -80,7 +80,7 @@ class Main_Controller(QObject):
         for i in range(length):
             if not self._model_factory.layout_list[i].is_active and self._model_factory.layout_list[i].activation_turn == self._model_factory.current_turn:
                 self._model_factory.layout_list[i].is_active = True
-                info_text = f'A new {self._model_factory.layout_list[i].layout_name} has been finished and is ready for production!'
+                info_text = f'A new {self._model_factory.layout_list[i].name} has been finished and is ready for production!'
                 self.display_notification_message('Layout built!', info_text)
 
     def build_factory_space(self, size, cost):
@@ -93,7 +93,7 @@ class Main_Controller(QObject):
     def destroy_layout(self, name):
         """Check if layout exists with name. Delete if existing and adjust counter."""
         for i in range(len(self._model_factory.layout_list)):
-            if self._model_factory.layout_list[i].layout_name == name:
+            if self._model_factory.layout_list[i].name == name:
                 self._model_factory.free_space += self._model_factory.layout_list[i].required_space
                 del self._model_factory.layout_list[i]
                 if name == 'Fixed Position Layout':

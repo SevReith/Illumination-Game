@@ -161,7 +161,7 @@ class Main_View(QMainWindow):
     def sub_btn_increase_factory_clicked(self):
         """adds a specified number of m2 to the factories size. 
         returns the new size and the building cost."""
-        size, cost = self._view_factory.increase_factory(self._model_factory.STANDARD_ADD_COST_M2, self._model_capital.currency_sign, 
+        size, cost = self._view_factory.increase_factory(self._model_factory.build_cost_per_m2, self._model_capital.currency_sign, 
                                                          self._model_capital.amount)
         self._controller_main.build_factory_space(size, cost)
 

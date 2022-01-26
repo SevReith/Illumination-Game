@@ -35,14 +35,14 @@ class Game_App(QApplication):
         path = os.path.join(self.root_directory, 'Resources','Standard_Config.json')
         self.config = None
         if os.path.exists(path):
-            with open(path) as config_file:
+            with open(path, encoding='utf-8') as config_file:
                 self.config = json.load(config_file)
         else:
             sys.exit('Error: Configuration File could not be loaded!')
 
         super(Game_App, self).__init__(sys_argv)
         # initialize game model
-        self.model_capital = Capital()
+        self.model_capital = Capital(self.config['Capital'])
         self.model_layout = self.create_layouts(self.config['Layout'])
         self.model_factory = Factory(self.config['Factory'], self.config['Layout'], self.model_layout)
         self.model_market = Market(self.config['Market'])
