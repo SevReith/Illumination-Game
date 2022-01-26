@@ -85,7 +85,7 @@ class Game_App(QApplication):
         prod_list = []
         for prod in config:
             product_Constructor = globals()[prod]
-            prod_list.append(product_Constructor(material_list))
+            prod_list.append(product_Constructor(config[f'{prod}'], material_list))
         prod_list[0].is_active = True
         return prod_list
 
