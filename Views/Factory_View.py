@@ -38,18 +38,18 @@ class Factory_View(QMdiArea):
         
 
     @pyqtSlot(str)
-    def update_fac_tab1_top_lbl(self, text):
+    def update_fac_tab1_top_lbl(self, text) -> None:
         self._panel_factory.lbl_top.setText(text)
 
     @pyqtSlot(int)
-    def update_fac_tab1_midleft_lbl(self, size, free_size, total_cost, fixed_cost, cur_sign):
+    def update_fac_tab1_midleft_lbl(self, size, free_size, total_cost, fixed_cost, cur_sign) -> None:
         self._panel_factory.lbl_mid_left.setText(f'Factory Size:\t{size} m\u00b2\nAvailable Space: \t{free_size} m\u00b2 \n\nTotal fixed Cost:\t{total_cost:,}{cur_sign} \nCost per m\u00b2:\t{fixed_cost:,}{cur_sign}')
 
     @pyqtSlot(int, int, int, int)
-    def update_fac_tab1_midright_lbl(self, fix, pro, cell, line):
+    def update_fac_tab1_midright_lbl(self, fix, pro, cell, line) -> None:
         self._panel_factory.lbl_mid_right.setText(f'Layouts\n\nFixed Position:\t{fix}\nProcess:\t\t{pro}\nCellular:\t\t{cell}\nLine:\t\t{line}')
 
-    def update_lbls_fix_line_info(self):
+    def update_lbls_fix_line_info(self) -> None:
         """Updates the info labels for fixed position and line layout. Data is taken from self._model_factory._layout_config"""
         self._panel_factory.lbl_tab2_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_production_time_modifier"]  * 100:.0f}%\
             \nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_cost_modifier"] * 100:.0f}%\nQuality Factor:\t\t{self._model_factory._layout_config["Fixed_Position_Layout"]["standard_quality_modifier"]}')
@@ -59,14 +59,14 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_tab5_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Line_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Line_Layout"]["building_time"]} turns\
             \nSpace:\t\t{self._model_factory._layout_config["Line_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_process_info(self):
+    def update_lbl_process_info(self) -> None:
         """Updates the info labels for process layout. Data is taken from self._model_factory._layout_config"""
         self._panel_factory.lbl_tab3_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Process_Layout"]["standard_production_time_modifier"] * 100:.0f}%\
             \nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Process_Layout"]["standard_cost_modifier"] * 100:.0f}%\nQuality Factor:\t\t{self._model_factory._layout_config["Process_Layout"]["standard_quality_modifier"]}')
         self._panel_factory.lbl_tab3_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Process_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Process_Layout"]["building_time"]} turns\
             \nSpace:\t\t{self._model_factory._layout_config["Process_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_process_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus):
+    def update_lbl_process_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus) -> None:
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
@@ -74,12 +74,12 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_tab3_right_dept.setText(f'Departments:\t\t{number_of_dept}\nDepartment Size:\t{dept_size} m\u00b2\
             \nBuilding Time:\t\t{dept_time} month\nBuilding Cost:\t\t{dept_cost:,}€\nProduction Bonus:\t{prod_bonus * 100}%')
 
-    def update_lbl_cellular_info(self):
+    def update_lbl_cellular_info(self) -> None:
         self._panel_factory.lbl_tab4_right.setText(f'Layout Effects\n\nProduction Time:\t{self._model_factory._layout_config["Cellular_Layout"]["standard_production_time_modifier"]  * 100:.0f}%\nMaintenance Cost p.m\u00b2:\t{self._model_factory._layout_config["Cellular_Layout"]["standard_cost_modifier"] * 100:.0f}%')
         self._panel_factory.lbl_tab4_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Cellular_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Cellular_Layout"]["building_time"]} turns\
             \nSpace:\t\t{self._model_factory._layout_config["Cellular_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_cellular_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus):
+    def update_lbl_cellular_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus) -> None:
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
@@ -87,7 +87,7 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_tab4_right_dept.setText(f'Departments:\t\t{number_of_dept}\nDepartment Size:\t{dept_size} m\u00b2\
             \nBuilding Time:\t\t{dept_time} month\nBuilding Cost:\t\t{dept_cost:,}€\nProduction Bonus:\t{prod_bonus * 100}%')
 
-    def build_fixed_pos_layout_clicked(self, free_space, funds, credit_limit = 10000):
+    def build_fixed_pos_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
         """Check wether the player really wants and CAN build the new layout."""
         req_space = self._model_factory._layout_config["Fixed_Position_Layout"]["size"]
         cost = self._model_factory._layout_config["Fixed_Position_Layout"]["building_cost"]
@@ -103,7 +103,7 @@ class Factory_View(QMdiArea):
             self.show_message_space(req_space)
         return False
 
-    def build_process_layout_clicked(self, free_space, funds, credit_limit = 10000):
+    def build_process_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
         """Check wether the player really wants and CAN build the new layout."""
         req_space = self._model_factory._layout_config["Process_Layout"]["size"]
         cost = self._model_factory._layout_config["Process_Layout"]["building_cost"]
@@ -119,7 +119,7 @@ class Factory_View(QMdiArea):
             self.show_message_space(req_space)
         return False
 
-    def build_cellular_layout_clicked(self, free_space, funds, credit_limit = 10000):
+    def build_cellular_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
         """Check wether the player really wants and CAN build the new layout."""
         req_space = self._model_factory._layout_config["Cellular_Layout"]["size"]
         cost = self._model_factory._layout_config["Cellular_Layout"]["building_cost"]
@@ -135,7 +135,7 @@ class Factory_View(QMdiArea):
             self.show_message_space(req_space)
         return False
 
-    def build_line_layout_clicked(self, free_space, funds, credit_limit = 10000):
+    def build_line_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
         """Check wether the player really wants and CAN build the new layout."""
         req_space = self._model_factory._layout_config["Line_Layout"]["size"]
         cost = self._model_factory._layout_config["Line_Layout"]["building_cost"]
@@ -151,7 +151,7 @@ class Factory_View(QMdiArea):
             self.show_message_space(req_space)
         return False
 
-    def increase_factory(self, build_cost, cur_sign, funds, credit_limit = 10000):
+    def increase_factory(self, build_cost, cur_sign, funds, credit_limit = 10000) -> int:
         """Opens Input dialog. Collects size (int) to add to factory size"""
         size, ok = QInputDialog.getText(self, 'Expand the Main Building?', 'How much more space do you want to build?')
         if ok:
@@ -205,7 +205,7 @@ class Factory_View(QMdiArea):
          else:
              return False, ''
 
-    def add_dept_process(self, free_space, funds, credit_limit = 10000):
+    def add_dept_process(self, free_space:int, funds:float, credit_limit:int = 10000) -> int:
         """Check if the player want and can build a new department.
         Returns the cost, if true. Else returns -1."""
         i = self._controller_layout.find_process_layout_index()
@@ -230,7 +230,7 @@ class Factory_View(QMdiArea):
             self.show_message_not_found('Process Layout')
         return -1, -1
 
-    def add_dept_cellular(self, free_space, funds, credit_limit = 10000):
+    def add_dept_cellular(self, free_space:int, funds:float, credit_limit:int = 10000) -> int:
         """Check if the player want and can build a new department.
         Returns the cost, if true. Else returns -1."""
         i = self._controller_layout.find_cellular_layout_index()
@@ -255,7 +255,7 @@ class Factory_View(QMdiArea):
             self.show_message_not_found('Cellular Layout')
         return -1, -1        
 
-    def show_message_funds(self, cost):
+    def show_message_funds(self, cost:int) -> None:
         """displays a messagebox. takes cost"""
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -264,7 +264,7 @@ class Factory_View(QMdiArea):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
-    def show_message_space(self, space):
+    def show_message_space(self, space:int) -> None:
         """displays a messagebox. takes space"""
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -273,7 +273,7 @@ class Factory_View(QMdiArea):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
-    def show_message_not_found(self, text):
+    def show_message_not_found(self, text:str) -> None:
         """displays a messagebox. takes a string"""
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -282,7 +282,7 @@ class Factory_View(QMdiArea):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
 
-    def load_layout_pictures(self):
+    def load_layout_pictures(self) -> None:
         """Set the layout pictures as pixmaps within the specified labels."""
         names = ['Fixed_Position_Layout', 'Process_Layout', 'Cellular_Layout', 'Line_Layout']
         for i in range(len(names)):

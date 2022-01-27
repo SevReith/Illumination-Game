@@ -191,14 +191,14 @@ class Main_Controller(QObject):
             self._model_market.yearly_summary_flag = True
             self.generate_yearly_marketvolume_growth()
 
-    def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1) -> None:
+    def generate_yearly_marketvolume_growth(self, min:int=90, max:int=130, step:int=1) -> None:
         """calculates marketvolume growth between -10% and +30% randomly per year. stores the new volume yearly and monthly"""
         marketvolume = self._model_market.marketvolume_annually * \
             (self.random_number_generater.randrange(min, max, step) / 100)
         self._model_market.total_marketvolume_p_month = marketvolume / 12
         self._model_market.marketvolume_annually = marketvolume
 
-    def generate_sales_forecast(self, min=95, max=125, step=1) -> None:
+    def generate_sales_forecast(self, min:int=95, max:int=125, step:int=1) -> None:
         """generates random forecast bewtween min and max."""
         sales = self._model_market.get_last_month_sales_units() if not self._model_factory.current_turn == 0 else self._model_factory.current_tuc
         sales = self._model_factory.current_tuc / 4 if sales == 0 else sales
@@ -207,7 +207,7 @@ class Main_Controller(QObject):
         self._model_market.add_item_to_forecasted_archive(forecast)
         self._model_market.forecasted_sales = forecast
 
-    def generate_sales_modifier(self, price_influencer, min=96, max=125, step=1) -> int:
+    def generate_sales_modifier(self, price_influencer:float, min:int=96, max:int=125, step:int=1) -> int:
         """takes the latest forecast with price influencer and applies a random sales modifier to it (96-125%)
         returns modified sales -> int"""
         fc = self._model_market.get_last_forecast()
@@ -215,7 +215,7 @@ class Main_Controller(QObject):
         self._model_market.sales_modifier = sales_modifier
         return int((fc + (price_influencer * fc)) * sales_modifier)
 
-    def calculate_end_turn_helper(self, stock, price, price_influencer, prod_time) -> None:
+    def calculate_end_turn_helper(self, stock:int, price:float, price_influencer:float, prod_time:float) -> None:
         # buy materials before calculating production
         self.check_for_layout_activation()
         mats_to_buy = self._model_factory.current_tuc if not self._controller_product._model_product[0].production_goal_flag else self._controller_product._model_product[0].production_goal
@@ -248,7 +248,7 @@ class Main_Controller(QObject):
         if self.tutorial_flag:
             self.open_tutorial_pdfs(self._model_factory.current_turn)
 
-    def calculate_turn_end(self, stock, price, price_influencer, prod_time) -> None:
+    def calculate_turn_end(self, stock:int, price:float, price_influencer:float, prod_time:float) -> None:
         """end the current turn. updates turn counter and calls game update functions"""
         # check winning condicton
         if self.check_winning_condition():
