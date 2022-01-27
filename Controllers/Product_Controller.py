@@ -17,7 +17,7 @@ class Product_Controller(QObject):
 
         self.calculate_sales_price_influencer()
 
-    def get_active_product_index(self):
+    def get_active_product_index(self) -> int:
         """Loop over product list and return the index of active product. 
         Returns -1 if nothing is found."""
         i = 0
@@ -28,9 +28,9 @@ class Product_Controller(QObject):
             return -1
 
     @pyqtSlot(float)
-    def calculate_sales_price_influencer(self):
-        active_prod = self.get_active_product_index()
+    def calculate_sales_price_influencer(self) -> None:
         """calculates the sales price influencer as proportion of sales price to actual value."""
+        active_prod = self.get_active_product_index()        
         difference = 1 - self._model_product[active_prod].sales_price / self._model_product[active_prod].actual_value 
         if difference <= - 1:
             #difference larger than -1 results in 100% less sales
@@ -50,11 +50,11 @@ class Product_Controller(QObject):
             self._model_product[active_prod].sales_price_influencer = 1            
     
     @pyqtSlot(float)
-    def calculate_actual_value(self):
+    def calculate_actual_value(self) -> None:
         active_prod = self.get_active_product_index()
-        self._model_product[active_prod].actual_value = self._model_product[active_prod].base_value * 1 + self._model_product[active_prod].base_quality
+        self._model_product[active_prod].actual_value = self._model_product[active_prod].base_value * (1 + self._model_product[active_prod].base_quality)
 
-    def calculate_unit_capacity(self):
+    def calculate_unit_capacity(self) -> int:
         """calculates the uc (how much can be produced with available material). return uc (int)"""
         uc = 9999999999
         active_prod = self.get_active_product_index()
@@ -64,14 +64,14 @@ class Product_Controller(QObject):
                 uc = stock
         return int(uc)
 
-    def reduce_material_stocks(self, produced):
+    def reduce_material_stocks(self, produced) -> None:
         """reduces the material stock in all bom-items."""
         active_prod = self.get_active_product_index()
         length = len(self._model_product[active_prod].bill_of_materials)
         for i in range(length):
             self._model_product[active_prod].bill_of_materials[i].amount -= produced * self._model_product[active_prod].bill_of_materials[i].required_amount
 
-    def increase_material_stocks(self, tuc):
+    def increase_material_stocks(self, tuc) -> float:
         """Buy enough material for either the TUC or production goal.
         Return raw material cost --> float"""
         active_prod = self.get_active_product_index()
@@ -88,7 +88,7 @@ class Product_Controller(QObject):
         self._model_product[active_prod].material_cost_archive = cost_archive
         return cost
 
-    def activate_product(self, prod):
+    def activate_product(self, prod) -> None:
         old_prod = self.get_active_product_index()
         self._model_product[old_prod].is_active = False
         self._model_product[prod].is_active = True

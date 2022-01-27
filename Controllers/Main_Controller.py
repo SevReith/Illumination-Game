@@ -26,7 +26,7 @@ class Main_Controller(QObject):
         # create first forecast
         self.calculate_fixed_cost()
 
-    def build_fixed_pos_layout(self):
+    def build_fixed_pos_layout(self) -> None:
         """creates a new Fixed Position Layout, adds it to the factories layout list and sets the building cost"""
         lay = Fixed_Position_Layout(self._model_factory._layout_config['Fixed_Position_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
@@ -38,7 +38,7 @@ class Main_Controller(QObject):
         self._model_capital.amount -= lay.building_cost
         self._model_capital.current_building_cost += lay.building_cost
 
-    def build_process_layout(self):
+    def build_process_layout(self) -> None:
         """creates a new Process Layout, adds it to the factories layout list and sets the building cost"""
         lay = Process_Layout(self._model_factory._layout_config['Process_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
@@ -50,7 +50,7 @@ class Main_Controller(QObject):
         self._model_capital.amount -= lay.building_cost
         self._model_capital.current_building_cost += lay.building_cost
 
-    def build_cellular_layout(self):
+    def build_cellular_layout(self) -> None:
         """creates a new Cellular Layout, adds it to the factories layout list and sets the building cost"""
         lay = Cellular_Layout(self._model_factory._layout_config['Cellular_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
@@ -62,7 +62,7 @@ class Main_Controller(QObject):
         self._model_capital.amount -= lay.building_cost
         self._model_capital.current_building_cost += lay.building_cost
 
-    def build_line_layout(self):
+    def build_line_layout(self) -> None:
         """creates a new Line Layout, adds it to the factories layout list and sets the building cost"""
         lay = Line_Layout(self._model_factory._layout_config['Line_Layout'])
         lay.built_in_turn = self._model_factory.current_turn
@@ -74,7 +74,7 @@ class Main_Controller(QObject):
         self._model_capital.amount -= lay.building_cost
         self._model_capital.current_building_cost += lay.building_cost
 
-    def check_for_layout_activation(self):
+    def check_for_layout_activation(self) -> None:
         """Check if there is a layout to be activated. Compares current turn with activation turn."""
         length = len(self._model_factory.layout_list)
         for i in range(length):
@@ -83,14 +83,14 @@ class Main_Controller(QObject):
                 info_text = f'A new {self._model_factory.layout_list[i].name} has been finished and is ready for production!'
                 self.display_notification_message('Layout built!', info_text)
 
-    def build_factory_space(self, size, cost):
+    def build_factory_space(self, size:int, cost:int) -> None:
         """gets size and cost from main view. stores them in factory/capital respectively"""
         self._model_factory.size += int(size)
         self._model_factory.free_space += int(size)
         self._model_capital.amount -= cost
         self._model_capital.current_building_cost += cost
 
-    def destroy_layout(self, name):
+    def destroy_layout(self, name:str) -> None:
         """Check if layout exists with name. Delete if existing and adjust counter."""
         for i in range(len(self._model_factory.layout_list)):
             if self._model_factory.layout_list[i].name == name:
@@ -105,8 +105,11 @@ class Main_Controller(QObject):
                 elif name == 'Line Layout':
                     self._model_factory.nb_line -= 1
                 break
+        # immediately updates the production capacity after a layout is dismantled.
+        active_prod = self._controller_product.get_active_product_index()
+        self.calculate_total_time_unit_capacity(self._controller_product._model_product[active_prod].production_time)
 
-    def calculate_fixed_cost(self):
+    def calculate_fixed_cost(self) -> None:
         """calculates the fixed cost for the entire factory. The space occupied by production layouts,
         is calculated with the according production time modifiers.
         Returns the total cost."""
@@ -123,7 +126,7 @@ class Main_Controller(QObject):
         self._model_factory.fixed_cost_archive = cost_arch
         return cost
 
-    def calculate_total_time_unit_capacity(self, prod_time):
+    def calculate_total_time_unit_capacity(self, prod_time:float) -> None:
         """calculates tuc for all active layouts. working month / (production time *(1 + layout production time modifier))"""
         total_time_unit_capacity = 0
         for layout in self._model_factory.layout_list:
@@ -132,7 +135,7 @@ class Main_Controller(QObject):
         self._model_factory.current_tuc = int(total_time_unit_capacity)
         self.production_capacity_calculated.emit(int(total_time_unit_capacity))
 
-    def calculate_production(self):
+    def calculate_production(self) -> None:
         """calculates the effective production from all exisiting layouts for one product. 
         returns the total production capacity."""
         # calculate uc and get tuc
@@ -153,7 +156,7 @@ class Main_Controller(QObject):
         prod_archive.append(new_products)
         self._model_factory.production_archive = prod_archive
 
-    def calculate_sales(self, stock, price, price_influencer):
+    def calculate_sales(self, stock:int, price:float, price_influencer:float) -> None:
         """Call the generate sales function. Calculate stock and income and save them to the archive."""
         sales = self.generate_sales_modifier(price_influencer)
         stock += int(self._model_factory.production_archive[-1])
@@ -167,7 +170,7 @@ class Main_Controller(QObject):
         self.send_new_prod_stock.emit(new_stock)
         self.calculate_store_market_data(sales, income)
 
-    def calculate_store_market_data(self, sales, income):
+    def calculate_store_market_data(self, sales:float, income:float) -> None:
         """adds one line to the sales archive dict. cumulates sales, sales volume and calculates yearly marketvolume"""
         # cumulate mothly sales income. reset every 12 turns (months)
         self._model_market.add_item_to_sales_archive(
@@ -188,14 +191,14 @@ class Main_Controller(QObject):
             self._model_market.yearly_summary_flag = True
             self.generate_yearly_marketvolume_growth()
 
-    def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1):
+    def generate_yearly_marketvolume_growth(self, min=90, max=130, step=1) -> None:
         """calculates marketvolume growth between -10% and +30% randomly per year. stores the new volume yearly and monthly"""
         marketvolume = self._model_market.marketvolume_annually * \
             (self.random_number_generater.randrange(min, max, step) / 100)
         self._model_market.total_marketvolume_p_month = marketvolume / 12
         self._model_market.marketvolume_annually = marketvolume
 
-    def generate_sales_forecast(self, min=95, max=125, step=1):
+    def generate_sales_forecast(self, min=95, max=125, step=1) -> None:
         """generates random forecast bewtween min and max."""
         sales = self._model_market.get_last_month_sales_units() if not self._model_factory.current_turn == 0 else self._model_factory.current_tuc
         sales = self._model_factory.current_tuc / 4 if sales == 0 else sales
@@ -204,7 +207,7 @@ class Main_Controller(QObject):
         self._model_market.add_item_to_forecasted_archive(forecast)
         self._model_market.forecasted_sales = forecast
 
-    def generate_sales_modifier(self, price_influencer, min=96, max=125, step=1):
+    def generate_sales_modifier(self, price_influencer, min=96, max=125, step=1) -> int:
         """takes the latest forecast with price influencer and applies a random sales modifier to it (96-125%)
         returns modified sales -> int"""
         fc = self._model_market.get_last_forecast()
@@ -212,7 +215,7 @@ class Main_Controller(QObject):
         self._model_market.sales_modifier = sales_modifier
         return int((fc + (price_influencer * fc)) * sales_modifier)
 
-    def calculate_end_turn_helper(self, stock, price, price_influencer, prod_time):
+    def calculate_end_turn_helper(self, stock, price, price_influencer, prod_time) -> None:
         # buy materials before calculating production
         self.check_for_layout_activation()
         mats_to_buy = self._model_factory.current_tuc if not self._controller_product._model_product[0].production_goal_flag else self._controller_product._model_product[0].production_goal
@@ -245,7 +248,7 @@ class Main_Controller(QObject):
         if self.tutorial_flag:
             self.open_tutorial_pdfs(self._model_factory.current_turn)
 
-    def calculate_turn_end(self, stock, price, price_influencer, prod_time):
+    def calculate_turn_end(self, stock, price, price_influencer, prod_time) -> None:
         """end the current turn. updates turn counter and calls game update functions"""
         # check winning condicton
         if self.check_winning_condition():
@@ -272,13 +275,13 @@ class Main_Controller(QObject):
         except IndexError:
             return False
 
-    def open_tutorial_pdfs(self, cur_turn):
+    def open_tutorial_pdfs(self, cur_turn:int) -> None:
         """Open the tutorial pdf of the current turn."""
         path = os.path.join(self.root_directory,'Resources', 'Tutorial', f'turn{cur_turn}.pdf')
         if os.path.exists(path):
             subprocess.Popen(path, shell=True)
 
-    def ask_yes_or_no(self, title, text) -> bool:
+    def ask_yes_or_no(self, title:str, text:str) -> bool:
         """Ask a yes or no question to the player. Takes title and text inputs.
         Returns True, if player clicked yes, Fals in any other case."""
         msg = QMessageBox()
@@ -289,7 +292,8 @@ class Main_Controller(QObject):
         else:
             return False
 
-    def display_notification_message(self, title, text):
+    def display_notification_message(self, title:str, text:str) -> None:
+        """Display standard message box with title and text, only with OK-button."""
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText(title)
