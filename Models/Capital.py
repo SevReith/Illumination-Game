@@ -3,8 +3,6 @@ from PyQt5.QtCore import QObject, pyqtSignal
 class Capital(QObject):
     """Capital model."""
 
-    #START_CAPITAL = 10000
-
     capital_changed = pyqtSignal(int)
     latest_cost_changed = pyqtSignal(float)
     latest_income_changed = pyqtSignal(float)
@@ -86,9 +84,6 @@ class Capital(QObject):
     def __init__(self, config):
         super().__init__()
         self._config = config
-        # self._amount = cap
-        # self._currency_name = "Euro"
-        # self._currency_sign = "€"
         self._total_income_archive = []
         self._total_cost_archive = []
         self._cost_detail_archive = {

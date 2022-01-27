@@ -136,6 +136,10 @@ class Product(QObject):
     def material_cost_archive(self, new_list):
         self._material_cost_archive = new_list
 
+    @property
+    def id(self):
+        return self._config['id']
+
     def __init__(self, config, bom):
         super().__init__()        
         self._config = config        
