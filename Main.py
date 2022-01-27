@@ -38,6 +38,7 @@ class Game_App(QApplication):
             with open(path, encoding='utf-8') as config_file:
                 self.config = json.load(config_file)
         else:
+            # Exit program, if config file cannot be loaded.
             sys.exit('Error: Configuration File could not be loaded!')
 
         super(Game_App, self).__init__(sys_argv)
