@@ -58,8 +58,12 @@ class Material(QObject):
     def required_for(self):
         return self._required_for
 
+    @property
+    def description(self):
+        return self._config['description']
+
     def __init__(self, config, name, id, price, quality, init_amount = 0, req_amount = 1, req_for = [0], seller_name = 'Ozeania'):
-        """Req for indicates the product, that uses a material."""
+        """Req_for indicates the product, that uses a material."""
         super().__init__()
         self._config = config
         self._name = name
@@ -70,7 +74,7 @@ class Material(QObject):
         self._seller_name = seller_name
 
         self._required_amount = req_amount        
-        self._required_for = req_for
+        self._required_for = req_for # deprecated
 
 
 class Glass_Bulb(Material):

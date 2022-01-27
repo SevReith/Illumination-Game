@@ -140,6 +140,10 @@ class Product(QObject):
     def id(self):
         return self._config['id']
 
+    @property
+    def description(self):
+        return self._config['description']
+
     def __init__(self, config, bom):
         super().__init__()        
         self._config = config        
