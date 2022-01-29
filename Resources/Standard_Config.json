@@ -1,0 +1,258 @@
+{
+    "Capital":{
+        "capital":10000,
+        "currency_name":"Euro",
+        "currency_sign":"€"
+    },
+    "Factory":{
+        "name":"Illumination Factorium",
+        "fixed_cost_per_m2":15,
+        "size":100,
+        "working_month":140,
+        "final_turn":60,
+        "standard_build_cost_per_m2":1000
+    },
+    "Layout":{
+        "Fixed_Position_Layout":{
+            "name":"Fixed Position Layout",
+            "id":1000,
+            "size":25,
+            "standard_production_time_modifier":1.1,
+            "standard_cost_modifier":5.3,
+            "standard_quality_modifier":2,
+            "building_cost":7500,
+            "building_time":2,
+            "max_number":-1
+        },
+        "Process_Layout":{
+            "name":"Process Layout",
+            "id":1001,
+            "size":25,
+            "standard_production_time_modifier":0.05,
+            "standard_cost_modifier":8.8,
+            "standard_quality_modifier":1.5,
+            "building_cost":30000,
+            "building_time":4,
+            "max_number":1,
+            "departments":{
+                "init_departments": 3,
+                "dep_size": 20,
+                "dep_build_cost": 6000,
+                "dep_build_time": 1,
+                "dep_prod_bonus": 0.4,
+                "dep_quality_bonus": 0.03
+            }
+        },
+        "Cellular_Layout":{
+            "name":"Cellular Layout",
+            "id":1002,
+            "size":80,
+            "standard_production_time_modifier":-0.6,
+            "standard_cost_modifier":19.2,
+            "standard_quality_modifier":1.0,
+            "building_cost":75000,
+            "building_time":7,
+            "max_number":1,
+            "departments":{
+                "init_departments": 3,
+                "dep_size": 25,
+                "dep_build_cost": 15000,
+                "dep_build_time": 1,
+                "dep_prod_bonus": 0.6,
+                "dep_quality_bonus": 0.03
+            }
+        },
+        "Line_Layout":{
+            "name":"Line Layout",
+            "id":1000,
+            "size":100,
+            "standard_production_time_modifier":-0.999,
+            "standard_cost_modifier":32.1,
+            "standard_quality_modifier":0.9,
+            "building_cost":1000000,
+            "building_time":14,
+            "max_number":-1
+        }
+    },
+    "Market":{
+        "winning_marketshare":0.3,
+        "marketvolume_annually":9000000000,
+        "average_yearly_marketvolume_growth_rate":0.0001,
+        "average_monthly_sales_growth_rate":0.05,
+        "forecast":0,
+        "sales_modifier":1
+    },
+    "Material":{
+        "Glass_Bulb":{
+            "name":"Glass Bulb",
+            "id":100,
+            "description":"",
+            "price":0.2,
+            "quality":0.7,
+            "volume":0.001,
+            "required_for_product":[0],
+            "seller_name":"Nobody"
+        },
+        "Coiled_Filament":{
+            "name":"Coiled Filament",
+            "id":101,
+            "description":"",
+            "price":0.3,
+            "quality":0.7,
+            "volume":0.00001,
+            "required_for_product":[0,1],
+            "seller_name":"Nobody"
+        },
+        "Lead_In_Wires":{
+            "name":"Lead In Wires",
+            "id":102,
+            "description":"",
+            "price":0.1,
+            "quality":0.7,
+            "volume":0.00001,
+            "required_for_product":[0],
+            "seller_name":"Nobody"
+        },
+        "Socket":{
+            "name":"Socket",
+            "id":103,
+            "description":"",
+            "price":0.2,
+            "quality":0.7,
+            "volume":0.000015,
+            "required_for_product":[0,1,2],
+            "seller_name":"Nobody"
+        },
+        "Mount":{
+            "name":"Mount",
+            "id":104,
+            "description":"",
+            "price":0.2,
+            "quality":0.7,
+            "volume":0.000015,
+            "required_for_product":[1],
+            "seller_name":"Nobody"
+        },
+        "Protective_Gas":{
+            "name":"Protective Gas",
+            "id":105,
+            "description":"",
+            "price":0.3,
+            "quality":0.7,
+            "volume":0.01,
+            "required_for_product":[0,1],
+            "seller_name":"Nobody"
+        },
+        "Packaging":{
+            "name":"Packaging",
+            "id":106,
+            "description":"",
+            "price":0.15,
+            "quality":0.7,
+            "volume":0.001,
+            "required_for_product":[0,1,2],
+            "seller_name":"Nobody"
+        },
+        "Alu_Glass_Bulbs":{
+            "name":"Aluminosilicate Glass Bulb",
+            "id":107,
+            "description":"",
+            "price":0.3,
+            "quality":0.7,
+            "volume":0.0001,
+            "required_for_product":[1],
+            "seller_name":"Nobody"
+        },
+        "Plastic_Housing":{
+            "name":"Plastic Housing",
+            "id":108,
+            "description":"",
+            "price":0.3,
+            "quality":0.7,
+            "volume":0.000015,
+            "required_for_product":[2],
+            "seller_name":"Nobody"
+        },
+        "LED":{
+            "name":"LED",
+            "id":109,
+            "description":"",
+            "price":1.2,
+            "quality":0.7,
+            "volume":0.00001,
+            "required_for_product":[2],
+            "seller_name":"Nobody"
+        },
+        "Plastic_Bulb":{
+            "name":"Plastic Bulb",
+            "id":110,
+            "description":"",
+            "price":0.1,
+            "quality":0.7,
+            "volume":0.0001,
+            "required_for_product":[2],
+            "seller_name":"Nobody"
+        }
+    },
+    "Product":{
+        "Light_Bulb":{
+            "name":"Light Bulb",
+            "id":0,
+            "description":"The first attempts to create light using electricity date back to 1802. It should take until the 1870s until the invention finally became economically viable. Even though these earlylight bulbs were far from reliable, they offered many advantages over previous light sources. They did not smoke or stink and most importantly were much less prone to fires.\nLight bulbs consist of tungsten filament, connected to two lead-in wires. These wires nare connected to a base or socket. The socket provides the electricity inlet as well as the mechanism to hold them in place. The base is usually shaped like a screw. The filament is protected by a glass bulb filled with protective gas or a vacuum. The protective gas prevents the filament from burning out too fast and especially keeps the glass from turning black.",
+            "base_value":2.9,
+            "base_quality":0.7,
+            "volume":0.001,
+            "production_time":0.0583333,
+            "init_prize":4.0,
+            "init_stock":1000,
+            "licence_cost":0,
+            "bom":{
+                "100": 1,
+                "101": 1,
+                "102": 2,
+                "103": 1,
+                "105": 1,
+                "106": 1
+            }
+        },
+        "Halogen_Light":{
+            "name":"Halogen Light",
+            "id":1,
+            "description":"The Halogen lamp is a sort of incandescent lamp with a small amount of some halogen gas, most commonly iodine or bromine, as an atmosphere in a quartz or aluminosilicate glass bulb. In ordinary incandescent lamps, tungsten evaporates under the influence of the heat and deposits on the inner surface of the glass bulb darkening its surface. Major characteristic of the halogen lamp is relation between tungsten and halogen gas in the glass bulb (so-called halogen cycle). When tungsten evaporates, it reacts with halogen forming the halide, which does not deposit on the glass. That is why it is made from quartz or aluminosilicate glass.\n The first lamp to use halogen gas (chlorine) was patented in 1882 but the first commercial halogen lamp that used iodine as a halogen gas was patented in 1959 by General Electric. It was developed by Elmer Fridrich and Emmet Wiley who worked at General Electric, in 1955.",
+            "base_value":5.3,
+            "base_quality":0.7,
+            "volume":0.001,
+            "production_time":0.085,
+            "init_prize":7.8,
+            "init_stock":0,
+            "licence_cost":250000,
+            "bom":{
+                "101": 2,
+                "103": 1,
+                "104": 1,
+                "105": 1,
+                "106": 1,
+                "107": 1
+            }
+        },
+        "LED_Light":{
+            "name":"LED Light",
+            "id":2,
+            "description":"The Light-emitting diode (LED) is an electric component that emits light when connected to direct current. In 1907, British experimenter in Marconi labs Henry Joseph Round noticed for the first time that when a potential of 10 volts is applied to carborundum (silicon carbide) crystal, it emits yellowish light. However, first to investigate it and to propose a working theory was Oleg Vladimirovich Losev from Russia in 1927.\n Initially light-emitting diodes were very expensive, some even costing as much as 200€ per piece. Because of that, they were used as indicators only in highly professional laboratory equipment. Fairchild Semiconductors succeeded in 1970s to reduce cost of individual LED to 5 cents by using planar process in production of semiconductor chips for light emitting diodes.",
+            "base_value":9.6,
+            "base_quality":0.7,
+            "volume":0.001,
+            "production_time":0.1333333,
+            "init_prize":12.7,
+            "init_stock":0,
+            "licence_cost":1000000,
+            "bom":{
+                "103": 1,
+                "106": 1,
+                "108": 1,
+                "109": 2,
+                "110": 1
+            }
+        }
+    }
+}

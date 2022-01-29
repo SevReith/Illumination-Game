@@ -82,7 +82,7 @@ class Main_View(QMainWindow):
 
         #update labels inititlly
         self._view_factory.update_fac_tab1_top_lbl(f'{self._model_factory.name}\n\nProduct: {self._view_factory._model_product[0].name}\
-            \nCurrent Production Layout: {self._model_factory.layout_list[0].layout_name}')
+            \nCurrent Production Layout: {self._model_factory.layout_list[0].name}')
         self._view_factory.update_fac_tab1_midleft_lbl(self._model_factory.size, self._model_factory.free_space, self._model_factory.total_cost, 
                                                        self._model_factory.fixed_cost_per_m2, self._model_capital.currency_sign)
         self.on_capital_changed(self._model_capital.amount)
@@ -161,7 +161,7 @@ class Main_View(QMainWindow):
     def sub_btn_increase_factory_clicked(self):
         """adds a specified number of m2 to the factories size. 
         returns the new size and the building cost."""
-        size, cost = self._view_factory.increase_factory(self._model_factory.STANDARD_ADD_COST_M2, self._model_capital.currency_sign, 
+        size, cost = self._view_factory.increase_factory(self._model_factory.build_cost_per_m2, self._model_capital.currency_sign, 
                                                          self._model_capital.amount)
         self._controller_main.build_factory_space(size, cost)
 

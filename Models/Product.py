@@ -24,11 +24,15 @@ class Product(QObject):
 
     @property
     def name(self):
-        return self._name
+        return self._config['name']
 
     @name.setter
     def name(self, name):
-        self._name = name
+        self._config['name'] = name
+
+    @property
+    def id(self):
+        return self._config['id']
 
     @property
     def amount(self):
@@ -41,19 +45,19 @@ class Product(QObject):
 
     @property
     def production_time(self):
-        return self._production_time
+        return self._config['production_time']
 
     @production_time.setter
     def production_time(self, val):
-        self._production_time = val
+        self._config['production_time'] = val
 
     @property
     def base_value(self):
-        return self._base_value
+        return self._config['base_value']
 
     @base_value.setter
     def base_value(self, val):
-        self._base_value = val
+        self._config['base_value'] = val
         self.base_value_changed.emit(val)
 
     @property
@@ -76,11 +80,11 @@ class Product(QObject):
 
     @property
     def base_quality(self):
-        return self._base_quality
+        return self._config['base_quality']
 
     @base_quality.setter
     def base_quality(self, val):
-        self._base_quality = val
+        self._config['base_quality'] = val
         self.base_quality_changed.emit(val)
 
     @property
@@ -93,11 +97,11 @@ class Product(QObject):
 
     @property
     def license(self):
-        return self._license_cost
+        return self._config['licence_cost']
 
     @license.setter
     def license(self, val):
-        self._license_cost = val
+        self._config['licence_cost'] = val
 
     @property
     def production_goal(self):
@@ -132,19 +136,23 @@ class Product(QObject):
     def material_cost_archive(self, new_list):
         self._material_cost_archive = new_list
 
-    def __init__(self, name, amount, time, val, price, qual, license, bom):
-        super().__init__()
-        self._is_active = False
-        self._name = name
-        self._amount = amount
-        self._production_time = time
-        self._base_value = val
-        self._actual_value = val * 1 + qual
-        self._sales_price = price
-        self._base_quality = qual
+    @property
+    def id(self):
+        return self._config['id']
+
+    @property
+    def description(self):
+        return self._config['description']
+
+    def __init__(self, config, bom):
+        super().__init__()        
+        self._config = config        
+        self._amount = config['init_stock']
+        self._actual_value = config['base_value'] * (1 + config['base_quality'])
+        self._sales_price = config['init_prize']
         self._sales_price_influencer = 1
-        self._license_cost = license
         self._production_goal = 0
+        self._is_active = False
         self._production_goal_flag = False
         self._bill_of_materials = bom
         self._material_cost_archive = []
@@ -153,104 +161,43 @@ class Product(QObject):
 class Light_Bulb(Product):
     """class specific for light bulbs, the starter product"""
 
-    INIT_STOCK = 1000
-    REQ_GLASS_BULBS = 1
-    REQ_COILED_FILAMENT = 1
-    REQ_LEAD_IN_WIRES = 2
-    REQ_SOCKET = 1
-    REQ_PROTECTIVE_GAS = 1
-    REQ_PACKAGING = 1
-    PROD_TIME = 3.5/60  #in hour
-    BASE_VALUE = 4.3
-    INIT_PRIZE = 4.0
-    BASE_QUALITY = 0.7
-    LICENSE_COST = 0
-
-    def __init__(self, bom):
+    def __init__(self, config, material_list):
         """uses the parent constructor and then adds all required materials to the material list"""
-        req_list = [self.REQ_GLASS_BULBS, self.REQ_COILED_FILAMENT, self.REQ_LEAD_IN_WIRES, self.REQ_SOCKET, self.REQ_PROTECTIVE_GAS, self.REQ_PACKAGING]
-        actual_bom = [mat for mat in bom if 0 in mat.required_for]
-        length = len(actual_bom)
-        for i in range(length):
+        req_mat_list = config['bom']
+        actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
+        for i in range(len(actual_bom)):
             # saves required amount and initial stock to the bom
-            if i < length:
-                actual_bom[i].required_amount = req_list[i]
-                actual_bom[i].amount = req_list[i] * self.INIT_STOCK
-            else:
-                break
-        super().__init__('Light Bulb', self.INIT_STOCK, self.PROD_TIME, self.BASE_VALUE, self.INIT_PRIZE, self.BASE_QUALITY, self.LICENSE_COST, actual_bom) 
-
+            actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
+            actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
+            
+        super().__init__(config, actual_bom)
+        
 
 class Halogen_Light(Product):
     """class specific for halogen lights, the second product"""
 
-    INIT_STOCK = 0
-    REQ_ALU_GLASS_BULBS = 1
-    REQ_COILED_FILAMENT = 2
-    REQ_MOUNT = 1
-    REQ_SOCKET = 1
-    REQ_PROTECTIVE_GAS = 1
-    REQ_PACKAGING = 1
-    PROD_TIME = 5.1/60  #in hour
-    BASE_VALUE = 7.1
-    INIT_PRIZE = 7.8
-    BASE_QUALITY = 0.7
-    LICENSE_COST = 250000
-
-    #1 x Aluminosilicate Glass Bulb
-    #1 x Coiled Filament
-    #1 x Mount
-    #1 x Socket
-    #1 x Protective Gas
-    #1 x Packaging
-
-    def __init__(self, bom):
+    def __init__(self, config, material_list):
         """uses the parent constructor and then adds all required materials to the material list"""
-        req_list = [self.REQ_ALU_GLASS_BULBS, self.REQ_COILED_FILAMENT, self.REQ_MOUNT, self.REQ_SOCKET, self.REQ_PROTECTIVE_GAS, self.REQ_PACKAGING]
-        actual_bom = [mat for mat in bom if 1 in mat.required_for]
-        length = len(actual_bom)
-        for i in range(length):
+        req_mat_list = config['bom']
+        actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
+        for i in range(len(actual_bom)):
             # saves required amount and initial stock to the bom
-            if i < length:
-                actual_bom[i].required_amount = req_list[i]
-                actual_bom[i].amount = req_list[i] * self.INIT_STOCK
-            else:
-                break
-        super().__init__('Halogen Light', self.INIT_STOCK, self.PROD_TIME, self.BASE_VALUE, self.INIT_PRIZE, self.BASE_QUALITY, self.LICENSE_COST, actual_bom) 
+            actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
+            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
+        super().__init__(config, actual_bom)
 
 
 class LED_Light(Product):
     """class specific for halogen lights, the second product"""
 
-    INIT_STOCK = 0
-    REQ_PLASTIC_BULBS = 1
-    REQ_LED = 2
-    REQ_PLASTIC_HOUSING = 1
-    REQ_SOCKET = 1
-    REQ_PACKAGING = 1
-    PROD_TIME = 8/60  #in hour
-    BASE_VALUE = 13.7
-    INIT_PRIZE = 12.7
-    BASE_QUALITY = 0.7
-    LICENSE_COST = 1000000
-
-    #1 x Transparent Plastic Bulb
-    #1 x LED
-    #1 x Plastic Housing
-    #1 x Socket
-    #1 x Packaging
-
-    def __init__(self, bom):
+    def __init__(self, config, material_list):
         """uses the parent constructor and then adds all required materials to the material list"""
-        req_list = [self.REQ_PLASTIC_BULBS, self.REQ_LED, self.REQ_PLASTIC_HOUSING, self.REQ_SOCKET, self.REQ_PACKAGING]
-        actual_bom = [mat for mat in bom if 2 in mat.required_for]
-        length = len(actual_bom)
-        for i in range(length):
+        req_mat_list = config['bom']
+        actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
+        for i in range(len(actual_bom)):
             # saves required amount and initial stock to the bom
-            if i < length:
-                actual_bom[i].required_amount = req_list[i]
-                actual_bom[i].amount = req_list[i] * self.INIT_STOCK
-            else:
-                break
-        super().__init__('LED Light', self.INIT_STOCK, self.PROD_TIME, self.BASE_VALUE, self.INIT_PRIZE, self.BASE_QUALITY, self.LICENSE_COST, actual_bom) 
+            actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
+            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
+            # print(f'req: {req_mat_list[f"{actual_bom[i].id}"]} stock: {actual_bom[i].amount}')
+        super().__init__(config, actual_bom)
         

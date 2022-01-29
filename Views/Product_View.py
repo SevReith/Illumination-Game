@@ -6,15 +6,15 @@ from Views import sub_win_production
 
 
 class Product_View(QMdiArea):
-    """Display a subwindow with production product and material info.
-    Takes the prdoct model and controler as args."""
+    """Display a subwindow with production, product and material info.
+    Takes the product model and controler as args."""
 
     prod_time_sender = pyqtSignal(float)
     prod_stock_sender = pyqtSignal(int, float)
 
     def __init__(self, pro_mdl, pro_ctrl, root):
         super().__init__()
-
+        self.root_directory = root
         self._panel_production = sub_win_production.Ui_Form()
         self._panel_production.setupUi(self)
 
@@ -25,11 +25,10 @@ class Product_View(QMdiArea):
         self.update_lbl_prod_name()
         self.update_lbl_prod_goal()
         self.update_lbls_material_stock()
-        for i in range(3):
-            self.load_desciption_texts(i, root)
-            self.update_lbls_characteristics(i)
-            self.update_lbls_bom(i)
-
+        for prod in self._model_product:
+            self.load_desciption_texts(prod)
+            self.update_lbls_characteristics(prod.id)
+            self.update_lbls_bom(prod.id)
 
         #setup widgets
         self._panel_production.led_prod_goal.setValidator(QIntValidator())
@@ -46,9 +45,6 @@ class Product_View(QMdiArea):
             self._model_product[i].stock_amount_changed.connect(self.update_lbl_prod_stock)
             self._model_product[i].production_goal_changed.connect(self.update_lbl_prod_goal)
         
-
-
-
     @pyqtSlot(bool)
     def update_lbl_prod_name(self, prod = None):
         if prod == None:
@@ -79,6 +75,7 @@ class Product_View(QMdiArea):
 
     @pyqtSlot(int)
     def update_lbls_material_stock(self):
+        """Load texts and current stock of all materials into Stock tab."""
         materials_in_use = []
         for prod in self._model_product:
             for mat in prod.bill_of_materials:
@@ -138,7 +135,9 @@ class Product_View(QMdiArea):
         self._model_product[prod].production_goal = goal
         self._model_product[prod].production_goal_flag = True
 
-    def product_license_clicked(self, prod: int, funds: float, credit_limit: int = 10000):
+    def product_license_clicked(self, prod: int, funds: float, credit_limit: int = 10000) -> int:
+        """Check if there is enough funds available for the new product license, return -1 if not.
+        If yes, display message to confirm license purchase."""
         cost = self._model_product[prod].license
         cost_flag = True if cost <= funds + credit_limit else False
         if cost_flag:
@@ -162,11 +161,6 @@ class Product_View(QMdiArea):
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
         
-    def load_desciption_texts(self, prod, root):
-        products = ['light bulb', 'halogen', 'led']
-        path = os.path.join(root, 'Resources','products.json')
-        if os.path.exists(path):
-            with open(path) as prod_text:
-                dict = json.load(prod_text)
-                label = getattr(self._panel_production, f'lbl_tab{prod + 3}_top')
-                label.setText(f'{dict[products[prod]]}')
+    def load_desciption_texts(self, prod):
+        label = getattr(self._panel_production, f'lbl_tab{prod.id + 3}_top')
+        label.setText(f'{prod.description}')

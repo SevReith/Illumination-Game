@@ -1,14 +1,14 @@
 """Main Game Module."""
 
-import sys, os
+import sys, os, json
 
 from PyQt5.QtWidgets import QApplication
 from Models.Capital import Capital
 from Models.Factory import Factory
 from Models.Layout import Fixed_Position_Layout
 from Models.Market import Market
-from Models.Material import *
-from Models.Product import Halogen_Light, LED_Light, Light_Bulb
+from Models.Material import * # they are used in def create_materials
+from Models.Product import Halogen_Light, LED_Light, Light_Bulb # they are used in def create_products
 from Views.Main_View import Main_View
 from Views.Capital_View import Capital_View
 from Views.Factory_View import Factory_View
@@ -31,15 +31,24 @@ class Game_App(QApplication):
         # get path of Main.py script, strip Main.py and use the path as root path
         root_directory = os.path.realpath(__file__)
         self.root_directory = root_directory[:root_directory.find('Main.py')].strip()
+        # read standard configuration
+        path = os.path.join(self.root_directory, 'Resources','Standard_Config.json')
+        self.config = None
+        if os.path.exists(path):
+            with open(path, encoding='utf-8') as config_file:
+                self.config = json.load(config_file)
+        else:
+            # Exit program, if config file cannot be loaded.
+            sys.exit('Error: Configuration File could not be loaded!')
 
         super(Game_App, self).__init__(sys_argv)
         # initialize game model
-        self.model_capital = Capital()
-        self.model_layout = self.create_layouts()
-        self.model_factory = Factory("Illumination Factorium", self.model_layout)
-        self.model_market = Market()
-        self.model_material = self.create_materials()
-        self.model_product = self.create_products(self.model_material)
+        self.model_capital = Capital(self.config['Capital'])
+        self.model_layout = self.create_layouts(self.config['Layout'])
+        self.model_factory = Factory(self.config['Factory'], self.config['Layout'], self.model_layout)
+        self.model_market = Market(self.config['Market'])
+        self.model_material = self.create_materials(self.config['Material'])
+        self.model_product = self.create_products(self.model_material, self.config['Product'])
         # initialize game controler
         self.layout_controller = Layout_Controller(self.model_layout)
         self.material_controller = Material_Controller(self.model_material)
@@ -57,36 +66,30 @@ class Game_App(QApplication):
         # show main window
         self.main_view.show()
 
-    def create_layouts(self):
+    def create_layouts(self, config):
         """Create the starter layouts. returns a list of these layouts."""
         lay_list = []
-        lay_list.append(Fixed_Position_Layout('Fixed Position Layout'))
-        lay_list.append(Fixed_Position_Layout('Fixed Position Layout'))
+        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
+        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
         return lay_list
 
-    def create_materials(self):
+    def create_materials(self, config):
         """Create the starker materials. returns a list of these materials."""
         mat_list = []
-        mat_list.append(Glass_Bulb())
-        mat_list.append(Coiled_Filament())
-        mat_list.append(Lead_In_Wires())
-        mat_list.append(Socket())
-        mat_list.append(Protective_Gas())
-        mat_list.append(Packaging())
-        mat_list.append(Alu_Glass_Bulbs())
-        mat_list.append(Mount())
-        mat_list.append(LED())
-        mat_list.append(Plastic_Housing())
-        mat_list.append(Plastic_Bulb())
+        for mat in config:
+            # call the material constructor out of the global list, with the names from the config file
+            material_constructor = globals()[mat]
+            mat_list.append(material_constructor(config[mat]))
         return mat_list
 
-    def create_products(self, material_list):
+    def create_products(self, material_list, config):
         """Create the starker products. returns a list of these products."""
         prod_list = []
-        prod_list.append(Light_Bulb(material_list))
+        for prod in config:
+            # call the product constructor out of the global list, with the names from the config file
+            product_Constructor = globals()[prod]
+            prod_list.append(product_Constructor(config[f'{prod}'], material_list))
         prod_list[0].is_active = True
-        prod_list.append(Halogen_Light(material_list))
-        prod_list.append(LED_Light(material_list))
         return prod_list
 
 
