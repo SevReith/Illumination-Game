@@ -235,11 +235,11 @@ class Main_Controller(QObject):
         # save cost detail
         self._model_capital.add_latest_cost_detail_to_archive(fixed_cost, cost, self._model_capital.current_building_cost)
         self._model_capital.current_building_cost = 0
-
-        # hide all open windows
+        # set produciton goals to false
         for i in range(len(self._controller_product._model_product)):
             self._controller_product._model_product[i].production_goal_flag = False
-            self.generate_sales_forecast()
+        
+        self.generate_sales_forecast()
 
         # increment current turn
         self._model_factory.current_turn += 1
