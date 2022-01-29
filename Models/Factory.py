@@ -4,12 +4,6 @@ import Models.Layout
 class Factory(QObject):
     """It's the factory."""
 
-    # FIXED_COST_PER_M2 = 15
-    # STANDARD_SIZE_M2 = 100
-    # STANDARD_ADD_COST_M2 = 1000
-    # FINAL_TURN = 60
-    # WORKING_MONTH = 35 * 4
-
     cur_turn_changed = pyqtSignal(int)
     final_turn_changed = pyqtSignal(int)
     size_changed = pyqtSignal(int)

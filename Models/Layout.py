@@ -162,11 +162,11 @@ class Process_Layout(Production_Layout):
 
     @property
     def department_production_bonus(self):
-        return self._special_characteristics['ep_prod_bonus']
+        return self._special_characteristics['dep_prod_bonus']
 
     @department_production_bonus.setter
     def department_production_bonus(self, val):
-        self._special_characteristics['ep_prod_bonus'] = val
+        self._special_characteristics['dep_prod_bonus'] = val
 
     @property
     def department_quality_bonus(self):
@@ -219,11 +219,11 @@ class Cellular_Layout(Production_Layout):
 
     @property
     def department_production_bonus(self):
-        return self._special_characteristics['ep_prod_bonus']
+        return self._special_characteristics['dep_prod_bonus']
 
     @department_production_bonus.setter
     def department_production_bonus(self, val):
-        self._special_characteristics['ep_prod_bonus'] = val
+        self._special_characteristics['dep_prod_bonus'] = val
 
     @property
     def department_quality_bonus(self):

@@ -66,7 +66,7 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_tab3_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Process_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Process_Layout"]["building_time"]} turns\
             \nSpace:\t\t{self._model_factory._layout_config["Process_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_process_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus) -> None:
+    def update_lbl_process_departments(self, flag, number_of_dept:int = 3, dept_size:int = 20, dept_time:int = 1, dept_cost:float = 6000, prod_bonus:float=0.4) -> None:
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
@@ -79,7 +79,7 @@ class Factory_View(QMdiArea):
         self._panel_factory.lbl_tab4_left.setText(f'Requirements\n\nBuilding Cost:\t{self._model_factory._layout_config["Cellular_Layout"]["building_cost"]:,}€\nBuilding Time:\t{self._model_factory._layout_config["Cellular_Layout"]["building_time"]} turns\
             \nSpace:\t\t{self._model_factory._layout_config["Cellular_Layout"]["size"]} m\u00b2')
 
-    def update_lbl_cellular_departments(self, flag, number_of_dept, dept_size, dept_time, dept_cost, prod_bonus) -> None:
+    def update_lbl_cellular_departments(self, flag, number_of_dept:int = 3, dept_size:int = 25, dept_time:int = 1, dept_cost:float = 15000, prod_bonus:float = 0.6) -> None:
         """Update nb of departments, size, building time and cost.
         if flag == true, takes actual numbers from existing layout."""
         if flag:
