@@ -272,7 +272,7 @@ class Main_Controller(QObject):
         """compares current marketshare to winning marketshare. returns True if current is equal or larger"""
         sa_archive = self._model_market.sales_archive
         try:
-            return self._model_market.winning_marketshare <= sa_archive[-1]['share cumulated']
+            return (self._model_market.winning_marketshare * 100 ) <= sa_archive[-1]['share cumulated']
         except IndexError:
             return False
 
