@@ -8,6 +8,7 @@ class Capital(QObject):
     latest_income_changed = pyqtSignal(float)
     latest_profit_changed = pyqtSignal(float, float)
     cost_detail_changed = pyqtSignal(float, float, float, float)
+    credit_limit_changed = pyqtSignal(float)
 
     @property
     def amount(self):
@@ -33,6 +34,7 @@ class Capital(QObject):
     @credit_limit.setter
     def credit_limit(self, val: float):
         self._config['credit_limit'] = val
+        self.credit_limit_changed.emit(val)
 
     @property
     def total_cost_archive(self):
