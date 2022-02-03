@@ -2,7 +2,8 @@
     "Capital":{
         "capital":10000,
         "currency_name":"Euro",
-        "currency_sign":"€"
+        "currency_sign":"€",
+        "credit_limit":10000
     },
     "Factory":{
         "name":"Illumination Factorium",
