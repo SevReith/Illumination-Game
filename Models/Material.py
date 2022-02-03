@@ -7,11 +7,11 @@ class Material(QObject):
 
     @property
     def name(self):
-        return self._name
+        return self._config['name']
 
     @name.setter
     def name(self, name):
-        self._name = name
+        self._config['name'] = name
 
     @property
     def id(self):
@@ -19,27 +19,27 @@ class Material(QObject):
 
     @property
     def price(self):
-        return self._price
+        return self._config['price']
 
     @price.setter
     def price(self, val):
-        self._price = val
+        self._config['price'] = val
 
     @property
     def quality(self):
-        return self._quality
+        return self._config['quality']
 
     @quality.setter
     def quality(self, val):
-        self._quality = val
+        self._config['quality'] = val
 
     @property
     def amount(self):
-        return self._amount
+        return self._config['init_stock']
 
     @amount.setter
     def amount(self, val):
-        self._amount = val
+        self._config['init_stock'] = val
         self.stock_changed.emit(val)
 
     @property
@@ -52,7 +52,7 @@ class Material(QObject):
 
     @property
     def seller_name(self):
-        return self._seller_name
+        return self._config['seller_name']
 
     @property
     def required_for(self):
@@ -62,16 +62,10 @@ class Material(QObject):
     def description(self):
         return self._config['description']
 
-    def __init__(self, config, name, id, price, quality, init_amount = 0, req_amount = 1, req_for = [0], seller_name = 'Ozeania'):
+    def __init__(self, config, req_amount = 1, req_for = [0]):
         """Req_for indicates the product, that uses a material."""
         super().__init__()
         self._config = config
-        self._name = name
-        self._id = id
-        self._price = price
-        self._quality = quality
-        self._amount = init_amount
-        self._seller_name = seller_name
 
         self._required_amount = req_amount        
         self._required_for = req_for # deprecated
@@ -80,70 +74,59 @@ class Material(QObject):
 class Glass_Bulb(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 
 class Coiled_Filament(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 class Lead_In_Wires(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 
 class Socket(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 
 class Protective_Gas(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 
 class Packaging(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 class Alu_Glass_Bulbs(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'], price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
         
 class Mount(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'],  price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 class Plastic_Housing(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'],  price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 class LED(Material):
    
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'],  price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
 
 class Plastic_Bulb(Material):
 
     def __init__(self, config):
-        super().__init__(config, name = config['name'], id = config['id'],  price = config['price'], quality = config['quality'], 
-            init_amount = 0, req_amount = 0, req_for = config['required_for_product'], seller_name = config['seller_name'])
+        super().__init__(config)
         
