@@ -5,7 +5,7 @@ import sys, os, json
 from PyQt5.QtWidgets import QApplication
 from Models.Capital import Capital
 from Models.Factory import Factory
-from Models.Layout import Fixed_Position_Layout
+from Models.Layout import * # they are used in def create_layouts0
 from Models.Market import Market
 from Models.Material import * # they are used in def create_materials
 from Models.Product import Halogen_Light, LED_Light, Light_Bulb # they are used in def create_products
@@ -69,8 +69,11 @@ class Game_App(QApplication):
     def create_layouts(self, config):
         """Create the starter layouts. returns a list of these layouts."""
         lay_list = []
-        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
-        lay_list.append(Fixed_Position_Layout(config["Fixed_Position_Layout"]))
+        for layout in config:
+            if config[layout]['init_number'] > 0:
+                for i in range(config[layout]['init_number']):
+                    layout_constructor = globals()[layout]
+                    lay_list.append(layout_constructor(config[layout]))
         return lay_list
 
     def create_materials(self, config):

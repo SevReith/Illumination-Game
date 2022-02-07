@@ -2,7 +2,8 @@
     "Capital":{
         "capital":10000,
         "currency_name":"Euro",
-        "currency_sign":"€"
+        "currency_sign":"€",
+        "credit_limit":10000
     },
     "Factory":{
         "name":"Illumination Factorium",
@@ -22,7 +23,8 @@
             "standard_quality_modifier":2,
             "building_cost":7500,
             "building_time":2,
-            "max_number":-1
+            "max_number":-1,
+            "init_number":2
         },
         "Process_Layout":{
             "name":"Process Layout",
@@ -34,6 +36,7 @@
             "building_cost":30000,
             "building_time":4,
             "max_number":1,
+            "init_number":0,
             "departments":{
                 "init_departments": 3,
                 "dep_size": 20,
@@ -52,6 +55,7 @@
             "standard_quality_modifier":1.0,
             "building_cost":75000,
             "building_time":7,
+            "init_number":0,
             "max_number":1,
             "departments":{
                 "init_departments": 3,
@@ -71,7 +75,8 @@
             "standard_quality_modifier":0.9,
             "building_cost":1000000,
             "building_time":14,
-            "max_number":-1
+            "max_number":-1,
+            "init_number":0
         }
     },
     "Market":{
@@ -91,7 +96,8 @@
             "quality":0.7,
             "volume":0.001,
             "required_for_product":[0],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":1000
         },
         "Coiled_Filament":{
             "name":"Coiled Filament",
@@ -101,7 +107,8 @@
             "quality":0.7,
             "volume":0.00001,
             "required_for_product":[0,1],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":1000
         },
         "Lead_In_Wires":{
             "name":"Lead In Wires",
@@ -111,7 +118,8 @@
             "quality":0.7,
             "volume":0.00001,
             "required_for_product":[0],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":2000
         },
         "Socket":{
             "name":"Socket",
@@ -121,7 +129,8 @@
             "quality":0.7,
             "volume":0.000015,
             "required_for_product":[0,1,2],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":1000
         },
         "Mount":{
             "name":"Mount",
@@ -131,7 +140,8 @@
             "quality":0.7,
             "volume":0.000015,
             "required_for_product":[1],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":0
         },
         "Protective_Gas":{
             "name":"Protective Gas",
@@ -141,7 +151,8 @@
             "quality":0.7,
             "volume":0.01,
             "required_for_product":[0,1],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":1000
         },
         "Packaging":{
             "name":"Packaging",
@@ -151,7 +162,8 @@
             "quality":0.7,
             "volume":0.001,
             "required_for_product":[0,1,2],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":1000
         },
         "Alu_Glass_Bulbs":{
             "name":"Aluminosilicate Glass Bulb",
@@ -161,7 +173,8 @@
             "quality":0.7,
             "volume":0.0001,
             "required_for_product":[1],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":0
         },
         "Plastic_Housing":{
             "name":"Plastic Housing",
@@ -171,7 +184,8 @@
             "quality":0.7,
             "volume":0.000015,
             "required_for_product":[2],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":0
         },
         "LED":{
             "name":"LED",
@@ -181,7 +195,8 @@
             "quality":0.7,
             "volume":0.00001,
             "required_for_product":[2],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":0
         },
         "Plastic_Bulb":{
             "name":"Plastic Bulb",
@@ -191,7 +206,8 @@
             "quality":0.7,
             "volume":0.0001,
             "required_for_product":[2],
-            "seller_name":"Nobody"
+            "seller_name":"Nobody",
+            "init_stock":0
         }
     },
     "Product":{

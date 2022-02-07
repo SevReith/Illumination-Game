@@ -8,13 +8,14 @@ class Capital(QObject):
     latest_income_changed = pyqtSignal(float)
     latest_profit_changed = pyqtSignal(float, float)
     cost_detail_changed = pyqtSignal(float, float, float, float)
+    credit_limit_changed = pyqtSignal(float)
 
     @property
     def amount(self):
         return self._config['capital']
 
     @amount.setter
-    def amount(self, val):
+    def amount(self, val: float):
         self._config['capital'] = val
         self.capital_changed.emit(val)
 
@@ -25,6 +26,15 @@ class Capital(QObject):
     @property
     def currency_sign(self):
         return self._config['currency_sign']
+
+    @property
+    def credit_limit(self):
+        return self._config['credit_limit']
+
+    @credit_limit.setter
+    def credit_limit(self, val: float):
+        self._config['credit_limit'] = val
+        self.credit_limit_changed.emit(val)
 
     @property
     def total_cost_archive(self):
@@ -93,7 +103,7 @@ class Capital(QObject):
                 'cur building': 0
         }
 
-    def add_latest_cost_detail_to_archive(self, fixed_cost, mat_cost, build_cost):
+    def add_latest_cost_detail_to_archive(self, fixed_cost: float, mat_cost: float, build_cost: float) -> None :
         """Append the latest detailed cost to the archive.
         Emit latest total and detailed cost with cost_detail_changed signal."""
         self._cost_detail_archive['fixed'].append(fixed_cost)

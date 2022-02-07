@@ -109,7 +109,8 @@ class Factory_View(QMdiArea):
         cost = self._model_factory._layout_config["Process_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
-        if cost_flag and space_flag:
+        max_flag = True if self._model_factory.nb_process < self._model_factory._layout_config["Process_Layout"]["max_number"] else False
+        if cost_flag and space_flag and max_flag:
             reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Process_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
@@ -117,6 +118,9 @@ class Factory_View(QMdiArea):
             self.show_message_funds(cost)
         elif not space_flag:
             self.show_message_space(req_space)
+        elif not max_flag:
+            self.display_notification_message('Maximum reached!', 
+                f'You can not build more than {self._model_factory._layout_config["Process_Layout"]["max_number"]} Process Layouts!\nAdd Departments to the exisiting Process Layout to increase your production.')
         return False
 
     def build_cellular_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
@@ -125,7 +129,8 @@ class Factory_View(QMdiArea):
         cost = self._model_factory._layout_config["Cellular_Layout"]["building_cost"]
         cost_flag = True if cost <= funds + credit_limit else False
         space_flag = True if req_space <= free_space else False
-        if cost_flag and space_flag:
+        max_flag = True if self._model_factory.nb_cellular < self._model_factory._layout_config["Cellular_Layout"]["max_number"] else False
+        if cost_flag and space_flag and max_flag:
             reply = QMessageBox.question(self, 'Expanding Production!', f'That will cost {cost:,}€ and take {self._model_factory._layout_config["Cellular_Layout"]["building_time"]} months for completion. Are you sure?',
                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             return True if reply == QMessageBox.Yes else False
@@ -133,6 +138,9 @@ class Factory_View(QMdiArea):
             self.show_message_funds(cost)
         elif not space_flag:
             self.show_message_space(req_space)
+        elif not max_flag:
+            self.display_notification_message('Maximum reached!', 
+                f'You can not build more than {self._model_factory._layout_config["Cellular_Layout"]["max_number"]} Cellular Layouts!\nAdd Departments to the exisiting Cellular Layout to increase your production.')
         return False
 
     def build_line_layout_clicked(self, free_space, funds, credit_limit = 10000) -> bool:
@@ -281,6 +289,15 @@ class Factory_View(QMdiArea):
         msg.setInformativeText(f'Strange! Apparently there is no such thing as a {text}.')
         msg.setStandardButtons(QMessageBox.Ok)
         msg.exec_()
+
+    def display_notification_message(self, title:str, text:str) -> None:
+        """Display standard message box with title and text, only with OK-button."""
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText(title)
+        msg.setInformativeText(text)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()   
 
     def load_layout_pictures(self) -> None:
         """Set the layout pictures as pixmaps within the specified labels."""

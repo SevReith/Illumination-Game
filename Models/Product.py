@@ -27,7 +27,7 @@ class Product(QObject):
         return self._config['name']
 
     @name.setter
-    def name(self, name):
+    def name(self, name: str):
         self._config['name'] = name
 
     @property
@@ -39,7 +39,7 @@ class Product(QObject):
         return self._amount
 
     @amount.setter
-    def amount(self, val):
+    def amount(self, val: int):
         self._amount = val
         self.stock_amount_changed.emit(val)
 
@@ -48,7 +48,7 @@ class Product(QObject):
         return self._config['production_time']
 
     @production_time.setter
-    def production_time(self, val):
+    def production_time(self, val: float):
         self._config['production_time'] = val
 
     @property
@@ -56,7 +56,7 @@ class Product(QObject):
         return self._config['base_value']
 
     @base_value.setter
-    def base_value(self, val):
+    def base_value(self, val: float):
         self._config['base_value'] = val
         self.base_value_changed.emit(val)
 
@@ -65,7 +65,7 @@ class Product(QObject):
         return self._actual_value
 
     @actual_value.setter
-    def actual_value(self, val):
+    def actual_value(self, val: float):
         self._actual_value = val
         self.actual_value_changed.emit(val)
 
@@ -74,7 +74,7 @@ class Product(QObject):
         return self._sales_price
 
     @sales_price.setter
-    def sales_price(self, val):
+    def sales_price(self, val: float):
         self._sales_price = val
         self.sales_price_changed.emit(val)
 
@@ -83,7 +83,7 @@ class Product(QObject):
         return self._config['base_quality']
 
     @base_quality.setter
-    def base_quality(self, val):
+    def base_quality(self, val:float):
         self._config['base_quality'] = val
         self.base_quality_changed.emit(val)
 
@@ -92,7 +92,7 @@ class Product(QObject):
         return self._sales_price_influencer
 
     @sales_price_influencer.setter
-    def sales_price_influencer(self, val):
+    def sales_price_influencer(self, val: float):
         self._sales_price_influencer = val
 
     @property
@@ -100,7 +100,7 @@ class Product(QObject):
         return self._config['licence_cost']
 
     @license.setter
-    def license(self, val):
+    def license(self, val: float):
         self._config['licence_cost'] = val
 
     @property
@@ -108,7 +108,7 @@ class Product(QObject):
         return self._production_goal
 
     @production_goal.setter
-    def production_goal(self, val):
+    def production_goal(self, val: int):
         self._production_goal = val
 
     @property
@@ -116,7 +116,7 @@ class Product(QObject):
         return self._production_goal_flag
 
     @production_goal_flag.setter
-    def production_goal_flag(self, flag):
+    def production_goal_flag(self, flag: bool):
         self._production_goal_flag = flag
         self.production_goal_changed.emit(flag)
 
@@ -166,9 +166,8 @@ class Light_Bulb(Product):
         req_mat_list = config['bom']
         actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
         for i in range(len(actual_bom)):
-            # saves required amount and initial stock to the bom
+            # saves required amount
             actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
-            actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
             
         super().__init__(config, actual_bom)
         
@@ -181,9 +180,8 @@ class Halogen_Light(Product):
         req_mat_list = config['bom']
         actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
         for i in range(len(actual_bom)):
-            # saves required amount and initial stock to the bom
+            # saves required amountto the bom
             actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
-            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
         super().__init__(config, actual_bom)
 
 
@@ -195,9 +193,7 @@ class LED_Light(Product):
         req_mat_list = config['bom']
         actual_bom = [mat for mat in material_list if (str(mat.id) in req_mat_list)]
         for i in range(len(actual_bom)):
-            # saves required amount and initial stock to the bom
+            # saves required amountto the bom
             actual_bom[i].required_amount = req_mat_list[f'{actual_bom[i].id}']
-            # actual_bom[i].amount = req_mat_list[f'{actual_bom[i].id}'] * config['init_stock']
-            # print(f'req: {req_mat_list[f"{actual_bom[i].id}"]} stock: {actual_bom[i].amount}')
         super().__init__(config, actual_bom)
         

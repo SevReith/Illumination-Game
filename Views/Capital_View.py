@@ -18,6 +18,10 @@ class Capital_View(QMdiArea):
         self._model_capital.latest_income_changed.connect(self.update_lbl_income)
         self._model_capital.latest_profit_changed.connect(self.update_lbl_profit)
         self._model_capital.cost_detail_changed.connect(self.update_table_cost_detail)
+        self._model_capital.credit_limit_changed.connect(self.update_lbl_credit_limit)
+
+        #update label
+        self.update_lbl_credit_limit(self._model_capital.credit_limit)
 
     def update_plot_profit(self, x_axis, y_axis):
         """Update the mpl_tab1_canvas plot with profit."""
@@ -27,15 +31,19 @@ class Capital_View(QMdiArea):
             print(f'A ValueError occured in Capital_View: {ValueError.__name__}')
 
     @pyqtSlot(float)
-    def update_lbl_cost(self, cost):
+    def update_lbl_credit_limit(self, credit: float) -> None:
+        self._panel_accounting.lbl_credit.setText(f'{credit:,.2f}€')
+
+    @pyqtSlot(float)
+    def update_lbl_cost(self, cost: float):
         self._panel_accounting.lbl_cost_number.setText(f'{cost:,.2f}€')
 
     @pyqtSlot(float)
-    def update_lbl_income(self, income):
+    def update_lbl_income(self, income: float):
         self._panel_accounting.lbl_income_number.setText(f'{income:,.2f}€')
 
     @pyqtSlot(float, float)
-    def update_lbl_profit(self, cost, income):
+    def update_lbl_profit(self, cost: float, income: float):
         profit = round(income - cost, 2)
         self._panel_accounting.lbl_profit_number.setText(f'{profit:,.2f}€')
         row = self._panel_accounting.tableWidget.rowCount()
@@ -45,7 +53,7 @@ class Capital_View(QMdiArea):
         self._panel_accounting.tableWidget.setItem(row, 2, QTableWidgetItem(f'{profit:,.2f}'))
 
     @pyqtSlot(float, float, float, float)
-    def update_table_cost_detail(self, tot_cost, fixed_cost, mat_cost, build_cost):
+    def update_table_cost_detail(self, tot_cost: float, fixed_cost: float, mat_cost: float, build_cost: float):
         """Take total cost, fixed cost, material cost and building cost and add them
         to a new row in the cost detail table."""
         row = self._panel_accounting.tableWidget_2.rowCount()
